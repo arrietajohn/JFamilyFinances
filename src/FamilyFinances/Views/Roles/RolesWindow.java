@@ -3,11 +3,16 @@ package FamilyFinances.Views.Roles;
 import FamilyFinances.Controllers.Roles.CreateRoleController;
 import FamilyFinances.Controllers.Roles.DeleteRoleController;
 import FamilyFinances.Controllers.Roles.GetRoleController;
+import FamilyFinances.Controllers.Roles.ListAllRoleController;
 import FamilyFinances.Controllers.Roles.UpdateRoleController;
 import FamilyFinances.Domain.Models.Role;
 import FamilyFinances.Infrastructure.Configurations.DependencyContainer;
 import FamilyFinances.Infrastructure.Configurations.DependencyInjectionConfiguration;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -56,6 +61,8 @@ public class RolesWindow extends javax.swing.JDialog {
         searchButton = new javax.swing.JButton();
         addButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        roleTableScroll = new javax.swing.JScrollPane();
+        rolesTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("..:: Family Finances ::.. [Gestion de Roles]");
@@ -122,6 +129,11 @@ public class RolesWindow extends javax.swing.JDialog {
 
         listButton.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         listButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/list48px.png"))); // NOI18N
+        listButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listButtonActionPerformed(evt);
+            }
+        });
 
         deleteButton.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         deleteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/delete48px.png"))); // NOI18N
@@ -157,28 +169,55 @@ public class RolesWindow extends javax.swing.JDialog {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/roles256px.png"))); // NOI18N
 
+        rolesTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ITEM", "ID", "NOMBRE", "DESCRIPCION"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        roleTableScroll.setViewportView(rolesTable);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                        .addComponent(addButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(searchButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(editButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(deleteButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(listButton)))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(addButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(searchButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(editButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(deleteButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(listButton))))
+                    .addComponent(roleTableScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 667, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17))
         );
         layout.setVerticalGroup(
@@ -203,13 +242,15 @@ public class RolesWindow extends javax.swing.JDialog {
                                     .addComponent(searchButton))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(roleTableScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
         var codeString = codeField.getText();
@@ -226,8 +267,7 @@ public class RolesWindow extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_searchButtonActionPerformed
 
-    
-    
+
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
 
@@ -245,6 +285,7 @@ public class RolesWindow extends javax.swing.JDialog {
             controller.executeAction(id, name, description);
             JOptionPane.showMessageDialog(this, "Rol registrado con exito");
             clearFilds();
+            listButtonActionPerformed(null);
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "El Id debes numerico");
         } catch (Exception ex) {
@@ -255,7 +296,7 @@ public class RolesWindow extends javax.swing.JDialog {
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-    
+
         Role currentRole = getRoleController.getCurrentRole();
         if (currentRole == null) {
             JOptionPane.showMessageDialog(this, "Primero debe consultar un Rol");
@@ -289,6 +330,7 @@ public class RolesWindow extends javax.swing.JDialog {
             currentRole.setDescripcion(descriptionField.getText());
             JOptionPane.showMessageDialog(this, "Rol Actualizado con exito");
             clearFilds();
+            listButtonActionPerformed(null);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
@@ -309,8 +351,8 @@ public class RolesWindow extends javax.swing.JDialog {
         try {
             rolId = Integer.valueOf(codeField.getText());
             if (currentRole.getId().intValue() != rolId) {
-               JOptionPane.showMessageDialog(this, "El Id del Rol no coincide con el Id del Rol actual");
-               return;
+                JOptionPane.showMessageDialog(this, "El Id del Rol no coincide con el Id del Rol actual");
+                return;
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "El codigo debe ser numerico");
@@ -329,11 +371,41 @@ public class RolesWindow extends javax.swing.JDialog {
             getRoleController.clearCurrentRole();
             JOptionPane.showMessageDialog(this, "Rol eliminado con exito");
             clearFilds();
+            listButtonActionPerformed(null);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
         enableButtons(true, true, false, false, true);
     }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void listButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listButtonActionPerformed
+        try {
+            // TODO add your handling code here:
+            var controller = dependencyContainer.resolve(ListAllRoleController.class);
+            var rolesList = controller.executeAction();
+            if (rolesList == null || rolesList.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No existen roles en el sistema");
+                return;
+            }
+            loadRolesIntoTable(rolesList);
+        } catch (Exception ex) {
+            Logger.getLogger(RolesWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_listButtonActionPerformed
+
+    private void loadRolesIntoTable(List<Role> rolesList) {
+        String columns[] = {"ITEM", "ID", "NOMBRE", "DESCRIPCION"};
+        String rowsWithRoles[][] = new String[rolesList.size()][4];
+        for (var role : rolesList) {
+            var rolePosition = rolesList.indexOf(role);
+            rowsWithRoles[rolePosition][0] = (rolePosition + 1) + "";
+            rowsWithRoles[rolePosition][1] = role.getId().toString();
+            rowsWithRoles[rolePosition][2] = role.getName();
+            rowsWithRoles[rolePosition][3] = role.getDescripcion();
+        }
+        DefaultTableModel tableModel = new DefaultTableModel(rowsWithRoles, columns);
+        rolesTable.setModel(tableModel);
+    }
 
     private void clearFilds() {
         codeField.setText("");
@@ -409,6 +481,8 @@ public class RolesWindow extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton listButton;
     private javax.swing.JTextField nameField;
+    private javax.swing.JScrollPane roleTableScroll;
+    private javax.swing.JTable rolesTable;
     private javax.swing.JButton searchButton;
     // End of variables declaration//GEN-END:variables
 }
