@@ -22,7 +22,6 @@ package Familias as PACK1{
     (Eliminar) as CU4
     Act3--> CU4
     note right of CU4: Solo se puede eliminar la familia si todos los miembros aceptan
-   
 }
 package Reportes as PACK4{
     (Listar Todo) as CU5
