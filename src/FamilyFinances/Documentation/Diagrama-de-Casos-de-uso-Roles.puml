@@ -1,0 +1,24 @@
+@startuml
+left to right direction
+' Actores
+:Usuario: as Act1
+:Administrador: as Act2
+:Miembro: as Act3
+Act1 <|-- Act2
+Act1 <|-- Act3
+
+' Casos de uso
+package Roles{
+    Act2-->(Crear)
+    Act2-->(Editar)
+    Act1-->(Buscar)
+    Act2-->(Listar Todo)
+    Act2-->(Eliminar)
+    Act1-->(Listar Todo)
+    (Por nombre)--|> (Listar Todo)
+    (por descripcion) --|> (Listar Todo)
+    (por estado)
+    (por fecha de creacion) --|> (Listar Todo)
+}
+
+@enduml
