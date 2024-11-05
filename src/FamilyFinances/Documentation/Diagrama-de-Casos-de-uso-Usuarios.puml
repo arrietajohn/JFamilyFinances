@@ -1,0 +1,50 @@
+@startuml
+left to right direction
+' Actores
+:Usuario: as Act1
+:Administrador: as Act2
+:Miembro: as Act3
+Act1 <|-- Act2
+Act1 <|-- Act3
+
+' Casos de uso
+package Usuarios as PACK1{
+  package CRUD as PACK3{
+    (Crear) as CU1
+    Act1--> CU1
+    note right of CU1: Un Usuario solo puede crear su propio usuario.
+    ' Act1 solo puede editar su propio usuario
+    (Editar) as CU2
+    Act1--> CU2
+      note right of CU2: Un Usuario solo puede editarse a si mismo.
+    (Buscar) as CU3
+    Act1--> CU3
+    note right of CU3: Un Usuario solo puede ver su propio datos y el nombre de otro.
+    (Eliminar) as CU4
+    Act1--> CU4
+    note right of CU4: Usuario solo puede eliminar. \n Administrador puede eliminar a cualquier usuario
+   
+}
+package CRUD as PACK4{
+ (Listar Todo) as CU5
+    Act1-->  CU5
+    note right of CU5: Usuario solo puede ver los nombres \ny rol de otros usuarios
+    (Por nombre) as CU7
+    CU7 --|> CU5
+    (por Rol) as CU8
+    CU8 --|> CU5
+    (por estado) as CU9
+    CU9  --|> CU5
+    (por fecha de creacion)    as CU10
+    CU10 --|> CU5
+   }
+    package Seguridad as PACK2 {
+        (Cambiar Password) as CU11
+        note right of CU11: Usuario solo puede cambiar su password
+        (Recordar password) as CU12
+        note right of CU12: El password debe llegar al email del Usuario
+    }
+    Act1 --> PACK2
+}
+
+@enduml

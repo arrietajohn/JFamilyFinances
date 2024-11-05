@@ -1,0 +1,46 @@
+@startuml
+left to right direction
+' Actores
+:Usuario: as Act1
+:Administrador: as Act2
+:Miembro: as Act3
+Act1 <|-- Act2
+Act1 <|-- Act3
+
+' Casos de uso
+package Familias as PACK1{
+  package CRUD as PACK3{
+    (Crear) as CU1
+    Act1--> CU1
+    note right of CU1: Un Usuario solo puede crear una sola Familia.
+    (Editar) as CU2
+    Act3--> CU2
+      note right of CU2: Solo puede ser editada por el Usuario creador.
+    (Buscar) as CU3
+    Act1--> CU3
+    note right of CU3: Informacion completa solo para sus Usuarios miembros\n Solo el nombre para el resto.
+    (Eliminar) as CU4
+    Act3--> CU4
+    note right of CU4: Solo se puede eliminar la familia si todos los miembros aceptan
+   
+}
+package Reportes as PACK4{
+    (Listar Todo) as CU5
+    Act1-->  CU5
+    note right of CU5: Usuario solo puede ver los nombres \ny rol de otros usuarios
+    (Por nombre) as CU7
+    CU7 --|> CU5
+    (por direccion) as CU8
+    CU8 --|> CU5
+    (por estado) as CU9
+    CU9  --|> CU5
+    (por fecha de creacion)    as CU10
+    CU10 --|> CU5
+    (por Direccion)    as CU6
+    CU6 --|> CU5
+    (por numero de miembros)    as CU11
+    CU11 --|> CU5
+   }
+}
+
+@enduml
