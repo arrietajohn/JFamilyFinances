@@ -8,9 +8,11 @@ import FamilyFinances.Controllers.Roles.UpdateRoleController;
 import FamilyFinances.Domain.Models.Role;
 import FamilyFinances.Infrastructure.Configurations.DependencyContainer;
 import FamilyFinances.Infrastructure.Configurations.DependencyInjectionConfiguration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.crypto.AEADBadTagException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -254,14 +256,20 @@ public class RolesWindow extends javax.swing.JDialog {
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
         var codeString = codeField.getText();
-
-        var codeInteger = Integer.parseInt(codeString);
         try {
+            var codeInteger = Integer.parseInt(codeString);
+            if(codeInteger <= 0){
+                JOptionPane.showMessageDialog(this, "El codigo debe ser un numer positivo");
+                return;
+            }
             var role = getRoleController.executeAction(codeInteger);
             codeField.setText(role.getId().toString());
             nameField.setText(role.getName());
             descriptionField.setText(role.getDescripcion());
             enableButtons(false, true, true, true, true);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "El codigo debe ser un numero");
+        
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
@@ -269,8 +277,6 @@ public class RolesWindow extends javax.swing.JDialog {
 
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        // TODO add your handling code here:
-
         var option = JOptionPane.showConfirmDialog(this,
                 "Confirme si desea registrar este Rol", "Confirmar",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -279,6 +285,10 @@ public class RolesWindow extends javax.swing.JDialog {
         }
         try {
             var id = Integer.parseInt(codeField.getText());
+             if(id <= 0){
+                JOptionPane.showMessageDialog(this, "El codigo del Rel debe ser un numero positivo");
+                return;
+            }
             var name = nameField.getText();
             var description = descriptionField.getText();
             var controller = dependencyContainer.resolve(CreateRoleController.class);
@@ -287,7 +297,7 @@ public class RolesWindow extends javax.swing.JDialog {
             clearFilds();
             listButtonActionPerformed(null);
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "El Id debes numerico");
+            JOptionPane.showMessageDialog(this, "El Id del Rol debe ser numerico");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
 
@@ -380,21 +390,21 @@ public class RolesWindow extends javax.swing.JDialog {
 
     private void listButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listButtonActionPerformed
         try {
-            // TODO add your handling code here:
             var controller = dependencyContainer.resolve(ListAllRoleController.class);
             var rolesList = controller.executeAction();
-            if (rolesList == null || rolesList.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "No existen roles en el sistema");
-                return;
-            }
             loadRolesIntoTable(rolesList);
         } catch (Exception ex) {
-            Logger.getLogger(RolesWindow.class.getName()).log(Level.SEVERE, null, ex);
+            loadRolesIntoTable(null);
+            JOptionPane.showMessageDialog(this, "No existen roles en el sistema");
         }
     }//GEN-LAST:event_listButtonActionPerformed
 
+    
     private void loadRolesIntoTable(List<Role> rolesList) {
         String columns[] = {"ITEM", "ID", "NOMBRE", "DESCRIPCION"};
+        if(rolesList == null){
+            rolesList = new ArrayList<>();
+        }
         String rowsWithRoles[][] = new String[rolesList.size()][4];
         for (var role : rolesList) {
             var rolePosition = rolesList.indexOf(role);
