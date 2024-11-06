@@ -1,0 +1,57 @@
+@startuml
+left to right direction
+' Actores
+:Miembro: as Act3
+
+
+' Casos de uso
+package Gastos as PACK1{
+  package CRUD as PACK3{
+    (Crear) as CU1
+    Act3--> CU1
+    CU1 .> (Consultar Categoria) : Include
+    note right of CU1: Puede ser creado solo por su miembro.
+    (Buscar) as CU2
+    Act3--> CU2
+    note right of CU2: Solo puede ser visto por su creador.
+    (Editar) as CU3
+    Act3--> CU3
+    CU3 .> CU2 : Include
+    CU3 <.(Consultar Categoria) : Extend
+    note right of CU3: Solo puede ser modificado por su creador.
+    (Eliminar) as CU4
+    Act3--> CU4
+    CU4 .> CU2 : Include
+    note right of CU4: Solo puede ser eliminado por su creador.
+}
+package Reportes as PACK4{
+    (Listar todo) as CU5
+    Act3-->  CU5
+    CU5 .> (Consultar Categoria) : Include
+    CU5 <. (Consultar Contribucion) : Extend
+    note right of CU5: Un miembro solo puede informacion sobre sus Gastos.
+    (Por fecha) as CU7
+    CU7 --|> CU5
+    (Por nombre) as CU8
+    CU8 --|> CU5
+    (Por monto) as CU9
+    CU9  --|> CU5
+    (Por descripcion) as CU10
+    CU10 --|> CU5
+    (Por categoria)    as CU11
+    CU11 --|> CU5
+    (Por estado)    as CU12
+    CU12 --|> CU5
+    (Por Fecha de \creacion)    as CU13
+    CU13 --|> CU5
+    (Por periodo)    as CU14
+    CU14 --|> CU5
+    (Por periodo de creación)    as CU14
+    CU14 --|> CU5
+    (Por Bolsa de Ahorros)    as CU15
+    CU15 --|> CU5
+   }
+   }
+}
+
+@enduml

@@ -1,0 +1,46 @@
+@startuml
+left to right direction
+' Actores
+:Miembro: as Act3
+
+
+' Casos de uso
+package Bolsa-Ahorros as PCKG1{
+    package CRUD as PCKG2{
+        (Crear) as CU1
+        Act3--> CU1
+        note right of CU1: Cualquier miembro de la familia
+        (Buscar) as CU2
+        Act3-->  CU2
+        CU2 <. (Listar Contribuciones) : Extend
+        (Editar) as CU3
+        Act3 -->  CU3
+        CU3 .> CU2 : Include
+     note right of CU3: Solo miembro creador\n o miembre creador de la familia 
+        (Eliminar) as CU4
+        Act3 --> CU4
+        CU4 .> CU2 : Include
+         note right of CU4: Solo miembro creador\n o miembre creador de la familia 
+    }
+    package Reportes as PCKG3{
+        (Listar Todo)  as CU5
+        Act3--> CU5
+        CU5 <. (Listar Contribuciones) : extend
+        (Por nombre) as CU6
+        CU6 --|> CU5
+        (Por monto) as CU7
+        CU7 --|> CU5
+        (Por proposito) as CU8
+        CU8 --|> CU5
+        (Por estado) as CU9
+        CU9--|>  CU5
+        (Por fecha de creacion)  as CU10
+        CU10 --|>  CU5
+        (Por Usuario Creador)  as CU11
+        CU11 --|>  CU5
+        (Por fecha de cierre)  as CU12
+        CU12 --|>  CU5
+    }
+}
+
+@enduml
