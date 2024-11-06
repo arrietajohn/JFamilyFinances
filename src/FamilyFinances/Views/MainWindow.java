@@ -1,4 +1,3 @@
-
 package FamilyFinances.Views;
 
 import FamilyFinances.Infrastructure.Configurations.DependencyContainer;
@@ -12,9 +11,10 @@ import FamilyFinances.Views.Roles.RolesWindow;
 public class MainWindow extends javax.swing.JFrame {
 
     private final DependencyContainer dependencyContainer;
-    
+
     /**
      * Creates new form MainWindow
+     *
      * @param container
      */
     public MainWindow(DependencyContainer container) {
@@ -190,16 +190,31 @@ public class MainWindow extends javax.swing.JFrame {
         itemConsultarRoles.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         itemConsultarRoles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/search24px.png"))); // NOI18N
         itemConsultarRoles.setText("Consultar...");
+        itemConsultarRoles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemConsultarRolesActionPerformed(evt);
+            }
+        });
         menuRoles.add(itemConsultarRoles);
 
         itemEditarRoles.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         itemEditarRoles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/edit24px.png"))); // NOI18N
         itemEditarRoles.setText("Editar...");
+        itemEditarRoles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemEditarRolesActionPerformed(evt);
+            }
+        });
         menuRoles.add(itemEditarRoles);
 
         itemEliminarRoles.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         itemEliminarRoles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/delete24px.png"))); // NOI18N
         itemEliminarRoles.setText("Eliminar...");
+        itemEliminarRoles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemEliminarRolesActionPerformed(evt);
+            }
+        });
         menuRoles.add(itemEliminarRoles);
         menuRoles.add(jSeparator9);
 
@@ -522,9 +537,25 @@ public class MainWindow extends javax.swing.JFrame {
     private void itemAgregarRolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAgregarRolesActionPerformed
         // TODO add your handling code here:
         RolesWindow window = new RolesWindow(this, true, dependencyContainer);
+        window.enableButtons(true, true, false, false, true);
         window.setLocationRelativeTo(this);
         window.setVisible(true);
+
     }//GEN-LAST:event_itemAgregarRolesActionPerformed
+
+    private void itemConsultarRolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemConsultarRolesActionPerformed
+        itemAgregarRolesActionPerformed(evt);
+    }//GEN-LAST:event_itemConsultarRolesActionPerformed
+
+    private void itemEditarRolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEditarRolesActionPerformed
+        // TODO add your handling code here:
+        itemAgregarRolesActionPerformed(evt);
+    }//GEN-LAST:event_itemEditarRolesActionPerformed
+
+    private void itemEliminarRolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEliminarRolesActionPerformed
+        // TODO add your handling code here:
+        itemAgregarRolesActionPerformed(evt);
+    }//GEN-LAST:event_itemEliminarRolesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -556,7 +587,7 @@ public class MainWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                var  container = DependencyContainer.getInstance();
+                var container = DependencyContainer.getInstance();
                 DependencyInjectionConfiguration.registerDependencies(container);
                 new MainWindow(container).setVisible(true);
             }
