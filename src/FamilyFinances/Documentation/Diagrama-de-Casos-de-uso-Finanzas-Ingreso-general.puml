@@ -1,0 +1,41 @@
+@startuml
+left to right direction
+' Actores
+
+:Administrador: as Act2
+
+
+' Casos de uso
+package Casos-Uso-Relacionado as PCKG1{
+  (Consultar Fuente) as CU1
+}
+package Promedio-Ingresos-generales-por-periodo as PCKG2{
+    (Promedio Ingresos general) as CU3 
+    (Promedio Ingresos \n general por familias) as CU4 
+    (Promedio Ingresos \n general por fuente) as CU5
+    CU5 .> CU1 : Inclide
+    (Promedio Ingresos  general \n por Rol en la familia) as CU6 
+    (Promedio Ingresos \n general por genero) as CU7 
+    (Promedio Ingresos general \n para bolsas de ahorroso) as CU8 
+    (Promedio Ingresos \ngeneral por ocupacion) as CU9 
+    (Promedio Ingresos general \npor nombre de ingreso) as CU10 
+    (Promedio Ingresos general \npor descripcion de ingreso) as CU11 
+    (Promedio Ingresos general \npor monto de ingreso) as CU12 
+}
+
+Act2 --> PCKG2
+package Totales-Ingresos-generales-por-periodo as PCKG3{
+    (Total Ingresos general) as CU13 
+    (Total Ingresos \n general por familias) as CU14 
+    (Total Ingresos \n general por fuente) as CU15 
+    (Total Ingresos  general \n por Rol en la familia) as CU16 
+    (Total Ingresos \n general por genero) as CU17 
+    (Total Ingresos general \n para bolsas de ahorroso) as CU18 
+    (Total Ingresos \ngeneral por ocupacion) as CU19 
+    (Total Ingresos general \npor nombre de ingreso) as CU20 
+    (Total Ingresos general \npor descripcion de ingreso) as CU21 
+    (Total Ingresos general \npor mon to de ingreso) as CU22 
+}
+Act2 --> PCKG3
+
+@enduml

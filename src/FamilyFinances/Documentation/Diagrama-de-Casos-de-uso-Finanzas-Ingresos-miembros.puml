@@ -1,0 +1,30 @@
+@startuml
+left to right direction
+' Actores
+
+:Miembro: as Act3
+
+' Casos de uso
+package Casos-Uso-Relacionado as PCKG1{
+  (Consultar Fuente) as CU1
+  (Consultar Bolsa ahorros) as CU2
+}
+ package Total-Ingresos-personales-por-periodo as PCKG2{
+     (Balance financiero) as CU3 
+    (Total Ingresos) as CU4 
+    (Total Ingresos \npor fuente) as CU5 
+     CU5 .> CU1 : Include
+    (Total Ingresos por \nRol en la familia) as CU6
+    (Total Ingresos \npor genero) as CU7
+    (Total Ingresos para\n bolsas de ahorros) as CU8 
+    CU8 .> CU2 : Include
+    (Total Ingresos \npor ocupacion) as CU9 
+    (Total Ingresos por \nnombre de ingreso) as CU10 
+    (Total Ingresos por \ndescripcion de ingreso) as CU11 
+    (Total Ingresos por \nmonto de ingreso) as CU12 
+}
+Act3 --> PCKG2
+
+
+
+@enduml

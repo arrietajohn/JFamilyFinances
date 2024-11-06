@@ -25,7 +25,7 @@ package Usuarios as PACK1{
     note right of CU4: Usuario solo puede eliminar. \n Administrador puede eliminar a cualquier usuario
    
 }
-package CRUD as PACK4{
+package Reportes as PACK4{
  (Listar Todo) as CU5
     Act1-->  CU5
     note right of CU5: Usuario solo puede ver los nombres \ny rol de otros usuarios
