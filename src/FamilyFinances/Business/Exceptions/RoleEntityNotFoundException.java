@@ -5,9 +5,9 @@ package FamilyFinances.Business.Exceptions;
  *
  * @author johnarrieta
  */
-public class DuplicateEntityException extends Exception{
+public class RoleEntityNotFoundException  extends Exception{
 
-    public DuplicateEntityException(String message) {
+    public RoleEntityNotFoundException(String message) {
         super(message);
     }
     

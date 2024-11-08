@@ -1,8 +1,8 @@
 
 package FamilyFinances.Infrastructure.Persistence.Repositories;
 
-import FamilyFinances.Business.Exceptions.DuplicateEntityException;
-import FamilyFinances.Business.Exceptions.EntityNotFoundException;
+import FamilyFinances.Business.Exceptions.DuplicateRoleEntityException;
+import FamilyFinances.Business.Exceptions.RoleEntityNotFoundException;
 import FamilyFinances.Business.Interfaces.Repositories.IRoleRepository;
 import FamilyFinances.Domain.Models.Role;
 import FamilyFinances.Infrastructure.Persistence.Data.InMemoryEntitiesStorage;
@@ -22,11 +22,11 @@ public class RoleMemoryRepository implements IRoleRepository {
     }
     
     @Override
-    public Role findById(Integer id) throws EntityNotFoundException, Exception {
+    public Role findById(Integer id) throws RoleEntityNotFoundException, Exception {
         var role = entityStorage.getRoles().get(id);
         if(role == null){
             var message = "El Rol con ID: " +id + " no existe";
-            throw new EntityNotFoundException(message);
+            throw new RoleEntityNotFoundException(message);
         }
         return role;
     }
@@ -35,13 +35,13 @@ public class RoleMemoryRepository implements IRoleRepository {
     public List<Role> getAll() throws Exception {
         if(entityStorage.getRoles().isEmpty()){
             var message = "No existen roles disponibles en el sistema";
-            throw new EntityNotFoundException(message);
+            throw new RoleEntityNotFoundException(message);
         }
         return new ArrayList<Role>(entityStorage.getRoles().values()) ;
     }
 
     @Override
-    public void save(Role role) throws DuplicateEntityException, Exception {
+    public void save(Role role) throws DuplicateRoleEntityException, Exception {
         if(role == null){
             var message = "El Rol no puede ser null";
             throw new Exception(message);
@@ -49,14 +49,14 @@ public class RoleMemoryRepository implements IRoleRepository {
         
         if(entityStorage.getRoles().containsKey(role.getId())){
             var message = "El Rol: "+role.getId() + " ya existe";
-            throw new DuplicateEntityException(message);
+            throw new DuplicateRoleEntityException(message);
         }
         
         entityStorage.getRoles().put(role.getId(), role);
     }
 
     @Override
-    public void edit(Role role) throws EntityNotFoundException, Exception {
+    public void edit(Role role) throws RoleEntityNotFoundException, Exception {
         if(role == null){
             var message = "El Rol no puede ser null";
             throw new Exception(message);
@@ -64,17 +64,17 @@ public class RoleMemoryRepository implements IRoleRepository {
         
         if(!entityStorage.getRoles().containsKey(role.getId())){
             var message = "El Rol: "+role.getId() + " no existe";
-            throw new EntityNotFoundException(message);
+            throw new RoleEntityNotFoundException(message);
         }
         entityStorage.getRoles().put(role.getId(), role);
     }
 
     @Override
-    public void deleteById(Integer id) throws EntityNotFoundException, Exception {
+    public void deleteById(Integer id) throws RoleEntityNotFoundException, Exception {
         
         if(!entityStorage.getRoles().containsKey(id)){
             var message = "El Rol: "+id+ " no existe";
-            throw new EntityNotFoundException(message);
+            throw new RoleEntityNotFoundException(message);
         }
         entityStorage.getRoles().remove(id);
     }

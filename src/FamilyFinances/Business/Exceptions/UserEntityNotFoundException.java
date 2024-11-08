@@ -5,9 +5,9 @@ package FamilyFinances.Business.Exceptions;
  *
  * @author johnarrieta
  */
-public class EntityNotFoundException  extends Exception{
+public class UserEntityNotFoundException  extends Exception{
 
-    public EntityNotFoundException(String message) {
+    public UserEntityNotFoundException(String message) {
         super(message);
     }
     
