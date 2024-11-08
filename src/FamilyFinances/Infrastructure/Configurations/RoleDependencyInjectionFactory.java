@@ -91,7 +91,7 @@ public class RoleDependencyInjectionFactory {
           
           container.register(IListAllRolesService.class, () ->
                   new ListAllRolesService(container.resolve(IGetAllRolesQuery.class)));
-          
+                    
            container.register(ListAllRoleController.class, () ->
                   new ListAllRoleController(container.resolve(IListAllRolesService.class)));
           

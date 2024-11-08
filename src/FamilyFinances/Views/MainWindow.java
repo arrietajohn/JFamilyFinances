@@ -3,6 +3,7 @@ package FamilyFinances.Views;
 import FamilyFinances.Infrastructure.Configurations.DependencyContainer;
 import FamilyFinances.Infrastructure.Configurations.DependencyInjectionConfiguration;
 import FamilyFinances.Views.Roles.RolesWindow;
+import FamilyFinances.Views.Users.UsersWindow;
 
 /**
  *
@@ -33,16 +34,16 @@ public class MainWindow extends javax.swing.JFrame {
 
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        itemLogout = new javax.swing.JMenuItem();
+        itemAddUser = new javax.swing.JMenuItem();
+        itemFindUser = new javax.swing.JMenuItem();
+        itemEditUser = new javax.swing.JMenuItem();
+        itemDeleteUser = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenu11 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        itemSubmenuReportUser = new javax.swing.JMenu();
+        itemGetAllUsers = new javax.swing.JMenuItem();
+        itemGetByNameUsers = new javax.swing.JMenuItem();
+        itemGetByRolUsers = new javax.swing.JMenuItem();
         menuRoles = new javax.swing.JMenu();
         itemAgregarRoles = new javax.swing.JMenuItem();
         itemConsultarRoles = new javax.swing.JMenuItem();
@@ -132,45 +133,64 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jMenu1.setName("menuUsuarios"); // NOI18N
 
-        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenuItem1.setMnemonic('C');
-        jMenuItem1.setText("Cerrar sesion");
-        jMenuItem1.setToolTipText("Te permite cerrar la sesion de login");
-        jMenu1.add(jMenuItem1);
+        itemLogout.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/logout24px.png"))); // NOI18N
+        itemLogout.setMnemonic('C');
+        itemLogout.setText("Cerrar sesion");
+        itemLogout.setToolTipText("Te permite cerrar la sesion de login");
+        jMenu1.add(itemLogout);
 
-        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenuItem2.setText("Agregar...");
-        jMenu1.add(jMenuItem2);
+        itemAddUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemAddUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/add24px.png"))); // NOI18N
+        itemAddUser.setText("Agregar...");
+        itemAddUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemAddUserActionPerformed(evt);
+            }
+        });
+        jMenu1.add(itemAddUser);
 
-        jMenuItem3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenuItem3.setText("Consultar...");
-        jMenu1.add(jMenuItem3);
+        itemFindUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemFindUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/search24px.png"))); // NOI18N
+        itemFindUser.setText("Consultar...");
+        jMenu1.add(itemFindUser);
 
-        jMenuItem4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenuItem4.setText("Editar...");
-        jMenu1.add(jMenuItem4);
+        itemEditUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemEditUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/edit24px.png"))); // NOI18N
+        itemEditUser.setText("Editar...");
+        jMenu1.add(itemEditUser);
 
-        jMenuItem8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenuItem8.setText("Eliminar...");
-        jMenu1.add(jMenuItem8);
+        itemDeleteUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemDeleteUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/delete24px.png"))); // NOI18N
+        itemDeleteUser.setText("Eliminar...");
+        jMenu1.add(itemDeleteUser);
         jMenu1.add(jSeparator1);
 
-        jMenu11.setText("Reportes");
-        jMenu11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemSubmenuReportUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/Users24px.png"))); // NOI18N
+        itemSubmenuReportUser.setText("Reportes");
+        itemSubmenuReportUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jMenuItem5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenuItem5.setText("Listar todo...");
-        jMenu11.add(jMenuItem5);
+        itemGetAllUsers.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemGetAllUsers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/Users24px.png"))); // NOI18N
+        itemGetAllUsers.setText("Listar todo...");
+        itemSubmenuReportUser.add(itemGetAllUsers);
 
-        jMenuItem6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenuItem6.setText("Listar por nombre...");
-        jMenu11.add(jMenuItem6);
+        itemGetByNameUsers.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemGetByNameUsers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/Users24px.png"))); // NOI18N
+        itemGetByNameUsers.setText("Listar por nombre...");
+        itemSubmenuReportUser.add(itemGetByNameUsers);
 
-        jMenuItem7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenuItem7.setText("Listar por Rol...");
-        jMenu11.add(jMenuItem7);
+        itemGetByRolUsers.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemGetByRolUsers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/Users24px.png"))); // NOI18N
+        itemGetByRolUsers.setText("Listar por Rol...");
+        itemGetByRolUsers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemGetByRolUsersActionPerformed(evt);
+            }
+        });
+        itemSubmenuReportUser.add(itemGetByRolUsers);
 
-        jMenu1.add(jMenu11);
+        jMenu1.add(itemSubmenuReportUser);
 
         jMenuBar1.add(jMenu1);
 
@@ -557,6 +577,18 @@ public class MainWindow extends javax.swing.JFrame {
         itemAgregarRolesActionPerformed(evt);
     }//GEN-LAST:event_itemEliminarRolesActionPerformed
 
+    private void itemGetByRolUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemGetByRolUsersActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemGetByRolUsersActionPerformed
+
+    private void itemAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAddUserActionPerformed
+        // TODO add your handling code here:
+        var window = new UsersWindow(this, true, dependencyContainer);
+        window.enableButtons(true, false, false, false, true);
+        window.setLocationRelativeTo(this);
+        window.setVisible(true);
+    }//GEN-LAST:event_itemAddUserActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -595,16 +627,24 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem itemAddUser;
     private javax.swing.JMenuItem itemAgregarRoles;
     private javax.swing.JMenuItem itemConsultarRoles;
+    private javax.swing.JMenuItem itemDeleteUser;
+    private javax.swing.JMenuItem itemEditUser;
     private javax.swing.JMenuItem itemEditarRoles;
     private javax.swing.JMenuItem itemEliminarRoles;
+    private javax.swing.JMenuItem itemFindUser;
+    private javax.swing.JMenuItem itemGetAllUsers;
+    private javax.swing.JMenuItem itemGetByNameUsers;
+    private javax.swing.JMenuItem itemGetByRolUsers;
     private javax.swing.JMenuItem itemListarRolesPorDescripcion;
     private javax.swing.JMenuItem itemListarRolesPorNombre;
     private javax.swing.JMenuItem itemListarTodosLosRoles;
+    private javax.swing.JMenuItem itemLogout;
+    private javax.swing.JMenu itemSubmenuReportUser;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
-    private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu12;
     private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu14;
@@ -620,7 +660,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
@@ -631,7 +670,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem19;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem21;
     private javax.swing.JMenuItem jMenuItem22;
@@ -642,7 +680,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem27;
     private javax.swing.JMenuItem jMenuItem28;
     private javax.swing.JMenuItem jMenuItem29;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem30;
     private javax.swing.JMenuItem jMenuItem31;
     private javax.swing.JMenuItem jMenuItem32;
@@ -653,7 +690,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem37;
     private javax.swing.JMenuItem jMenuItem38;
     private javax.swing.JMenuItem jMenuItem39;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem40;
     private javax.swing.JMenuItem jMenuItem41;
     private javax.swing.JMenuItem jMenuItem42;
@@ -664,7 +700,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem47;
     private javax.swing.JMenuItem jMenuItem48;
     private javax.swing.JMenuItem jMenuItem49;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem50;
     private javax.swing.JMenuItem jMenuItem51;
     private javax.swing.JMenuItem jMenuItem52;
@@ -673,9 +708,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem55;
     private javax.swing.JMenuItem jMenuItem56;
     private javax.swing.JMenuItem jMenuItem57;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;

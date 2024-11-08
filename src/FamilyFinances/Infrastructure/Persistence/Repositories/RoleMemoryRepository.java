@@ -52,6 +52,16 @@ public class RoleMemoryRepository implements IRoleRepository {
             throw new DuplicateRoleEntityException(message);
         }
         
+        var roleExist = entityStorage.getRoles()
+                .values()
+                .stream()
+                .filter(r -> r.getName().equalsIgnoreCase(role.getName())).findAny();
+        
+        if(roleExist.isPresent()){
+            var message = "El Rol: "+role.getId() + " ya existe";
+            throw new DuplicateRoleEntityException(message);
+        }
+        
         entityStorage.getRoles().put(role.getId(), role);
     }
 
