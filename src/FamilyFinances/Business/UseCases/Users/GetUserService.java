@@ -5,15 +5,15 @@ import FamilyFinances.Business.Handlers.Queries.Users.Dto.FindUserByIdQueryReque
 import FamilyFinances.Business.Interfaces.Queries.Users.IFindUserByCodeQuery;
 import FamilyFinances.Business.Interfaces.Queries.Users.IFindUserByIdQuery;
 import FamilyFinances.Business.Interfaces.Queries.Users.IGetAllUserQuery;
-import FamilyFinances.Business.Interfaces.UseCases.Users.IGetUserService;
 import FamilyFinances.Domain.Models.User;
 import java.util.List;
+import FamilyFinances.Business.Interfaces.UseCases.Users.IGetUsersService;
 
 /**
  *
  * @author johnarrieta
  */
-public class GetUserService implements IGetUserService{
+public class GetUserService implements IGetUsersService{
     
     private final IFindUserByCodeQuery findByCodeQuery;
     private final IFindUserByIdQuery findByIdQuery;

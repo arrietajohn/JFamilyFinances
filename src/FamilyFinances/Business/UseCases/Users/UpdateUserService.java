@@ -5,11 +5,11 @@ import FamilyFinances.Business.Exceptions.UserEntityNotFoundException;
 import FamilyFinances.Business.Handlers.Command.Users.Dto.UpdateUserCommandRequest;
 import FamilyFinances.Business.Interfaces.Commands.Users.IUpdateUserCommand;
 import FamilyFinances.Business.Interfaces.UseCases.Roles.IGetRolService;
-import FamilyFinances.Business.Interfaces.UseCases.Users.IGetUserService;
 import FamilyFinances.Business.Interfaces.UseCases.Users.IUpdateUserService;
 import FamilyFinances.Domain.Constants.UserStatusEnum;
 import FamilyFinances.Domain.Models.Role;
 import FamilyFinances.Domain.Models.User;
+import FamilyFinances.Business.Interfaces.UseCases.Users.IGetUsersService;
 
 /**
  *
@@ -19,9 +19,9 @@ public class UpdateUserService implements IUpdateUserService {
 
     private final IUpdateUserCommand updateUserCommand;
     private final IGetRolService getRolService;
-    private final IGetUserService getUserService;
+    private final IGetUsersService getUserService;
 
-    public UpdateUserService(IUpdateUserCommand updateUserCommand, IGetRolService getRolService, IGetUserService getUserService) {
+    public UpdateUserService(IUpdateUserCommand updateUserCommand, IGetRolService getRolService, IGetUsersService getUserService) {
         this.updateUserCommand = updateUserCommand;
         this.getRolService = getRolService;
         this.getUserService = getUserService;

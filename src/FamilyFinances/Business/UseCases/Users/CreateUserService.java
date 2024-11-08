@@ -6,10 +6,10 @@ import FamilyFinances.Business.Handlers.Command.Users.Dto.CreateUserCommandReque
 import FamilyFinances.Business.Interfaces.Commands.Users.ICreateUserCommand;
 import FamilyFinances.Business.Interfaces.UseCases.Roles.IGetRolService;
 import FamilyFinances.Business.Interfaces.UseCases.Users.ICreateUserService;
-import FamilyFinances.Business.Interfaces.UseCases.Users.IGetUserService;
 import FamilyFinances.Domain.Constants.UserStatusEnum;
 import FamilyFinances.Domain.Models.Role;
 import FamilyFinances.Domain.Models.User;
+import FamilyFinances.Business.Interfaces.UseCases.Users.IGetUsersService;
 
 /**
  *
@@ -19,9 +19,9 @@ public class CreateUserService implements ICreateUserService {
 
     private final ICreateUserCommand createUserCommand;
     private final IGetRolService getRolService;
-    private final IGetUserService getUserService;
+    private final IGetUsersService getUserService;
 
-    public CreateUserService(ICreateUserCommand createUserCommand, IGetRolService getRolService, IGetUserService getUserService) {
+    public CreateUserService(ICreateUserCommand createUserCommand, IGetRolService getRolService, IGetUsersService getUserService) {
         this.createUserCommand = createUserCommand;
         this.getRolService = getRolService;
         this.getUserService = getUserService;

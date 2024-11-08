@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author johnarrieta
  */
-public interface IGetUserService {
+public interface IGetUsersService {
 
     public User getUser(Integer userId) throws Exception;
 
