@@ -80,7 +80,13 @@ public class UserMemoryRepository implements IUserRepository {
 
         var userFound = getUserByCode(user.getCode());
         if (userFound.isPresent()) {
-            var message = "El Usuario: " + user.getCode() + " ya existe";
+            var message = "Existe un Usuario con codigo: " + user.getCode();
+            throw new DuplicateUserEntityException(message);
+        }
+        
+        userFound = getUserByCode(user.getEmail());
+        if (userFound.isPresent()) {
+            var message = "Existe un Usuario con email: " + user.getEmail();
             throw new DuplicateUserEntityException(message);
         }
         user.setId(getNextId());
@@ -123,6 +129,14 @@ public class UserMemoryRepository implements IUserRepository {
                 .values()
                 .stream()
                 .filter(u -> u.getCode().equalsIgnoreCase(code))
+                .findFirst();
+    }
+    
+     private Optional<User> getUserByEmail(String email) {
+        return entityStorage.getUsers()
+                .values()
+                .stream()
+                .filter(u -> u.getEmail().equalsIgnoreCase(email))
                 .findFirst();
     }
     

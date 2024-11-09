@@ -5,6 +5,7 @@ import FamilyFinances.Business.Handlers.Command.Users.DeleteUserCommandHandler;
 import FamilyFinances.Business.Handlers.Command.Users.UpdateUserCommandHandler;
 import FamilyFinances.Business.Handlers.Queries.Users.FindUserByCodeQueryHandler;
 import FamilyFinances.Business.Handlers.Queries.Users.FindUserByIdQueryHandler;
+import FamilyFinances.Business.Handlers.Queries.Users.GetAllUsersQueryHandler;
 import FamilyFinances.Business.Interfaces.Commands.Users.ICreateUserCommand;
 import FamilyFinances.Business.Interfaces.Commands.Users.IDeleteUserCommand;
 import FamilyFinances.Business.Interfaces.Commands.Users.IUpdateUserCommand;
@@ -16,7 +17,7 @@ import FamilyFinances.Business.Interfaces.UseCases.Roles.IGetRolService;
 import FamilyFinances.Business.Interfaces.UseCases.Users.ICreateUserService;
 import FamilyFinances.Business.Interfaces.UseCases.Users.IDeleteUserService;
 import FamilyFinances.Business.UseCases.Users.GetUserService;
-import FamilyFinances.Controllers.Users.GetUserController;
+import FamilyFinances.Controllers.Implements.Users.GetUsersController;
 import FamilyFinances.Infrastructure.Persistence.Repositories.UserMemoryRepository;
 import FamilyFinances.Business.Interfaces.UseCases.Users.IGetUsersService;
 import FamilyFinances.Business.Interfaces.UseCases.Users.ILoginUserService;
@@ -25,9 +26,15 @@ import FamilyFinances.Business.UseCases.Users.CreateUserService;
 import FamilyFinances.Business.UseCases.Users.DeleteUserService;
 import FamilyFinances.Business.UseCases.Users.LoginUserService;
 import FamilyFinances.Business.UseCases.Users.UpdateUserService;
-import FamilyFinances.Controllers.Users.DeleteUserController;
-import FamilyFinances.Controllers.Users.LoginUserController;
-import FamilyFinances.Controllers.Users.UpdateUserController;
+import FamilyFinances.Controllers.Implements.Users.CreateUserController;
+import FamilyFinances.Controllers.Implements.Users.DeleteUserController;
+import FamilyFinances.Controllers.Implements.Users.LoginUserController;
+import FamilyFinances.Controllers.Implements.Users.UpdateUserController;
+import FamilyFinances.Controllers.Interfaces.Users.ICreateUserController;
+import FamilyFinances.Controllers.Interfaces.Users.IDeleteUserController;
+import FamilyFinances.Controllers.Interfaces.Users.IGetUsersController;
+import FamilyFinances.Controllers.Interfaces.Users.ILoginUserController;
+import FamilyFinances.Controllers.Interfaces.Users.IUpdateUserController;
 
 /**
  *
@@ -46,6 +53,9 @@ public class UserDependencyInjectionFactory {
 
         container.register(IFindUserByIdQuery.class, ()
                 -> new FindUserByIdQueryHandler(container.resolve(IUserRepository.class)));
+        
+        container.register(IGetAllUserQuery.class, () ->
+        new GetAllUsersQueryHandler(container.resolve(IUserRepository.class)));
 
         container.register(IGetUsersService.class, ()
                 -> new GetUserService(
@@ -54,8 +64,8 @@ public class UserDependencyInjectionFactory {
                         container.resolve(IGetAllUserQuery.class)
                 ));
 
-        container.register(GetUserController.class, ()
-                -> new GetUserController(container.resolve(IGetUsersService.class)));
+        container.register(IGetUsersController.class, ()
+                -> new GetUsersController(container.resolve(IGetUsersService.class)));
 
         // Registrar las dependencias del caso de uso Crear Usuario
         container.register(ICreateUserCommand.class, ()
@@ -67,8 +77,8 @@ public class UserDependencyInjectionFactory {
                         container.resolve(IGetRolService.class),
                         container.resolve(IGetUsersService.class)));
 
-        container.register(GetUserController.class, ()
-                -> new GetUserController(container.resolve(IGetUsersService.class)));
+        container.register(ICreateUserController.class, ()
+                -> new CreateUserController(container.resolve(ICreateUserService.class)));
 
         // Registrar las dependencias del caso de uso actualizaro usuario
         container.register(IUpdateUserCommand.class, ()
@@ -80,7 +90,7 @@ public class UserDependencyInjectionFactory {
                         container.resolve(IGetRolService.class),
                         container.resolve(IGetUsersService.class)));
 
-        container.register(UpdateUserController.class, ()
+        container.register(IUpdateUserController.class, ()
                 -> new UpdateUserController(container.resolve(IUpdateUserService.class)));
 
         // Registrar las dependencias del caso de uso  Eliminar Usuario
@@ -90,14 +100,14 @@ public class UserDependencyInjectionFactory {
         container.register(IDeleteUserService.class, ()
                 -> new DeleteUserService(container.resolve(IDeleteUserCommand.class)));
 
-        container.register(DeleteUserController.class, ()
+        container.register(IDeleteUserController.class, ()
                 -> new DeleteUserController(container.resolve(IDeleteUserService.class)));
 
         // Registrar las dependencias del caso de uso Login
         container.register(ILoginUserService.class, ()
                 -> new LoginUserService(container.resolve(IGetUsersService.class)));
 
-        container.register(LoginUserController.class, ()
+        container.register(ILoginUserController.class, ()
                 -> new LoginUserController(container.resolve(ILoginUserService.class)));
     }
 }

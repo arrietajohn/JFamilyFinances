@@ -16,7 +16,7 @@ import FamilyFinances.Business.Interfaces.UseCases.Users.IGetUsersService;
 public class LoginUserService implements ILoginUserService{
     
     private final IGetUsersService getUserService;
-
+    
     public LoginUserService(IGetUsersService getUserService) {
         this.getUserService = getUserService;
     }
@@ -31,8 +31,8 @@ public class LoginUserService implements ILoginUserService{
         if(!user.getPassword().equals(password) ){
              throw new IllegalArgumentException("Datos de acceso incorrectos");
         }
+        
         return user;
         
     }
-
 }

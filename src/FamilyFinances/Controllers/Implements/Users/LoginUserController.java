@@ -1,14 +1,14 @@
-package FamilyFinances.Controllers.Users;
+package FamilyFinances.Controllers.Implements.Users;
 
 import FamilyFinances.Business.Interfaces.UseCases.Users.ILoginUserService;
-import FamilyFinances.Business.UseCases.Users.LoginUserService;
+import FamilyFinances.Controllers.Interfaces.Users.ILoginUserController;
 import FamilyFinances.Domain.Models.User;
 
 /**
  *
  * @author johnarrieta
  */
-public class LoginUserController {
+public class LoginUserController implements ILoginUserController{
 
     private final ILoginUserService loginUserService;
     private User currentUser;
@@ -17,8 +17,13 @@ public class LoginUserController {
         this.loginUserService = loginUserService;
     }
 
-    public User executeOperation(String code, String password) throws Exception {
-        currentUser = loginUserService.login(code, password);
+    @Override
+    public User executeAction(String code, String password) throws Exception {
+        return loginUserService.login(code, password);
+    }
+
+    @Override
+    public User getCurrentUser() {
         return currentUser;
     }
 

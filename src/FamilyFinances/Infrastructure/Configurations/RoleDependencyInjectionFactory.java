@@ -22,11 +22,15 @@ import FamilyFinances.Business.UseCases.Roles.DeleteRoleService;
 import FamilyFinances.Business.UseCases.Roles.GetRoleService;
 import FamilyFinances.Business.UseCases.Roles.ListAllRolesService;
 import FamilyFinances.Business.UseCases.Roles.UpdateRoleService;
-import FamilyFinances.Controllers.Roles.CreateRoleController;
-import FamilyFinances.Controllers.Roles.DeleteRoleController;
-import FamilyFinances.Controllers.Roles.GetRoleController;
-import FamilyFinances.Controllers.Roles.ListAllRoleController;
-import FamilyFinances.Controllers.Roles.UpdateRoleController;
+import FamilyFinances.Controllers.Implements.Roles.CreateRoleController;
+import FamilyFinances.Controllers.Implements.Roles.DeleteRoleController;
+import FamilyFinances.Controllers.Implements.Roles.GetRoleController;
+import FamilyFinances.Controllers.Implements.Roles.ListAllRolesController;
+import FamilyFinances.Controllers.Implements.Roles.UpdateRoleController;
+import FamilyFinances.Controllers.Interfaces.Roles.IDeleteRoleController;
+import FamilyFinances.Controllers.Interfaces.Roles.IGetRoleController;
+import FamilyFinances.Controllers.Interfaces.Roles.IListAllRolesController;
+import FamilyFinances.Controllers.Interfaces.Roles.IUpdateRoleController;
 import FamilyFinances.Infrastructure.Persistence.Repositories.RoleMemoryRepository;
 
 /**
@@ -48,7 +52,7 @@ public class RoleDependencyInjectionFactory {
         container.register(IGetRolService.class, () -> 
             new GetRoleService(container.resolve(IGetRoleByIdQuery.class)));
         
-        container.register(GetRoleController.class, () ->
+        container.register(IGetRoleController.class, () ->
             new GetRoleController(container.resolve(IGetRolService.class)));
         
         // Registrar las dependencias del Command CreateRole
@@ -70,7 +74,7 @@ public class RoleDependencyInjectionFactory {
          container.register(IUpdateRoleService.class, () -> 
                 new UpdateRoleService(container.resolve(IUpdateRoleCommand.class)));
          
-         container.register(UpdateRoleController.class, () -> 
+         container.register(IUpdateRoleController.class, () -> 
                  new UpdateRoleController(container.resolve(IUpdateRoleService.class)));
          
          // Registrar las dependencias del Command DeleteRole
@@ -81,7 +85,7 @@ public class RoleDependencyInjectionFactory {
           container.register(IDeleteRoleService.class, () -> 
                     new DeleteRoleService(container.resolve(IDeleteRoleCommand.class)));
           
-          container.register(DeleteRoleController.class, () -> 
+          container.register(IDeleteRoleController.class, () -> 
                     new DeleteRoleController(container.resolve(IDeleteRoleService.class)));
           
           // Registrar las dependencias del Query GetAllRoles
@@ -92,8 +96,8 @@ public class RoleDependencyInjectionFactory {
           container.register(IListAllRolesService.class, () ->
                   new ListAllRolesService(container.resolve(IGetAllRolesQuery.class)));
                     
-           container.register(ListAllRoleController.class, () ->
-                  new ListAllRoleController(container.resolve(IListAllRolesService.class)));
+           container.register(IListAllRolesController.class, () ->
+                  new ListAllRolesController(container.resolve(IListAllRolesService.class)));
           
     }
 }

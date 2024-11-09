@@ -9,11 +9,11 @@ import java.util.List;
  *
  * @author johnarrieta
  */
-public class GetAllUserQueryHandler implements IGetAllUserQuery {
+public class GetAllUsersQueryHandler implements IGetAllUserQuery {
 
     private final IUserRepository userRepository;
 
-    public GetAllUserQueryHandler(IUserRepository userRepository) {
+    public GetAllUsersQueryHandler(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

@@ -1,23 +1,25 @@
-package FamilyFinances.Controllers.Users;
+package FamilyFinances.Controllers.Implements.Users;
 
 import FamilyFinances.Business.Handlers.Command.Users.DeleteUserCommandHandler;
 import FamilyFinances.Business.Handlers.Command.Users.Dto.DeleteUserCommandRequest;
 import FamilyFinances.Business.Interfaces.Commands.Users.IDeleteUserCommand;
 import FamilyFinances.Business.Interfaces.UseCases.Roles.IDeleteRoleService;
 import FamilyFinances.Business.Interfaces.UseCases.Users.IDeleteUserService;
+import FamilyFinances.Controllers.Interfaces.Users.IDeleteUserController;
 
 /**
  *
  * @author johnarrieta
  */
-public class DeleteUserController {
+public class DeleteUserController implements IDeleteUserController {
     private final IDeleteUserService deleteUserService;
 
     public DeleteUserController(IDeleteUserService deleteUserService) {
         this.deleteUserService = deleteUserService;
     }
     
-    public void executeOperation(Integer userId) throws Exception{
+    @Override
+    public void executeAction(Integer userId) throws Exception{
        // 1) realizar validaciones mportante
        // ...
        // 2). Ejecutar la operacion

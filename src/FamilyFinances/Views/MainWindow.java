@@ -132,6 +132,11 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu1.setText("Usuarios");
         jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jMenu1.setName("menuUsuarios"); // NOI18N
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
 
         itemLogout.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         itemLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/logout24px.png"))); // NOI18N
@@ -584,10 +589,14 @@ public class MainWindow extends javax.swing.JFrame {
     private void itemAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAddUserActionPerformed
         // TODO add your handling code here:
         var window = new UsersWindow(this, true, dependencyContainer);
-        window.enableButtons(true, false, false, false, true);
+        window.enableButtons(true, true, false, false, true);
         window.setLocationRelativeTo(this);
         window.setVisible(true);
     }//GEN-LAST:event_itemAddUserActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu1ActionPerformed
 
     /**
      * @param args the command line arguments
