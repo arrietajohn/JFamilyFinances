@@ -1,4 +1,4 @@
-package FamilyFinances.Business.Interfaces.UseCases.Famlies;
+package FamilyFinances.Business.Interfaces.UseCases.Families;
 
 import FamilyFinances.Business.Handlers.Queries.Families.Dto.FindFamilyByNameQueryRequest;
 import FamilyFinances.Domain.Models.Family;
@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @author johnarrieta
  */
-public interface IGetFamilesService {
+public interface IGetFamiliesService {
 
     public List<Family> getFamilies(FindFamilyByNameQueryRequest request) throws Exception;
 

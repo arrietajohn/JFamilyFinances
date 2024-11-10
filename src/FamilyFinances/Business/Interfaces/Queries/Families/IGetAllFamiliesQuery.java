@@ -1,6 +1,5 @@
 package FamilyFinances.Business.Interfaces.Queries.Families;
 
-import FamilyFinances.Business.Handlers.Queries.Families.Dto.FindFamilyByIdQueryRequest;
 import FamilyFinances.Domain.Models.Family;
 import java.util.List;
 

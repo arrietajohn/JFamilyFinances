@@ -1,4 +1,4 @@
-package FamilyFinances.Business.Interfaces.UseCases.Famlies;
+package FamilyFinances.Business.Interfaces.UseCases.Families;
 
 import FamilyFinances.Business.Handlers.Queries.Families.Dto.FindFamilyByIdQueryRequest;
 import FamilyFinances.Domain.Models.Family;

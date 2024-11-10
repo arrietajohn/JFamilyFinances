@@ -3,7 +3,6 @@ package FamilyFinances;
 import FamilyFinances.Business.Interfaces.Repositories.IRoleRepository;
 import FamilyFinances.Business.Interfaces.Repositories.IUserRepository;
 import FamilyFinances.Controllers.Interfaces.Users.ILoginUserController;
-import FamilyFinances.Domain.Constants.EntityStatusEnum;
 import FamilyFinances.Domain.Constants.UserStatusEnum;
 import FamilyFinances.Domain.Models.Role;
 import FamilyFinances.Domain.Models.User;

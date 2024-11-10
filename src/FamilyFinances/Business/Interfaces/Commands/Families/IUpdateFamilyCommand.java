@@ -1,6 +1,6 @@
 package FamilyFinances.Business.Interfaces.Commands.Families;
 
-import FamilyFinances.Business.Handlers.Queries.Families.Dto.UpdateFamilyCommandRequest;
+import FamilyFinances.Business.Handlers.Command.Families.Dto.UpdateFamilyCommandRequest;
 
 /**
  *

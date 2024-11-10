@@ -15,7 +15,7 @@ public class FindFamilyByNameQueryRequest {
         this.familyName = familyName;
     }
 
-    public String getFamilyId() {
+    public String getFamilyName() {
         return familyName;
     }
     

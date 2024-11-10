@@ -1,6 +1,6 @@
-package FamilyFinances.Business.Interfaces.UseCases.Famlies;
+package FamilyFinances.Business.Interfaces.UseCases.Families;
 
-import FamilyFinances.Business.Handlers.Queries.Families.Dto.DeleteFamilyByIdCommandRequest;
+import FamilyFinances.Business.Handlers.Command.Families.Dto.DeleteFamilyByIdCommandRequest;
 
 /**
  *

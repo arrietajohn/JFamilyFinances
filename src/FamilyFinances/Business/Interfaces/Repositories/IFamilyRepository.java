@@ -9,11 +9,11 @@ import java.util.List;
  *
  * @author johnarrieta
  */
-public interface FamilyRepository {
+public interface IFamilyRepository {
 
     public Family findById(Integer id) throws FamilyEntityNotFoundException, Exception;
 
-    public Family findByName(String code) throws FamilyEntityNotFoundException, Exception;
+    public List<Family> findByName(String code) throws FamilyEntityNotFoundException, Exception;
 
     public List<Family> getAll() throws Exception;
 

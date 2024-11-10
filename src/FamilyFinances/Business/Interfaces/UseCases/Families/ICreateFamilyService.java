@@ -1,6 +1,6 @@
-package FamilyFinances.Business.Interfaces.UseCases.Famlies;
+package FamilyFinances.Business.Interfaces.UseCases.Families;
 
-import FamilyFinances.Business.Handlers.Queries.Families.Dto.CreateFamilyCommandRequest;
+import FamilyFinances.Business.Handlers.Command.Families.Dto.CreateFamilyCommandRequest;
 
 /**
  *

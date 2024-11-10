@@ -1,7 +1,6 @@
 package FamilyFinances.Controllers.Implements.Users;
 
 import FamilyFinances.Business.Interfaces.UseCases.Users.ICreateUserService;
-import FamilyFinances.Business.UseCases.Users.CreateUserService;
 import FamilyFinances.Controllers.Interfaces.Users.ICreateUserController;
 import FamilyFinances.Domain.Constants.UserStatusEnum;
 import FamilyFinances.Domain.Models.Role;

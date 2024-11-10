@@ -1,6 +1,5 @@
 package FamilyFinances.Domain.Models;
 
-import FamilyFinances.Domain.Constants.EntityStatusEnum;
 import FamilyFinances.Domain.Constants.FamilyRoleEnum;
 import FamilyFinances.Domain.Constants.UserStatusEnum;
 import java.time.LocalDate;

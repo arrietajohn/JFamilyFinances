@@ -1,4 +1,4 @@
-package FamilyFinances.Business.Handlers.Queries.Families.Dto;
+package FamilyFinances.Business.Handlers.Command.Families.Dto;
 
 /**
  *

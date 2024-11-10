@@ -1,5 +1,3 @@
-
-
 package FamilyFinances.Domain.Models;
 
 import FamilyFinances.Domain.Constants.EntityStatusEnum;
