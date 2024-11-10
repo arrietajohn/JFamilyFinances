@@ -17,9 +17,9 @@ public interface FamilyRepository {
 
     public List<Family> getAll() throws Exception;
 
-    public void save(Family role) throws DuplicateFamilyEntityException, Exception;
+    public void save(Family family) throws DuplicateFamilyEntityException, Exception;
 
-    public void edit(Family role) throws FamilyEntityNotFoundException, Exception;
+    public void edit(Family family) throws FamilyEntityNotFoundException, Exception;
 
     public void deleteById(Integer id) throws FamilyEntityNotFoundException, Exception;
 }
