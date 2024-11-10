@@ -1,18 +1,18 @@
 package FamilyFinances.Views.Roles;
 
-import FamilyFinances.Controllers.Roles.CreateRoleController;
-import FamilyFinances.Controllers.Roles.DeleteRoleController;
-import FamilyFinances.Controllers.Roles.GetRoleController;
-import FamilyFinances.Controllers.Roles.ListAllRoleController;
-import FamilyFinances.Controllers.Roles.UpdateRoleController;
+import FamilyFinances.Controllers.Implements.Roles.DeleteRoleController;
+import FamilyFinances.Controllers.Implements.Roles.ListAllRolesController;
+import FamilyFinances.Controllers.Implements.Roles.UpdateRoleController;
+import FamilyFinances.Controllers.Interfaces.Roles.ICreateRoleController;
+import FamilyFinances.Controllers.Interfaces.Roles.IDeleteRoleController;
+import FamilyFinances.Controllers.Interfaces.Roles.IGetRoleController;
+import FamilyFinances.Controllers.Interfaces.Roles.IListAllRolesController;
+import FamilyFinances.Controllers.Interfaces.Roles.IUpdateRoleController;
 import FamilyFinances.Domain.Models.Role;
 import FamilyFinances.Infrastructure.Configurations.DependencyContainer;
 import FamilyFinances.Infrastructure.Configurations.DependencyInjectionConfiguration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.crypto.AEADBadTagException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
 public class RolesWindow extends javax.swing.JDialog {
 
     private final DependencyContainer dependencyContainer;
-    private final GetRoleController getRoleController;
+    private final IGetRoleController getRoleController;
 
     /**
      * Creates new form RolesWindow
@@ -36,7 +36,7 @@ public class RolesWindow extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.dependencyContainer = container;
-        getRoleController = dependencyContainer.resolve(GetRoleController.class);
+        getRoleController = dependencyContainer.resolve(IGetRoleController.class);
 
     }
 
@@ -291,7 +291,7 @@ public class RolesWindow extends javax.swing.JDialog {
             }
             var name = nameField.getText();
             var description = descriptionField.getText();
-            var controller = dependencyContainer.resolve(CreateRoleController.class);
+            var controller = dependencyContainer.resolve(ICreateRoleController.class);
             controller.executeAction(id, name, description);
             JOptionPane.showMessageDialog(this, "Rol registrado con exito");
             clearFilds();
@@ -334,7 +334,7 @@ public class RolesWindow extends javax.swing.JDialog {
             return;
         }
         try {
-            var controller = dependencyContainer.resolve(UpdateRoleController.class);
+            var controller = dependencyContainer.resolve(IUpdateRoleController.class);
             controller.executeAction(rolId, nameField.getText(), descriptionField.getText());
             currentRole.setName(nameField.getText());
             currentRole.setDescripcion(descriptionField.getText());
@@ -376,7 +376,7 @@ public class RolesWindow extends javax.swing.JDialog {
             return;
         }
         try {
-            var controller = dependencyContainer.resolve(DeleteRoleController.class);
+            var controller = dependencyContainer.resolve(IDeleteRoleController.class);
             controller.executeAction(rolId);
             getRoleController.clearCurrentRole();
             JOptionPane.showMessageDialog(this, "Rol eliminado con exito");
@@ -390,7 +390,7 @@ public class RolesWindow extends javax.swing.JDialog {
 
     private void listButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listButtonActionPerformed
         try {
-            var controller = dependencyContainer.resolve(ListAllRoleController.class);
+            var controller = dependencyContainer.resolve(IListAllRolesController.class);
             var rolesList = controller.executeAction();
             loadRolesIntoTable(rolesList);
         } catch (Exception ex) {
