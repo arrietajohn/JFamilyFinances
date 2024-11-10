@@ -7,7 +7,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value="..:: Family Finances ::.. [Gestion de Roles]"/>
+    <Property name="title" type="java.lang.String" value="..:: Family Finances ::.. [Gestion de Usuarios]"/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
@@ -82,7 +82,7 @@
           <Color blue="66" green="0" red="0" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="FORMULARIO PARA GESTION DE ROLES"/>
+        <Property name="text" type="java.lang.String" value="FORMULARIO PARA GESTION DE USUARIOS"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">
@@ -272,11 +272,11 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                      <Component id="pendingRadioField" min="-2" pref="93" max="-2" attributes="0"/>
-                      <EmptySpace pref="56" max="32767" attributes="0"/>
-                      <Component id="enabledRadioField" min="-2" pref="86" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                      <Component id="disabledRadioField" min="-2" pref="78" max="-2" attributes="0"/>
+                      <Component id="pendingRadioField" min="-2" pref="106" max="-2" attributes="0"/>
+                      <EmptySpace pref="33" max="32767" attributes="0"/>
+                      <Component id="enabledRadioField" min="-2" pref="96" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="disabledRadioField" min="-2" pref="97" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -460,6 +460,9 @@
               <Image iconType="3" name="/FamilyFinances/Views/Icons/list48px.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="listButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="deleteButton">
           <Properties>

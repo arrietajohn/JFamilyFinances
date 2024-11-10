@@ -141,11 +141,11 @@ public class UserMemoryRepository implements IUserRepository {
     }
     
     private int getNextId(){
-        return entityStorage.getUsers()
+        return (entityStorage.getUsers()
                 .values()
                 .stream()
                 .map(User::getId)
                 .max(Comparator.naturalOrder())
-                .orElse(1);
+                .orElse(0))+1;
     }
 }

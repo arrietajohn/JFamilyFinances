@@ -1,6 +1,5 @@
 package FamilyFinances.Views.Users;
 
-import FamilyFinances.Business.Handlers.Queries.Roles.Dto.GetRoleByIdQueryRequest;
 import FamilyFinances.Controllers.Interfaces.Roles.IGetRoleController;
 import FamilyFinances.Controllers.Interfaces.Roles.IListAllRolesController;
 import FamilyFinances.Controllers.Interfaces.Users.ICreateUserController;
@@ -10,13 +9,12 @@ import FamilyFinances.Controllers.Interfaces.Users.ILoginUserController;
 import FamilyFinances.Controllers.Interfaces.Users.IUpdateUserController;
 import FamilyFinances.Domain.Constants.UserStatusEnum;
 import FamilyFinances.Domain.Models.Role;
+import FamilyFinances.Domain.Models.User;
 import FamilyFinances.Infrastructure.Configurations.DependencyContainer;
 import FamilyFinances.Infrastructure.Configurations.DependencyInjectionConfiguration;
 import FamilyFinances.Main;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -36,6 +34,7 @@ public class UsersWindow extends javax.swing.JDialog {
     private final IGetUsersController getUserController;
     private final IUpdateUserController updateUserController;
     private final IDeleteUserController deleteUserController;
+    
 
     /**
      * Creates new form RolesWindow
@@ -98,7 +97,7 @@ public class UsersWindow extends javax.swing.JDialog {
         addButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("..:: Family Finances ::.. [Gestion de Roles]");
+        setTitle("..:: Family Finances ::.. [Gestion de Usuarios]");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -109,7 +108,7 @@ public class UsersWindow extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 102));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("FORMULARIO PARA GESTION DE ROLES");
+        jLabel1.setText("FORMULARIO PARA GESTION DE USUARIOS");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Datos del Rol:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(0, 0, 102))); // NOI18N
 
@@ -164,11 +163,11 @@ public class UsersWindow extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(pendingRadioField, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                .addComponent(enabledRadioField, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(disabledRadioField, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pendingRadioField, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(enabledRadioField, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(disabledRadioField, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -298,6 +297,11 @@ public class UsersWindow extends javax.swing.JDialog {
 
         listButton.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         listButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/list48px.png"))); // NOI18N
+        listButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listButtonActionPerformed(evt);
+            }
+        });
 
         deleteButton.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         deleteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/delete48px.png"))); // NOI18N
@@ -426,9 +430,11 @@ public class UsersWindow extends javax.swing.JDialog {
             var currentUser = Main.currentUser;
 
             var role = getRoleController.executeAction(roleId);
-            createUserController.executeAction(code, password2, name, email, UserStatusEnum.ENABLED, role, currentUser);
+            var status = getSelectedStatus();
+            createUserController.executeAction(code, password2, name, email, status, role, currentUser);
             JOptionPane.showMessageDialog(this, "Usuario registrado con exito");
             clearFilds();
+            listButtonActionPerformed(null);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
@@ -460,7 +466,7 @@ public class UsersWindow extends javax.swing.JDialog {
             return false;
         }
         if (email == null || email.isBlank()) {
-            JOptionPane.showMessageDialog(this, "El Emaol es requerido");
+            JOptionPane.showMessageDialog(this, "El Email es requerido");
             return false;
         }
         var regularExpressionEmail = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
@@ -494,6 +500,8 @@ public class UsersWindow extends javax.swing.JDialog {
                 comboBoxModel.addElement(role.getId() + " - " + role.getName());
             }
             comboBoxRoles.setModel(comboBoxModel);
+            listButtonActionPerformed(null);
+            enableButtons(true, true, false, false, true);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
             enableButtons(false, false, false, false, false);
@@ -530,6 +538,7 @@ public class UsersWindow extends javax.swing.JDialog {
                 pendingRadioField.setSelected(true);
             }
             enableButtons(true, true, true, true, true);
+            listButtonActionPerformed(null);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
             clearFilds();
@@ -570,7 +579,7 @@ public class UsersWindow extends javax.swing.JDialog {
             var roleId = Integer.parseInt(id);
             var currentUser = Main.currentUser;
             var role = getRoleController.executeAction(roleId);
-            var status = getStatus();
+            var status = getSelectedStatus();
             
             updateUserController.executeAction(
                     currentUser.getId(), code,
@@ -583,12 +592,13 @@ public class UsersWindow extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Usuario actualizado con exito");
             clearFilds();
             enableButtons(true, true, false, false, true);
+            listButtonActionPerformed(null);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }//GEN-LAST:event_editButtonActionPerformed
 
-    private UserStatusEnum getStatus(){
+    private UserStatusEnum getSelectedStatus(){
        if(enabledRadioField.isSelected()){
            return UserStatusEnum.ENABLED;
        }
@@ -599,6 +609,16 @@ public class UsersWindow extends javax.swing.JDialog {
            return UserStatusEnum.PENDING;
        }
        return null;
+    }
+    
+     private String getStatus(UserStatusEnum status){
+       if(status == UserStatusEnum.DISABLED){
+          return "INACTIVO";
+       }
+       if(status == UserStatusEnum.ENABLED){
+          return "ACTIVO";
+       }
+       return "PENDIENTE";
     }
     
     
@@ -630,26 +650,44 @@ public class UsersWindow extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Usuario eliminado con ");
             clearFilds();
             enableButtons(true, true, false, false, true);
+            listButtonActionPerformed(null);
         } catch (Exception ex) {
              JOptionPane.showMessageDialog(this, ex.getMessage());
         }
 
     }//GEN-LAST:event_deleteButtonActionPerformed
 
-    private void loadRolesIntoTable(List<Role> rolesList) {
-        String columns[] = {"ITEM", "ID", "NOMBRE", "DESCRIPCION"};
-        if (rolesList == null) {
-            rolesList = new ArrayList<>();
+    private void listButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listButtonActionPerformed
+        try {
+            // TODO add your handling code here:
+            var usersList = getUserController.executeActionGetAllUsers();
+            loadUsersIntoTable(usersList);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
-        String rowsWithRoles[][] = new String[rolesList.size()][4];
-        for (var role : rolesList) {
-            var rolePosition = rolesList.indexOf(role);
-            rowsWithRoles[rolePosition][0] = (rolePosition + 1) + "";
-            rowsWithRoles[rolePosition][1] = role.getId().toString();
-            rowsWithRoles[rolePosition][2] = role.getName();
-            rowsWithRoles[rolePosition][3] = role.getDescripcion();
+    }//GEN-LAST:event_listButtonActionPerformed
+
+    private void loadUsersIntoTable(List<User> usersList) {
+        String columns[] = {"ITEM", "CODIGO", "NOMBRE", "ROL", "EMAIL", "ESTADO"};
+        if (usersList == null) {
+            usersList = new ArrayList<>();
         }
-        DefaultTableModel tableModel = new DefaultTableModel(rowsWithRoles, columns);
+        String[][] rowsWithUsers = new String[usersList.size()][6];
+        for (var user : usersList) {
+            var userPosition = usersList.indexOf(user);
+            rowsWithUsers[userPosition][0] = (userPosition + 1) + "";
+            rowsWithUsers[userPosition][1] = user.getCode();
+            rowsWithUsers[userPosition][2] = user.getName();
+            rowsWithUsers[userPosition][3] = user.getRole().getName();
+            rowsWithUsers[userPosition][4] = user.getEmail();
+            rowsWithUsers[userPosition][5] = getStatus(user.getStatus());
+        }
+        DefaultTableModel tableModel = new DefaultTableModel(rowsWithUsers, columns){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         usersTable.setModel(tableModel);
     }
 
@@ -660,7 +698,6 @@ public class UsersWindow extends javax.swing.JDialog {
         passwordField1.setText("");
         passwordField2.setText("");
         comboBoxRoles.setSelectedIndex(0);
-
     }
 
     /**
