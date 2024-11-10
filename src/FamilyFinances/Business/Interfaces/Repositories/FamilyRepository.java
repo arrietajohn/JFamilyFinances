@@ -10,8 +10,9 @@ import java.util.List;
  * @author johnarrieta
  */
 public interface FamilyRepository {
-   public Family findById(Integer id) throws FamilyEntityNotFoundException, Exception;
-    
+
+    public Family findById(Integer id) throws FamilyEntityNotFoundException, Exception;
+
     public Family findByCode(String code) throws FamilyEntityNotFoundException, Exception;
 
     public List<Family> getAll() throws Exception;
