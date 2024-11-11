@@ -7,6 +7,6 @@ import FamilyFinances.Domain.Models.Family;
  * @author johnarrieta
  */
 public interface IGetFamilyController {
-
-    public Family excuteAction(Integer id) throws Exception;
+    public Family executeAction(Integer familyId) throws Exception;
+    public Family getCurrentFamily();
 }

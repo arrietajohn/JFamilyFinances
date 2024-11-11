@@ -9,8 +9,5 @@ import java.time.LocalDateTime;
  * @author johnarrieta
  */
 public interface IUpdateFamilyController {
-
-    public void excuteAction(Integer id, String name, String phoneNumber,
-            String address, LocalDateTime updatedDate, User updatedBy,
-            EntityStatusEnum status) throws Exception;
+    public void executeAction(Integer id, String name, String phoneNumber, String address, LocalDateTime updatedDate, User updatedBy, EntityStatusEnum status) throws Exception;
 }

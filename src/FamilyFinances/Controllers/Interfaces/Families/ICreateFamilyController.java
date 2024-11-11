@@ -9,8 +9,5 @@ import java.time.LocalDateTime;
  * @author johnarrieta
  */
 public interface ICreateFamilyController {
-
-    public void excuteAction(String name, String phoneNumber, String address,
-             LocalDateTime creationDate, User createdBy,
-             EntityStatusEnum status) throws Exception;
+    public void executeAction(String name, String phoneNumber, String address, LocalDateTime creationDate, User createdBy, EntityStatusEnum status) throws Exception;
 }

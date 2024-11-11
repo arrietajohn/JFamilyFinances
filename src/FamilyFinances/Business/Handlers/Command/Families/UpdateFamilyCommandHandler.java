@@ -1,8 +1,6 @@
 package FamilyFinances.Business.Handlers.Command.Families;
 
-import FamilyFinances.Business.Handlers.Command.Families.Dto.CreateFamilyCommandRequest;
 import FamilyFinances.Business.Handlers.Command.Families.Dto.UpdateFamilyCommandRequest;
-import FamilyFinances.Business.Interfaces.Commands.Families.ICreateFamilyCommand;
 import FamilyFinances.Business.Interfaces.Commands.Families.IUpdateFamilyCommand;
 import FamilyFinances.Business.Interfaces.Repositories.IFamilyRepository;
 import FamilyFinances.Domain.Models.Family;
@@ -24,7 +22,7 @@ public class UpdateFamilyCommandHandler implements IUpdateFamilyCommand{
     @Override
     public void handler(UpdateFamilyCommandRequest request) throws Exception {
          var famaly = new Family(
-                null // el ID
+                request.getId() // el ID
                 , request.getName()
                 , request.getPhoneNumber()
                 , request.getAddress()
@@ -33,7 +31,7 @@ public class UpdateFamilyCommandHandler implements IUpdateFamilyCommand{
                 , request.getStatus());
          famaly.setUpdateBy(request.getUpdatedBy());
          famaly.setUpdateDate(request.getUpdatedDate());
-        familyRepository.save(famaly);
+        familyRepository.edit(famaly);
     }
 
 }

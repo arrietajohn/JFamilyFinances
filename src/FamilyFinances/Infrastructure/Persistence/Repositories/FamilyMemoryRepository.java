@@ -16,8 +16,8 @@ public class FamilyMemoryRepository implements IFamilyRepository {
 
     private final InMemoryEntitiesStorage memoryEntitiesStorage;
 
-    public FamilyMemoryRepository(InMemoryEntitiesStorage memoryEntitiesStorage) {
-        this.memoryEntitiesStorage = memoryEntitiesStorage;
+    public FamilyMemoryRepository() {
+         this.memoryEntitiesStorage = InMemoryEntitiesStorage.getInstance();
     }
 
     @Override
@@ -45,7 +45,7 @@ public class FamilyMemoryRepository implements IFamilyRepository {
         var families = memoryEntitiesStorage.getFamilies()
                 .values()
                 .stream()
-                .filter(f -> f.getName().equalsIgnoreCase(name)).toList();
+                .filter(f -> f.getName().toUpperCase().contains(name.toUpperCase())).toList();
 
         if (families.isEmpty()) {
             var message = "No existen familias con el nombre: "+name;
@@ -74,7 +74,7 @@ public class FamilyMemoryRepository implements IFamilyRepository {
             var message = "La Familia es requerida";
             throw new IllegalArgumentException(message);
         }
-        if((family.getId() != null || family.getId() > 0) && existFamily(family.getId()) ){
+        if((family.getId() != null && family.getId() > 0) && existFamily(family.getId()) ){
             var message = "Ya existe una familia con el ID: "+family.getId();
             throw new DuplicateFamilyEntityException(message);
         }
@@ -108,7 +108,7 @@ public class FamilyMemoryRepository implements IFamilyRepository {
         familyFound.setStatus(family.getStatus());
         familyFound.setUpdateBy(family.getUpdateBy());
         familyFound.setUpdateDate(family.getUpdateDate());
-        memoryEntitiesStorage.getFamilies().replace(family.getId(), familyFound); 
+        memoryEntitiesStorage.getFamilies().replace(familyFound.getId(), familyFound); 
     }
 
     @Override
