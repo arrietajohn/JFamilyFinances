@@ -2,6 +2,7 @@ package FamilyFinances.Views;
 
 import FamilyFinances.Infrastructure.Configurations.DependencyContainer;
 import FamilyFinances.Infrastructure.Configurations.DependencyInjectionConfiguration;
+import FamilyFinances.Views.Families.FamiliesWindow;
 import FamilyFinances.Views.Roles.RolesWindow;
 import FamilyFinances.Views.Users.UsersWindow;
 
@@ -55,7 +56,7 @@ public class MainWindow extends javax.swing.JFrame {
         itemListarRolesPorNombre = new javax.swing.JMenuItem();
         itemListarRolesPorDescripcion = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
+        itemCreateFamily = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
@@ -269,9 +270,14 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu2.setText("Familias");
         jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
-        jMenuItem9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenuItem9.setText("Agregar...");
-        jMenu2.add(jMenuItem9);
+        itemCreateFamily.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemCreateFamily.setText("Agregar...");
+        itemCreateFamily.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemCreateFamilyActionPerformed(evt);
+            }
+        });
+        jMenu2.add(itemCreateFamily);
 
         jMenuItem10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenuItem10.setText("Consultar...");
@@ -598,6 +604,13 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu1ActionPerformed
 
+    private void itemCreateFamilyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCreateFamilyActionPerformed
+        var window = new FamiliesWindow(this, true, dependencyContainer);
+        window.enableButtons(true, true, false, false, true);
+        window.setLocationRelativeTo(this);
+        window.setVisible(true);
+    }//GEN-LAST:event_itemCreateFamilyActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -639,6 +652,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemAddUser;
     private javax.swing.JMenuItem itemAgregarRoles;
     private javax.swing.JMenuItem itemConsultarRoles;
+    private javax.swing.JMenuItem itemCreateFamily;
     private javax.swing.JMenuItem itemDeleteUser;
     private javax.swing.JMenuItem itemEditUser;
     private javax.swing.JMenuItem itemEditarRoles;
@@ -717,7 +731,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem55;
     private javax.swing.JMenuItem jMenuItem56;
     private javax.swing.JMenuItem jMenuItem57;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;

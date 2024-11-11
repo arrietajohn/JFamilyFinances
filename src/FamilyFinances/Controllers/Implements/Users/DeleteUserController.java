@@ -1,9 +1,6 @@
 package FamilyFinances.Controllers.Implements.Users;
 
-import FamilyFinances.Business.Handlers.Command.Users.DeleteUserCommandHandler;
 import FamilyFinances.Business.Handlers.Command.Users.Dto.DeleteUserCommandRequest;
-import FamilyFinances.Business.Interfaces.Commands.Users.IDeleteUserCommand;
-import FamilyFinances.Business.Interfaces.UseCases.Roles.IDeleteRoleService;
 import FamilyFinances.Business.Interfaces.UseCases.Users.IDeleteUserService;
 import FamilyFinances.Controllers.Interfaces.Users.IDeleteUserController;
 

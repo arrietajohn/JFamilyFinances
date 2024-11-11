@@ -20,7 +20,7 @@ public class Family {
     private LocalDateTime updateDate;
     private User createdBy;
     private User updateBy;
-     private EntityStatusEnum status;
+    private EntityStatusEnum status;
 
     public Family(String name, String phoneNumber, String address, List<Member> members) {
         this.name = name;

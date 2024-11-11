@@ -1,10 +1,6 @@
 package FamilyFinances.Business.UseCases.Users;
 
 import FamilyFinances.Business.Handlers.Queries.Users.Dto.FindUserByCodeQueryRequest;
-import FamilyFinances.Business.Handlers.Queries.Users.Dto.FindUserByIdQueryRequest;
-import FamilyFinances.Business.Handlers.Queries.Users.FindUserByCodeQueryHandler;
-import FamilyFinances.Business.Interfaces.Queries.Roles.IGetRoleByIdQuery;
-import FamilyFinances.Business.Interfaces.Queries.Users.IGetAllUserQuery;
 import FamilyFinances.Business.Interfaces.UseCases.Users.ILoginUserService;
 import FamilyFinances.Domain.Models.User;
 import FamilyFinances.Business.Interfaces.UseCases.Users.IGetUsersService;
