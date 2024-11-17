@@ -144,7 +144,7 @@
                           <Component id="otherRadioField" min="-2" pref="82" max="-2" attributes="0"/>
                       </Group>
                       <Component id="ocupationField" alignment="0" max="32767" attributes="0"/>
-                      <Component id="numberPhoneField" alignment="0" max="32767" attributes="0"/>
+                      <Component id="phoneNumber" alignment="0" max="32767" attributes="0"/>
                       <Component id="secondLasNameField" max="32767" attributes="0"/>
                       <Component id="firstLasNameField" alignment="1" max="32767" attributes="0"/>
                       <Component id="parentUserField" max="32767" attributes="0"/>
@@ -232,7 +232,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel13" min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="numberPhoneField" min="-2" pref="36" max="-2" attributes="0"/>
+                      <Component id="phoneNumber" min="-2" pref="36" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -463,7 +463,7 @@
             <Property name="text" type="java.lang.String" value="Telefono:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="numberPhoneField">
+        <Component class="javax.swing.JTextField" name="phoneNumber">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="16" style="0"/>
@@ -494,6 +494,9 @@
           <Image iconType="3" name="/FamilyFinances/Views/Icons/add48px.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="searchButton">
       <Properties>

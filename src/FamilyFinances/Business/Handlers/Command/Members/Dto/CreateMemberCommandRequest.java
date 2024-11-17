@@ -62,7 +62,7 @@ public class CreateMemberCommandRequest {
         if (firstLastName == null || firstName.isBlank()) {
             throw new IllegalArgumentException("El primer apellido del miembre es requerido.");
         }
-        if (gender == null || (!gender.equalsIgnoreCase("male") && !gender.equalsIgnoreCase("female"))) {
+        if (gender == null || gender.isBlank()) {
             throw new IllegalArgumentException("El género del miembre no debe ser vacio");
         }
 
