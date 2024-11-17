@@ -22,7 +22,10 @@ public class User {
     private User createdBy;
     private User updateBy;
 
-
+    public User(int id) {
+        this.id = id;
+    }
+    
     public User(String code, String password, String name, String email, Role role) {
         this.code = code;
         this.password = password;

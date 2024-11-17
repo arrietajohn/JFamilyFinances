@@ -43,7 +43,7 @@ public class FamilyDependencyInjectionFactory {
 
     public static void registerDependencies(DependencyContainer container) {
 
-        // Registrar la dependencia del respositorio de Usuario
+        // Registrar la dependencia del respositorio de Familia
         container.register(IFamilyRepository.class, FamilyMemoryRepository::new);
 
         // Registrar las dependencias del los Casos de Uso Obtener Familias

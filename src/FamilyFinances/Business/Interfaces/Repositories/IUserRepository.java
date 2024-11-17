@@ -17,9 +17,9 @@ public interface IUserRepository {
 
     public List<User> getAll() throws Exception;
 
-    public void save(User role) throws DuplicateRoleEntityException, Exception;
+    public void save(User user) throws DuplicateRoleEntityException, Exception;
 
-    public void edit(User role) throws RoleEntityNotFoundException, Exception;
+    public void edit(User user) throws RoleEntityNotFoundException, Exception;
 
     public void deleteById(Integer id) throws RoleEntityNotFoundException, Exception;
 }

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="0" hostname="DESKTOP-3QTIUNK" name="Members.MemberRepositoryTest" skipped="0" tests="1" time="0.173" timestamp="2024-11-16T23:22:01">
+  <properties>
+    <property name="java.specification.version" value="17" />
+    <property name="ant.project.name" value="FamilyFinances" />
+    <property name="sun.cpu.isalist" value="amd64" />
+    <property name="sun.jnu.encoding" value="Cp1252" />
+    <property name="sun.java2d.dpiaware" value="true" />
+    <property name="sun.arch.data.model" value="64" />
+    <property name="java.vendor.url" value="https://java.oracle.com/" />
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-17\bin" />
+    <property name="netbeans.importclass" value="org.netbeans.upgrade.AutoUpgrade" />
+    <property name="test.classes.dir" value="build/test/classes" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner Members.MemberRepositoryTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=true formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.PlainJUnitResultFormatter,C:\Users\johnarrieta\Documents\NetBeansProjects\FamilyFinances\TEST-Members.MemberRepositoryTest.txt formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\johnarrieta\Documents\NetBeansProjects\FamilyFinances\TEST-Members.MemberRepositoryTest.xml crashfile=C:\Users\johnarrieta\Documents\NetBeansProjects\FamilyFinances\junitvmwatcher15646140505917003053.properties propsfile=C:\Users\johnarrieta\Documents\NetBeansProjects\FamilyFinances\junit7524920736965254445.properties" />
+    <property name="jdk.debug" value="release" />
+    <property name="netbeans.autoupdate.version" value="1.23" />
+    <property name="java.specification.vendor" value="Oracle Corporation" />
+    <property name="java.version.date" value="2024-04-16" />
+    <property name="java.home" value="C:\Program Files\Java\jdk-17" />
+    <property name="netbeans.user" value="C:\Users\johnarrieta\AppData\Roaming\NetBeans\23" />
+    <property name="basedir" value="C:\Users\johnarrieta\Documents\NetBeansProjects\FamilyFinances" />
+    <property name="file.separator" value="\" />
+    <property name="java.vm.compressedOopsMode" value="Zero based" />
+    <property name="line.separator" value="&#xd;&#xa;" />
+    <property name="java.vm.specification.vendor" value="Oracle Corporation" />
+    <property name="jna.boot.library.name" value="jnidispatch-nb" />
+    <property name="java.specification.name" value="Java Platform API Specification" />
+    <property name="netbeans.productversion" value="Apache NetBeans IDE 23" />
+    <property name="org.apache.commons.logging.LogFactory" value="org.apache.commons.logging.impl.LogFactoryImpl" />
+    <property name="netbeans.extbrowser.manual_chrome_plugin_install" value="yes" />
+    <property name="user.script" value="" />
+    <property name="netbeans.default_userdir_root" value="C:\Users\johnarrieta\AppData\Roaming\NetBeans" />
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers" />
+    <property name="jdk.home" value="C:\Program Files\Java\jdk-17" />
+    <property name="java.runtime.version" value="17.0.11+7-LTS-207" />
+    <property name="user.name" value="johnarrieta" />
+    <property name="nb.internal.action.name" value="test" />
+    <property name="sun.java2d.noddraw" value="true" />
+    <property name="file.encoding" value="Cp1252" />
+    <property name="java.util.logging.config.class" value="org.netbeans.core.startup.TopLogging" />
+    <property name="guice.disable.misplaced.annotation.check" value="true" />
+    <property name="apple.awt.application.appearance" value="system" />
+    <property name="build.dir" value="build" />
+    <property name="jna.loaded" value="true" />
+    <property name="java.io.tmpdir" value="C:\Users\JOHNAR~1\AppData\Local\Temp\" />
+    <property name="java.version" value="17.0.11" />
+    <property name="netbeans.autoupdate.variant" value="" />
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
+    <property name="ant.junit.enabletestlistenerevents" value="true" />
+    <property name="ant.home" value="C:\Users\johnarrieta\Downloads\netbeans\extide\ant" />
+    <property name="lib.dir" value="lib" />
+    <property name="nb.native.filechooser" value="false" />
+    <property name="sun.os.patch.level" value="" />
+    <property name="native.encoding" value="Cp1252" />
+    <property name="ant.version" value="Apache Ant(TM) version 1.10.14 compiled on August 16 2023" />
+    <property name="java.library.path" value="C:\Program Files\Java\jdk-17\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files (x86)\Microsoft SQL Server\160\Tools\Binn\;C:\Program Files\Microsoft SQL Server\160\Tools\Binn\;C:\Program Files\Microsoft SQL Server\160\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\160\DTS\Binn\;C:\Users\johnarrieta\AppData\Local\Microsoft\WindowsApps;C:\Users\johnarrieta\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\johnarrieta\AppData\Local\Microsoft\WinGet\Packages\Schniz.fnm_Microsoft.Winget.Source_8wekyb3d8bbwe;C:\Users\johnarrieta\.dotnet\tools;C:\MsSsms\Azure Data Studio\bin;." />
+    <property name="java.vendor" value="Oracle Corporation" />
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
+    <property name="netbeans.dirs" value="C:\Users\johnarrieta\Downloads\netbeans\nb;C:\Users\johnarrieta\Downloads\netbeans\ergonomics;C:\Users\johnarrieta\Downloads\netbeans\ide;C:\Users\johnarrieta\Downloads\netbeans\extide;C:\Users\johnarrieta\Downloads\netbeans\java;C:\Users\johnarrieta\Downloads\netbeans\apisupport;C:\Users\johnarrieta\Downloads\netbeans\webcommon;C:\Users\johnarrieta\Downloads\netbeans\websvccommon;C:\Users\johnarrieta\Downloads\netbeans\enterprise;C:\Users\johnarrieta\Downloads\netbeans\mobility;C:\Users\johnarrieta\Downloads\netbeans\profiler;C:\Users\johnarrieta\Downloads\netbeans\python;C:\Users\johnarrieta\Downloads\netbeans\php;C:\Users\johnarrieta\Downloads\netbeans\identity;C:\Users\johnarrieta\Downloads\netbeans\harness;C:\Users\johnarrieta\Downloads\netbeans\cnd;C:\Users\johnarrieta\Downloads\netbeans\cndext;C:\Users\johnarrieta\Downloads\netbeans\cpplite;C:\Users\johnarrieta\Downloads\netbeans\dlight;C:\Users\johnarrieta\Downloads\netbeans\groovy;C:\Users\johnarrieta\Downloads\netbeans\extra;C:\Users\johnarrieta\Downloads\netbeans\javacard;C:\Users\johnarrieta\Downloads\netbeans\javafx;C:\Users\johnarrieta\Downloads\netbeans\rust" />
+    <property name="org.openide.version" value="deprecated" />
+    <property name="netbeans.dynamic.classpath" value="C:\Users\johnarrieta\Downloads\netbeans\platform\core\asm-9.7.jar;C:\Users\johnarrieta\Downloads\netbeans\platform\core\asm-commons-9.7.jar;C:\Users\johnarrieta\Downloads\netbeans\platform\core\asm-tree-9.7.jar;C:\Users\johnarrieta\Downloads\netbeans\platform\core\core-base.jar;C:\Users\johnarrieta\Downloads\netbeans\platform\core\core.jar;C:\Users\johnarrieta\Downloads\netbeans\platform\core\org-netbeans-libs-asm.jar;C:\Users\johnarrieta\Downloads\netbeans\platform\core\org-openide-filesystems-compat8.jar;C:\Users\johnarrieta\Downloads\netbeans\platform\core\org-openide-filesystems.jar;C:\Users\johnarrieta\Downloads\netbeans\nb\core\org-netbeans-upgrader.jar;C:\Users\johnarrieta\Downloads\netbeans\nb\core\locale\core_nb.jar" />
+    <property name="flatlaf.nativeLibraryPath" value="system" />
+    <property name="netbeans.autoupdate.country" value="ES" />
+    <property name="nb.wait.for.caches" value="true" />
+    <property name="truffle.UseFallbackRuntime" value="true" />
+    <property name="sun.awt.enableExtraMouseButtons" value="true" />
+    <property name="java.class.path" value="C:\Users\johnarrieta\Documents\NetBeansProjects\FamilyFinances\build\classes;C:\Users\johnarrieta\Documents\NetBeansProjects\FamilyFinances\build\test\classes;C:\Users\johnarrieta\Documents\NetBeansProjects\FamilyFinances\lib\hamcrest-core-1.3.jar;C:\Users\johnarrieta\Documents\NetBeansProjects\FamilyFinances\lib\junit-4.13.2.jar;C:\Users\johnarrieta\Downloads\netbeans\extide\ant\lib\ant-launcher.jar;C:\Users\johnarrieta\Downloads\netbeans\extide\ant\lib\ant.jar;C:\Users\johnarrieta\Downloads\netbeans\extide\ant\lib\ant-junit.jar;C:\Users\johnarrieta\Downloads\netbeans\extide\ant\lib\ant-junit4.jar" />
+    <property name="org.openide.major.version" value="IDE/1" />
+    <property name="java.vm.vendor" value="Oracle Corporation" />
+    <property name="user.variant" value="" />
+    <property name="netbeans.buildnumber" value="23-2985f1fa57ce0c1877bad0f86d5e5504d65f9286" />
+    <property name="org.openide.specification.version" value="6.2" />
+    <property name="user.timezone" value="America/Bogota" />
+    <property name="os.name" value="Windows 11" />
+    <property name="java.vm.specification.version" value="17" />
+    <property name="apple.laf.useScreenMenuBar" value="true" />
+    <property name="user.country" value="ES" />
+    <property name="sun.java.launcher" value="SUN_STANDARD" />
+    <property name="test.dir" value="test" />
+    <property name="sun.cpu.endian" value="little" />
+    <property name="user.home" value="C:\Users\johnarrieta" />
+    <property name="ant.file.type.FamilyFinances" value="file" />
+    <property name="user.language" value="es" />
+    <property name="maven.defaultProjectBuilder.disableGlobalModelCache" value="true" />
+    <property name="flatlaf.updateUIOnSystemFontChange" value="false" />
+    <property name="ant.java.version" value="17" />
+    <property name="sun.awt.keepWorkingSetOnMinimize" value="true" />
+    <property name="plugin.manager.check.updates" value="false" />
+    <property name="netbeans.autoupdate.language" value="es" />
+    <property name="polyglot.engine.WarnInterpreterOnly" value="false" />
+    <property name="build.compiler.emacs" value="true" />
+    <property name="ant.file" value="C:\Users\johnarrieta\Documents\NetBeansProjects\FamilyFinances\build.xml" />
+    <property name="netbeans.hash.code" value="unique=084aa266d-4760-4450-ac6c-5931a8472f67_85efadc2-344e-4cde-b8a4-cb8bbc0f4637" />
+    <property name="path.separator" value=";" />
+    <property name="jna.nosys" value="false" />
+    <property name="os.version" value="10.0" />
+    <property name="netbeans.home" value="C:\Users\johnarrieta\Downloads\netbeans\platform" />
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
+    <property name="ant.project.invoked-targets" value="test" />
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM" />
+    <property name="ant.core.lib" value="C:\Users\johnarrieta\Downloads\netbeans\extide\ant\lib\ant.jar" />
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/" />
+    <property name="user.dir" value="C:\Users\johnarrieta\Downloads\netbeans\bin" />
+    <property name="os.arch" value="amd64" />
+    <property name="ignore.failing.tests" value="true" />
+    <property name="org.xml.sax.driver" value="com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser" />
+    <property name="java.vm.info" value="mixed mode, sharing" />
+    <property name="java.vm.version" value="17.0.11+7-LTS-207" />
+    <property name="ant.file.FamilyFinances" value="C:\Users\johnarrieta\Documents\NetBeansProjects\FamilyFinances\build.xml" />
+    <property name="sun.awt.datatransfer.timeout" value="1000" />
+    <property name="org.apache.commons.logging.Log" value="org.apache.commons.logging.impl.Jdk14Logger" />
+    <property name="java.class.version" value="61.0" />
+    <property name="src.dir" value="src" />
+    <property name="org.netbeans.io.suspend" value="0" />
+    <property name="ant.project.default-target" value="test" />
+  </properties>
+  <testcase classname="Members.MemberRepositoryTest" name="testSaveAMemberShouldFindIt" time="0.048" />
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[nov 16, 2024 6:22:01 P. M. Members.MemberRepositoryTest testSaveAMemberShouldFindIt
+SEVERE: null
+FamilyFinances.Business.Exceptions.MemberEntityNotFoundException: El miembro con Id: 1 no existe
+	at FamilyFinances.Infrastructure.Persistence.Repositories.MemberRepository.getMemberById(MemberRepository.java:238)
+	at FamilyFinances.Infrastructure.Persistence.Repositories.MemberRepository.findById(MemberRepository.java:28)
+	at Members.MemberRepositoryTest.testSaveAMemberShouldFindIt(MemberRepositoryTest.java:51)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:50)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:535)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1197)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:1042)
+
+]]></system-err>
+</testsuite>

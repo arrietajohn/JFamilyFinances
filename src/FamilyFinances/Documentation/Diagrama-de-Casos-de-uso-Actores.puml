@@ -3,7 +3,7 @@
 :Usuario: as Act1
 :Administrador: as Act2
 :Miembro: as Act3
-Act1 <|-- Act2
-Act1 <|-- Act3
+Act1 <|-- Act2 : es un
+Act1 <|-- Act3  : es un
 
 @enduml
