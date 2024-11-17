@@ -5,18 +5,18 @@ package FamilyFinances.Business.Handlers.Queries.Members.Dto;
  * @author johnarrieta
  */
 public class FindMemberByIdQueryRequest {
-    private final Integer id;
 
-    public FindMemberByIdQueryRequest(Integer id) {
-        if(id == null || id < 1){
-            throw new IllegalArgumentException("El ID del miembro es requerido");
+    private final Integer memberId;
+
+    public FindMemberByIdQueryRequest(Integer memberId) {
+        if (memberId == null || memberId < 1) {
+            throw  new IllegalArgumentException("El ID del miembro es requerido");
         }
-        this.id = id;
+        this.memberId = memberId;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getMemberId() {
+        return memberId;
     }
-    
-    
+
 }

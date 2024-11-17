@@ -11,16 +11,17 @@ import FamilyFinances.Domain.Models.Member;
  */
 public class GetMemberController implements IGetMemberController{
 
-    private final IGetMemberService getMemberService;
+    private final IGetMemberService getMemberSercice;
 
-    public GetMemberController(IGetMemberService getMemberService) {
-        this.getMemberService = getMemberService;
-    }
+    public GetMemberController(IGetMemberService getMemberSercice) {
+        this.getMemberSercice = getMemberSercice;
+    } 
     
     @Override
-    public Member executeAction(Integer memberId) throws Exception {
+    public Member excuteAction(Integer memberId) throws Exception {
         var request = new FindMemberByIdQueryRequest(memberId);
-        return getMemberService.getMember(request);
+        return getMemberSercice.getMember(request);
+
     }
 
 }

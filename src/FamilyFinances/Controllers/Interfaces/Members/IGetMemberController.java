@@ -7,7 +7,5 @@ import FamilyFinances.Domain.Models.Member;
  * @author johnarrieta
  */
 public interface IGetMemberController {
-    public Member executeAction(Integer memberId) throws Exception;
+    public Member excuteAction(Integer memberId) throws Exception;
 }
-
-
