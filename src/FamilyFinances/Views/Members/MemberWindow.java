@@ -6,10 +6,15 @@ package FamilyFinances.Views.Members;
 
 import FamilyFinances.Commons.Helpers.EnumsHelper;
 import FamilyFinances.Controllers.Interfaces.Families.IGetFamiliesController;
+import FamilyFinances.Controllers.Interfaces.Members.ICreateMemberController;
 import FamilyFinances.Controllers.Interfaces.Users.ILoginUserController;
 import FamilyFinances.Domain.Constants.FamilyRoleEnum;
+import FamilyFinances.Domain.Constants.UserStatusEnum;
 import FamilyFinances.Infrastructure.Configurations.DependencyContainer;
 import FamilyFinances.Main;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.stream.Stream;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -23,6 +28,7 @@ public class MemberWindow extends javax.swing.JDialog {
     private DependencyContainer dependencyContainer;
     private IGetFamiliesController getFamiliesController;
     private ILoginUserController loginUserController;
+    private ICreateMemberController createMemberController;
 
     /**
      * Creates new form MemberWindows2
@@ -33,6 +39,7 @@ public class MemberWindow extends javax.swing.JDialog {
         this.dependencyContainer = dependencyContainer;
         getFamiliesController = dependencyContainer.resolve(IGetFamiliesController.class);
         loginUserController = dependencyContainer.resolve(ILoginUserController.class);
+        createMemberController = dependencyContainer.resolve(ICreateMemberController.class);
     }
 
     /**
@@ -70,7 +77,7 @@ public class MemberWindow extends javax.swing.JDialog {
         jLabel12 = new javax.swing.JLabel();
         ocupationField = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        numberPhoneField = new javax.swing.JTextField();
+        phoneNumber = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         listButton = new javax.swing.JButton();
         addButton = new javax.swing.JButton();
@@ -177,7 +184,7 @@ public class MemberWindow extends javax.swing.JDialog {
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel13.setText("Telefono:");
 
-        numberPhoneField.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        phoneNumber.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -214,7 +221,7 @@ public class MemberWindow extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                         .addComponent(otherRadioField, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(ocupationField)
-                    .addComponent(numberPhoneField)
+                    .addComponent(phoneNumber)
                     .addComponent(secondLasNameField)
                     .addComponent(firstLasNameField, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(parentUserField)
@@ -281,7 +288,7 @@ public class MemberWindow extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(numberPhoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(phoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -291,6 +298,11 @@ public class MemberWindow extends javax.swing.JDialog {
         listButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/list48px.png"))); // NOI18N
 
         addButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/add48px.png"))); // NOI18N
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
+        });
 
         searchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/search48px.png"))); // NOI18N
 
@@ -360,8 +372,111 @@ public class MemberWindow extends javax.swing.JDialog {
         loadFamilyRole();
         var loginUser = loginUserController.getCurrentUser();
         parentUserField.setText(Main.currentUser.getName());
-        
+
     }//GEN-LAST:event_formWindowOpened
+
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        try {
+            var option = JOptionPane.showConfirmDialog(
+                    this,
+                    "Deseas crear este miembro",
+                    "Confirmar",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+            if(option == JOptionPane.NO_OPTION){
+                return;
+            }
+            var selectedFamillyIndex = familyComboField.getSelectedIndex();
+            validateFields(selectedFamillyIndex, "Debe seleccionar una familia");
+            var selectFamilyItem = familyComboField.getSelectedItem().toString();
+            var selecetedFamilyId = Integer.parseInt(selectFamilyItem
+                    .substring(0, selectFamilyItem.indexOf(" ")).trim());
+            var selectedFamilyRoleIndex = familyRolesComboField.getSelectedIndex();
+            validateFields(selectedFamilyRoleIndex, "Debe seleccionar un rol en la familia");
+            var selectedFamilyRole = familyRolesComboField.getSelectedItem().toString();
+            var familyRole = EnumsHelper.getFamilyRoleEnum(selectedFamilyRole);
+            var firstName = firstNameField.getText();
+            validateFields(firstName, "Debe el primer nombre es requerido");
+            var secondName = secondNameField.getText();
+            secondName = secondName.isBlank() ? null : secondName;
+            var firstLastName = firstLasNameField.getText();
+            validateFields(firstLastName, "Debe el primer apellido es requerido");
+            var secondLastName = secondLasNameField.getText();
+            secondLastName = secondLastName.isBlank() ? null : secondLastName;
+            var selectedDateOfBirth = dateOfBirthDatePickField.getDate();
+            validateFields(selectedDateOfBirth, "Debe seleccionar una fecha de nacimiento");
+            var dateOfBirth = selectedDateOfBirth.toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate();
+            validateFields(dateOfBirth, "La fecha de nacimiento no es valida");
+            var selectedGender = genderRadioGroupField.getSelection();
+            validateFields(selectedGender, "Debe seleccionar un genero");
+            var geneder = "";
+            if (maleRadioField.isSelected()) {
+                geneder = maleRadioField.getText();
+            } else if (femaleRadioField.isSelected()) {
+                geneder = femaleRadioField.getText();
+            } else {
+                geneder = otherRadioField.getText();
+            }
+            var ocupation = ocupationField.getText();
+            ocupation = ocupation.isBlank() ? null : ocupation;
+            var phoneNumber = this.phoneNumber.getText();
+            phoneNumber = phoneNumber.isBlank() ? null : phoneNumber;
+
+            createMemberController.executeAction(
+                    Main.currentUser.getId(),
+                    UserStatusEnum.ENABLED,
+                    firstName,
+                    secondName,
+                    firstLastName,
+                    secondLastName,
+                    geneder,
+                    dateOfBirth,
+                    ocupation,
+                    familyRole,
+                    phoneNumber, selecetedFamilyId, Main.currentUser.getId());
+            JOptionPane.showMessageDialog(this, "El miembreo fue creado");
+            enableButtons(true, true, false, false, true);
+            resetForm();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Verificar", JOptionPane.ERROR_MESSAGE);
+        }
+
+
+    }//GEN-LAST:event_addButtonActionPerformed
+
+    private void resetForm(){
+        familyComboField.setSelectedIndex(0);
+        familyRolesComboField.setSelectedIndex(0);
+        firstNameField.setText("");
+        secondNameField.setText("");
+        firstLasNameField.setText("");
+        secondLasNameField.setText("");
+        dateOfBirthDatePickField.getEditor().setText("");
+        genderRadioGroupField.clearSelection();
+        ocupationField.setText("");
+        phoneNumber.setText("");
+    }
+    private void validateFields(Object fieldValue, String errorMessage) {
+        if (fieldValue == null) {
+            throw new IllegalArgumentException(errorMessage);
+        }
+        if (fieldValue instanceof String) {
+            if (((String) fieldValue).isBlank()) {
+                throw new IllegalArgumentException(errorMessage);
+            }
+        } else if (fieldValue instanceof Integer) {
+            if (((Integer) fieldValue) < 1) {
+                throw new IllegalArgumentException(errorMessage);
+            }
+        } else if (fieldValue instanceof LocalDate) {
+            if (((LocalDate) fieldValue).isAfter(LocalDate.now())) {
+                throw new IllegalArgumentException(errorMessage);
+            }
+        }
+    }
 
     private void loadFamilyRole() {
         var familiRoleComboModel = new DefaultComboBoxModel<String>();
@@ -384,12 +499,12 @@ public class MemberWindow extends javax.swing.JDialog {
                         var item = family.getId() + " - " + family.getName();
                         familiesComboModel.addElement(item);
                     });
-           
+
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
             enableButtons(false, false, false, false, false);
         }
-         familyComboField.setModel(familiesComboModel);
+        familyComboField.setModel(familiesComboModel);
     }
 
     public void enableButtons(boolean add, boolean search, boolean edit, boolean delete, boolean list) {
@@ -472,10 +587,10 @@ public class MemberWindow extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton listButton;
     private javax.swing.JRadioButton maleRadioField;
-    private javax.swing.JTextField numberPhoneField;
     private javax.swing.JTextField ocupationField;
     private javax.swing.JRadioButton otherRadioField;
     private javax.swing.JTextField parentUserField;
+    private javax.swing.JTextField phoneNumber;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField secondLasNameField;
     private javax.swing.JTextField secondNameField;

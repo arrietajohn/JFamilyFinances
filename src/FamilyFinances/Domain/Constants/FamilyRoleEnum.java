@@ -17,5 +17,6 @@ public enum FamilyRoleEnum {
     NEPHEW,
     NIECE,
     FATHER_IN_LAW,
-    DAUGHTER_IN_LAW
+    DAUGHTER_IN_LAW,
+    OTHER
 }
