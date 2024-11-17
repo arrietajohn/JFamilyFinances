@@ -25,6 +25,7 @@ public class Member extends User {
     private List<Income> incomes;
     private List<Expense> expenses;
 
+
     public Member(String firstName, String secondName, String firstLastName, String secondLastName, FamilyRoleEnum familyRole, Family family, String code, String password, String name, String email, Role role) {
         super(code, password, name, email, role);
         this.firstName = firstName;
@@ -36,8 +37,8 @@ public class Member extends User {
     }
 
 
-    public Member(String firstName, String secondName, String firstLastName, String secondLastName, String gender, LocalDate dateOfBirth, String occupation, FamilyRoleEnum familyRole, String cellPhoneNumber, Family family, List<Income> incomes, List<Expense> expenses, Integer id, String code, String password, String name, String email, UserStatusEnum status, Role role, Member member, LocalDateTime creationDate, LocalDateTime updateDate, User createdBy, User updateBy) {
-        super(id, code, password, name, email, status, role, member, creationDate, updateDate, createdBy, updateBy);
+    public Member(String firstName, String secondName, String firstLastName, String secondLastName, String gender, LocalDate dateOfBirth, String occupation, FamilyRoleEnum familyRole, String cellPhoneNumber, Family family, List<Income> incomes, List<Expense> expenses, Integer id, String code, String password, String name, String email, UserStatusEnum status, Role role, LocalDateTime creationDate, LocalDateTime updateDate, User createdBy, User updateBy) {
+        super(id, code, password, name, email, status, role, null, creationDate, updateDate, createdBy, updateBy);
         this.firstName = firstName;
         this.secondName = secondName;
         this.firstLastName = firstLastName;
@@ -146,10 +147,5 @@ public class Member extends User {
 
     public void setIncomes(List<Income> incomes) {
         this.incomes = incomes;
-    }
-
- 
-  
-    
-    
+    }  
 }

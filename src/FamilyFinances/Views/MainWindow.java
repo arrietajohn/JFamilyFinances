@@ -3,6 +3,7 @@ package FamilyFinances.Views;
 import FamilyFinances.Infrastructure.Configurations.DependencyContainer;
 import FamilyFinances.Infrastructure.Configurations.DependencyInjectionConfiguration;
 import FamilyFinances.Views.Families.FamiliesWindow;
+import FamilyFinances.Views.Members.MemberWindow;
 import FamilyFinances.Views.Roles.RolesWindow;
 import FamilyFinances.Views.Users.UsersWindow;
 
@@ -34,6 +35,16 @@ public class MainWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuBar1 = new javax.swing.JMenuBar();
+        menuRoles = new javax.swing.JMenu();
+        itemAgregarRoles = new javax.swing.JMenuItem();
+        itemConsultarRoles = new javax.swing.JMenuItem();
+        itemEditarRoles = new javax.swing.JMenuItem();
+        itemEliminarRoles = new javax.swing.JMenuItem();
+        jSeparator9 = new javax.swing.JPopupMenu.Separator();
+        subMenuRoles = new javax.swing.JMenu();
+        itemListarTodosLosRoles = new javax.swing.JMenuItem();
+        itemListarRolesPorNombre = new javax.swing.JMenuItem();
+        itemListarRolesPorDescripcion = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         itemLogout = new javax.swing.JMenuItem();
         itemAddUser = new javax.swing.JMenuItem();
@@ -45,16 +56,16 @@ public class MainWindow extends javax.swing.JFrame {
         itemGetAllUsers = new javax.swing.JMenuItem();
         itemGetByNameUsers = new javax.swing.JMenuItem();
         itemGetByRolUsers = new javax.swing.JMenuItem();
-        menuRoles = new javax.swing.JMenu();
-        itemAgregarRoles = new javax.swing.JMenuItem();
-        itemConsultarRoles = new javax.swing.JMenuItem();
-        itemEditarRoles = new javax.swing.JMenuItem();
-        itemEliminarRoles = new javax.swing.JMenuItem();
-        jSeparator9 = new javax.swing.JPopupMenu.Separator();
-        subMenuRoles = new javax.swing.JMenu();
-        itemListarTodosLosRoles = new javax.swing.JMenuItem();
-        itemListarRolesPorNombre = new javax.swing.JMenuItem();
-        itemListarRolesPorDescripcion = new javax.swing.JMenuItem();
+        jMenu9 = new javax.swing.JMenu();
+        itemAddMember = new javax.swing.JMenuItem();
+        itemFindMember = new javax.swing.JMenuItem();
+        itemEditMember = new javax.swing.JMenuItem();
+        itemDeleteMember = new javax.swing.JMenuItem();
+        jSeparator10 = new javax.swing.JPopupMenu.Separator();
+        itemSubmenuReportMembers = new javax.swing.JMenu();
+        itemGetAllMembers = new javax.swing.JMenuItem();
+        itemGetByNameMembers = new javax.swing.JMenuItem();
+        itemGetByRolMembers = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         itemCreateFamily = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
@@ -129,6 +140,73 @@ public class MainWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        menuRoles.setText("Roles");
+        menuRoles.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+
+        itemAgregarRoles.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemAgregarRoles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/add24px.png"))); // NOI18N
+        itemAgregarRoles.setText("Agregar...");
+        itemAgregarRoles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemAgregarRolesActionPerformed(evt);
+            }
+        });
+        menuRoles.add(itemAgregarRoles);
+
+        itemConsultarRoles.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemConsultarRoles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/search24px.png"))); // NOI18N
+        itemConsultarRoles.setText("Consultar...");
+        itemConsultarRoles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemConsultarRolesActionPerformed(evt);
+            }
+        });
+        menuRoles.add(itemConsultarRoles);
+
+        itemEditarRoles.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemEditarRoles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/edit24px.png"))); // NOI18N
+        itemEditarRoles.setText("Editar...");
+        itemEditarRoles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemEditarRolesActionPerformed(evt);
+            }
+        });
+        menuRoles.add(itemEditarRoles);
+
+        itemEliminarRoles.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemEliminarRoles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/delete24px.png"))); // NOI18N
+        itemEliminarRoles.setText("Eliminar...");
+        itemEliminarRoles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemEliminarRolesActionPerformed(evt);
+            }
+        });
+        menuRoles.add(itemEliminarRoles);
+        menuRoles.add(jSeparator9);
+
+        subMenuRoles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/list24px.png"))); // NOI18N
+        subMenuRoles.setText("Reportes");
+        subMenuRoles.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        itemListarTodosLosRoles.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemListarTodosLosRoles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/list24px.png"))); // NOI18N
+        itemListarTodosLosRoles.setText("Listar todo...");
+        subMenuRoles.add(itemListarTodosLosRoles);
+
+        itemListarRolesPorNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemListarRolesPorNombre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/list24px.png"))); // NOI18N
+        itemListarRolesPorNombre.setText("Listar por nombre...");
+        subMenuRoles.add(itemListarRolesPorNombre);
+
+        itemListarRolesPorDescripcion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemListarRolesPorDescripcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/list24px.png"))); // NOI18N
+        itemListarRolesPorDescripcion.setText("Listar por descripción...");
+        subMenuRoles.add(itemListarRolesPorDescripcion);
+
+        menuRoles.add(subMenuRoles);
+
+        jMenuBar1.add(menuRoles);
+
         jMenu1.setMnemonic('U');
         jMenu1.setText("Usuarios");
         jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -200,72 +278,69 @@ public class MainWindow extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        menuRoles.setText("Roles");
-        menuRoles.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-
-        itemAgregarRoles.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        itemAgregarRoles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/add24px.png"))); // NOI18N
-        itemAgregarRoles.setText("Agregar...");
-        itemAgregarRoles.addActionListener(new java.awt.event.ActionListener() {
+        jMenu9.setMnemonic('U');
+        jMenu9.setText("Miembros");
+        jMenu9.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jMenu9.setName("menuUsuarios"); // NOI18N
+        jMenu9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemAgregarRolesActionPerformed(evt);
+                jMenu9ActionPerformed(evt);
             }
         });
-        menuRoles.add(itemAgregarRoles);
 
-        itemConsultarRoles.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        itemConsultarRoles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/search24px.png"))); // NOI18N
-        itemConsultarRoles.setText("Consultar...");
-        itemConsultarRoles.addActionListener(new java.awt.event.ActionListener() {
+        itemAddMember.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemAddMember.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/add24px.png"))); // NOI18N
+        itemAddMember.setText("Agregar...");
+        itemAddMember.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemConsultarRolesActionPerformed(evt);
+                itemAddMemberActionPerformed(evt);
             }
         });
-        menuRoles.add(itemConsultarRoles);
+        jMenu9.add(itemAddMember);
 
-        itemEditarRoles.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        itemEditarRoles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/edit24px.png"))); // NOI18N
-        itemEditarRoles.setText("Editar...");
-        itemEditarRoles.addActionListener(new java.awt.event.ActionListener() {
+        itemFindMember.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemFindMember.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/search24px.png"))); // NOI18N
+        itemFindMember.setText("Consultar...");
+        jMenu9.add(itemFindMember);
+
+        itemEditMember.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemEditMember.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/edit24px.png"))); // NOI18N
+        itemEditMember.setText("Editar...");
+        jMenu9.add(itemEditMember);
+
+        itemDeleteMember.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemDeleteMember.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/delete24px.png"))); // NOI18N
+        itemDeleteMember.setText("Eliminar...");
+        jMenu9.add(itemDeleteMember);
+        jMenu9.add(jSeparator10);
+
+        itemSubmenuReportMembers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/Users24px.png"))); // NOI18N
+        itemSubmenuReportMembers.setText("Reportes");
+        itemSubmenuReportMembers.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        itemGetAllMembers.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemGetAllMembers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/Users24px.png"))); // NOI18N
+        itemGetAllMembers.setText("Listar todo...");
+        itemSubmenuReportMembers.add(itemGetAllMembers);
+
+        itemGetByNameMembers.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemGetByNameMembers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/Users24px.png"))); // NOI18N
+        itemGetByNameMembers.setText("Listar por nombre...");
+        itemSubmenuReportMembers.add(itemGetByNameMembers);
+
+        itemGetByRolMembers.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemGetByRolMembers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/Users24px.png"))); // NOI18N
+        itemGetByRolMembers.setText("Listar por Rol en la Familia...");
+        itemGetByRolMembers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemEditarRolesActionPerformed(evt);
+                itemGetByRolMembersActionPerformed(evt);
             }
         });
-        menuRoles.add(itemEditarRoles);
+        itemSubmenuReportMembers.add(itemGetByRolMembers);
 
-        itemEliminarRoles.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        itemEliminarRoles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/delete24px.png"))); // NOI18N
-        itemEliminarRoles.setText("Eliminar...");
-        itemEliminarRoles.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemEliminarRolesActionPerformed(evt);
-            }
-        });
-        menuRoles.add(itemEliminarRoles);
-        menuRoles.add(jSeparator9);
+        jMenu9.add(itemSubmenuReportMembers);
 
-        subMenuRoles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/list24px.png"))); // NOI18N
-        subMenuRoles.setText("Reportes");
-        subMenuRoles.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
-        itemListarTodosLosRoles.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        itemListarTodosLosRoles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/list24px.png"))); // NOI18N
-        itemListarTodosLosRoles.setText("Listar todo...");
-        subMenuRoles.add(itemListarTodosLosRoles);
-
-        itemListarRolesPorNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        itemListarRolesPorNombre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/list24px.png"))); // NOI18N
-        itemListarRolesPorNombre.setText("Listar por nombre...");
-        subMenuRoles.add(itemListarRolesPorNombre);
-
-        itemListarRolesPorDescripcion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        itemListarRolesPorDescripcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/list24px.png"))); // NOI18N
-        itemListarRolesPorDescripcion.setText("Listar por descripción...");
-        subMenuRoles.add(itemListarRolesPorDescripcion);
-
-        menuRoles.add(subMenuRoles);
-
-        jMenuBar1.add(menuRoles);
+        jMenuBar1.add(jMenu9);
 
         jMenu2.setText("Familias");
         jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -611,6 +686,21 @@ public class MainWindow extends javax.swing.JFrame {
         window.setVisible(true);
     }//GEN-LAST:event_itemCreateFamilyActionPerformed
 
+    private void itemAddMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAddMemberActionPerformed
+        // TODO add your handling code here:
+        var window = new MemberWindow(this, true, dependencyContainer);
+        window.setLocationRelativeTo(this);
+        window.setVisible(true);
+    }//GEN-LAST:event_itemAddMemberActionPerformed
+
+    private void itemGetByRolMembersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemGetByRolMembersActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemGetByRolMembersActionPerformed
+
+    private void jMenu9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu9ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -649,22 +739,30 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem itemAddMember;
     private javax.swing.JMenuItem itemAddUser;
     private javax.swing.JMenuItem itemAgregarRoles;
     private javax.swing.JMenuItem itemConsultarRoles;
     private javax.swing.JMenuItem itemCreateFamily;
+    private javax.swing.JMenuItem itemDeleteMember;
     private javax.swing.JMenuItem itemDeleteUser;
+    private javax.swing.JMenuItem itemEditMember;
     private javax.swing.JMenuItem itemEditUser;
     private javax.swing.JMenuItem itemEditarRoles;
     private javax.swing.JMenuItem itemEliminarRoles;
+    private javax.swing.JMenuItem itemFindMember;
     private javax.swing.JMenuItem itemFindUser;
+    private javax.swing.JMenuItem itemGetAllMembers;
     private javax.swing.JMenuItem itemGetAllUsers;
+    private javax.swing.JMenuItem itemGetByNameMembers;
     private javax.swing.JMenuItem itemGetByNameUsers;
+    private javax.swing.JMenuItem itemGetByRolMembers;
     private javax.swing.JMenuItem itemGetByRolUsers;
     private javax.swing.JMenuItem itemListarRolesPorDescripcion;
     private javax.swing.JMenuItem itemListarRolesPorNombre;
     private javax.swing.JMenuItem itemListarTodosLosRoles;
     private javax.swing.JMenuItem itemLogout;
+    private javax.swing.JMenu itemSubmenuReportMembers;
     private javax.swing.JMenu itemSubmenuReportUser;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
@@ -682,6 +780,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
@@ -732,6 +831,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem56;
     private javax.swing.JMenuItem jMenuItem57;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;

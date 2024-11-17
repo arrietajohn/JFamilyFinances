@@ -27,6 +27,7 @@ import FamilyFinances.Controllers.Implements.Roles.DeleteRoleController;
 import FamilyFinances.Controllers.Implements.Roles.GetRoleController;
 import FamilyFinances.Controllers.Implements.Roles.ListAllRolesController;
 import FamilyFinances.Controllers.Implements.Roles.UpdateRoleController;
+import FamilyFinances.Controllers.Interfaces.Roles.ICreateRoleController;
 import FamilyFinances.Controllers.Interfaces.Roles.IDeleteRoleController;
 import FamilyFinances.Controllers.Interfaces.Roles.IGetRoleController;
 import FamilyFinances.Controllers.Interfaces.Roles.IListAllRolesController;
@@ -63,7 +64,7 @@ public class RoleDependencyInjectionFactory {
         container.register(ICreateRoleService.class, () -> 
             new CreateRolService(container.resolve(ICreateRoleCommand.class)));
         
-        container.register(CreateRoleController.class, () -> 
+        container.register(ICreateRoleController.class, () -> 
                 new CreateRoleController(container.resolve(ICreateRoleService.class)));
         
         // Registrar las dependencias del Command UpdateRole
