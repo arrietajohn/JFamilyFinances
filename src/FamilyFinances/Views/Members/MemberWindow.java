@@ -1,15 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package FamilyFinances.Views.Members;
 
 import FamilyFinances.Commons.Helpers.EnumsHelper;
 import FamilyFinances.Controllers.Interfaces.Families.IGetFamiliesController;
 import FamilyFinances.Controllers.Interfaces.Members.ICreateMemberController;
+import FamilyFinances.Controllers.Interfaces.Members.IGetMemberController;
 import FamilyFinances.Controllers.Interfaces.Users.ILoginUserController;
 import FamilyFinances.Domain.Constants.FamilyRoleEnum;
 import FamilyFinances.Domain.Constants.UserStatusEnum;
+import FamilyFinances.Domain.Models.Member;
 import FamilyFinances.Infrastructure.Configurations.DependencyContainer;
 import FamilyFinances.Main;
 import java.time.LocalDate;
@@ -29,6 +27,7 @@ public class MemberWindow extends javax.swing.JDialog {
     private IGetFamiliesController getFamiliesController;
     private ILoginUserController loginUserController;
     private ICreateMemberController createMemberController;
+    private IGetMemberController getMemberController;
 
     /**
      * Creates new form MemberWindows2
@@ -40,6 +39,7 @@ public class MemberWindow extends javax.swing.JDialog {
         getFamiliesController = dependencyContainer.resolve(IGetFamiliesController.class);
         loginUserController = dependencyContainer.resolve(ILoginUserController.class);
         createMemberController = dependencyContainer.resolve(ICreateMemberController.class);
+        getMemberController = dependencyContainer.resolve(IGetMemberController.class);
     }
 
     /**
@@ -370,8 +370,21 @@ public class MemberWindow extends javax.swing.JDialog {
         // TODO add your handling code here:
         loadFamilies();
         loadFamilyRole();
+        dateOfBirthDatePickField.getEditor().setEditable(false);
         var loginUser = loginUserController.getCurrentUser();
         parentUserField.setText(Main.currentUser.getName());
+        try {
+            var currentMember = getMemberController.excuteAction(Main.currentUser.getId());
+            loadMember(currentMember);
+            enableButtons(false, false, true, true, true);
+        } catch (Exception e) {
+            if (familyComboField.getItemCount() > 1) {
+                enableButtons(true, false, false, false, false);
+            } else {
+                enableButtons(false, false, false, false, false);
+            }
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Informacion", JOptionPane.WARNING_MESSAGE);
+        }
 
     }//GEN-LAST:event_formWindowOpened
 
@@ -384,7 +397,7 @@ public class MemberWindow extends javax.swing.JDialog {
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE
             );
-            if(option == JOptionPane.NO_OPTION){
+            if (option == JOptionPane.NO_OPTION) {
                 return;
             }
             var selectedFamillyIndex = familyComboField.getSelectedIndex();
@@ -438,8 +451,8 @@ public class MemberWindow extends javax.swing.JDialog {
                     familyRole,
                     phoneNumber, selecetedFamilyId, Main.currentUser.getId());
             JOptionPane.showMessageDialog(this, "El miembreo fue creado");
-            enableButtons(true, true, false, false, true);
-            resetForm();
+            enableButtons(false, false, true, true, true);
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Verificar", JOptionPane.ERROR_MESSAGE);
         }
@@ -447,7 +460,7 @@ public class MemberWindow extends javax.swing.JDialog {
 
     }//GEN-LAST:event_addButtonActionPerformed
 
-    private void resetForm(){
+    private void resetForm() {
         familyComboField.setSelectedIndex(0);
         familyRolesComboField.setSelectedIndex(0);
         firstNameField.setText("");
@@ -459,6 +472,7 @@ public class MemberWindow extends javax.swing.JDialog {
         ocupationField.setText("");
         phoneNumber.setText("");
     }
+
     private void validateFields(Object fieldValue, String errorMessage) {
         if (fieldValue == null) {
             throw new IllegalArgumentException(errorMessage);
@@ -513,6 +527,30 @@ public class MemberWindow extends javax.swing.JDialog {
         editButton.setEnabled(edit);
         deleteButton.setEnabled(delete);
         listButton.setEnabled(list);
+    }
+
+    private void loadMember(Member member) {
+        var familyItem = member.getFamily().getId() + " - " + member.getFamily().getName();
+        familyComboField.setSelectedItem(familyItem);
+        familyRolesComboField.setSelectedItem(EnumsHelper.getFamilyReleInSpanish(member.getFamilyRole()));
+        firstNameField.setText(member.getFirstName());
+        secondNameField.setText(member.getSecondName());
+        firstLasNameField.setText(member.getFirstLastName());
+        secondLasNameField.setText(member.getSecondLastName());
+        var zonedDateTime = member.getDateOfBirth().atStartOfDay(ZoneId.systemDefault());
+        var dateOfBirth = Date.from(zonedDateTime.toInstant());
+        dateOfBirthDatePickField.setDate(dateOfBirth);
+        dateOfBirthDatePickField.getEditor().setValue(dateOfBirth);
+       
+        if (member.getGender().equals(maleRadioField.getText())) {
+            maleRadioField.setSelected(true);
+        } else if (member.getGender().equals(femaleRadioField.getText())) {
+            femaleRadioField.setSelected(true);
+        } else if (member.getGender().equals(otherRadioField.getText())) {
+            otherRadioField.setSelected(true);
+        }
+        ocupationField.setText(member.getOccupation());
+        phoneNumber.setText(member.getCellPhoneNumber());
     }
 
     /**
