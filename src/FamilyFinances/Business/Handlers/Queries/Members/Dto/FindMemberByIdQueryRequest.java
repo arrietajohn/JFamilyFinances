@@ -18,4 +18,5 @@ public class FindMemberByIdQueryRequest {
     public Integer getMemberId() {
         return memberId;
     }
+
 }

@@ -15,8 +15,7 @@ public class GetMemberController implements IGetMemberController{
 
     public GetMemberController(IGetMemberService getMemberSercice) {
         this.getMemberSercice = getMemberSercice;
-    }
-    
+    } 
     
     @Override
     public Member excuteAction(Integer memberId) throws Exception {

@@ -17,8 +17,7 @@ public class FindMemberByIdQueryHandler implements IFindMemberByIdQuery{
     public FindMemberByIdQueryHandler(IMemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
-    
-    
+   
     @Override
     public Member handler(FindMemberByIdQueryRequest request) throws MemberEntityNotFoundException, Exception {
         return memberRepository.findById(request.getMemberId());

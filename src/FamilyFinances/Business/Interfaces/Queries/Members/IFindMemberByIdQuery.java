@@ -9,6 +9,5 @@ import FamilyFinances.Domain.Models.Member;
  * @author johnarrieta
  */
 public interface IFindMemberByIdQuery {
-
     public Member handler(FindMemberByIdQueryRequest request) throws MemberEntityNotFoundException, Exception;
 }
