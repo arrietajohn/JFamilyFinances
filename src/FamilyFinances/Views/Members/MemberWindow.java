@@ -14,7 +14,6 @@ import FamilyFinances.Infrastructure.Configurations.DependencyContainer;
 import FamilyFinances.Main;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
 import java.util.stream.Stream;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -384,7 +383,7 @@ public class MemberWindow extends javax.swing.JDialog {
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE
             );
-            if(option == JOptionPane.NO_OPTION){
+            if (option == JOptionPane.NO_OPTION) {
                 return;
             }
             var selectedFamillyIndex = familyComboField.getSelectedIndex();
@@ -447,7 +446,7 @@ public class MemberWindow extends javax.swing.JDialog {
 
     }//GEN-LAST:event_addButtonActionPerformed
 
-    private void resetForm(){
+    private void resetForm() {
         familyComboField.setSelectedIndex(0);
         familyRolesComboField.setSelectedIndex(0);
         firstNameField.setText("");
@@ -459,6 +458,7 @@ public class MemberWindow extends javax.swing.JDialog {
         ocupationField.setText("");
         phoneNumber.setText("");
     }
+
     private void validateFields(Object fieldValue, String errorMessage) {
         if (fieldValue == null) {
             throw new IllegalArgumentException(errorMessage);
