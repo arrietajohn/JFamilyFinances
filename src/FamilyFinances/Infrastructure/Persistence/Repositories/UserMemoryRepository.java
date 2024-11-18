@@ -1,6 +1,7 @@
 package FamilyFinances.Infrastructure.Persistence.Repositories;
 
 import FamilyFinances.Business.Exceptions.DuplicateUserEntityException;
+import FamilyFinances.Business.Exceptions.RoleEntityNotFoundException;
 import FamilyFinances.Business.Exceptions.UserEntityNotFoundException;
 import FamilyFinances.Business.Interfaces.Repositories.IUserRepository;
 import FamilyFinances.Domain.Models.User;
@@ -51,6 +52,20 @@ public class UserMemoryRepository implements IUserRepository {
         }
         return userFound.get();
     }
+    
+        @Override
+    public User findByEmail(String email) throws RoleEntityNotFoundException, Exception {
+        if (email == null || email.trim().isEmpty()) {
+            var message = "El email del usuario es requerido";
+            throw new IllegalArgumentException(message);
+        }
+        var userFound = getUserByEmail(email);
+        if (!userFound.isPresent()) {
+            var message = "El Usuario con email: " + email + " no existe";
+            throw new UserEntityNotFoundException(message);
+        }
+        return userFound.get();
+    }
 
     @Override
     public List<User> getAll() throws UserEntityNotFoundException, Exception  {
@@ -84,7 +99,7 @@ public class UserMemoryRepository implements IUserRepository {
             throw new DuplicateUserEntityException(message);
         }
         
-        userFound = getUserByCode(user.getEmail());
+        userFound = getUserByEmail(user.getEmail());
         if (userFound.isPresent()) {
             var message = "Existe un Usuario con email: " + user.getEmail();
             throw new DuplicateUserEntityException(message);
@@ -148,4 +163,6 @@ public class UserMemoryRepository implements IUserRepository {
                 .max(Comparator.naturalOrder())
                 .orElse(0))+1;
     }
+
+
 }

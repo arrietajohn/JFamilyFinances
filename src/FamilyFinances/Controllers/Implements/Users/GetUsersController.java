@@ -19,13 +19,13 @@ public class GetUsersController implements IGetUsersController{
     
     @Override
     public User executeActionGetUser(Integer userId) throws Exception{
-        currentUser = getUserService.getUser(userId);
+        currentUser = getUserService.getUserById(userId);
         return currentUser;
     }
     
     @Override
      public User executeActionGetUser(String userCode) throws Exception{
-         currentUser =  getUserService.getUser(userCode);
+         currentUser =  getUserService.getUserByCode(userCode);
          return currentUser;
     }
      

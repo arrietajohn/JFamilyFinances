@@ -12,8 +12,10 @@ import java.util.List;
 public interface IUserRepository {
 
     public User findById(Integer id) throws RoleEntityNotFoundException, Exception;
-    
+
     public User findByCode(String code) throws RoleEntityNotFoundException, Exception;
+
+    public User findByEmail(String email) throws RoleEntityNotFoundException, Exception;
 
     public List<User> getAll() throws Exception;
 

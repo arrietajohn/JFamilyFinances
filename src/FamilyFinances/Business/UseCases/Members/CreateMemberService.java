@@ -28,12 +28,12 @@ public class CreateMemberService  implements ICreateMemberService{
     @Override
     public void createMember(CreateMemberCommandRequest request) throws Exception {
 
-            var parentUser = getUsersService.getUser(request.getParentUser().getId());
+            var parentUser = getUsersService.getUserById(request.getParentUser().getId());
             request.setParentUser(parentUser);
             var getFamilyQueryRequest = new FindFamilyByIdQueryRequest(request.getFamily().getId());
             var family = getFamilyService.getFamily(getFamilyQueryRequest);
             request.setFamily(family);
-            var createdBy = getUsersService.getUser(request.getCreatedBy().getId());
+            var createdBy = getUsersService.getUserById(request.getCreatedBy().getId());
             request.setCreatedBy(createdBy);
             createMemberCommand.handler(request);
     }

@@ -39,7 +39,7 @@ public class UpdateUserService implements IUpdateUserService {
         try {
             
             var rolValid = getRolService.getRole(role.getId());
-            var updatedByValid = getUserService.getUser(updateBy.getId());
+            var updatedByValid = getUserService.getUserById(updateBy.getId());
             var request = new UpdateUserCommandRequest(
                     id,
                     code,
