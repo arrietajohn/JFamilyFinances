@@ -1,13 +1,12 @@
 package FamilyFinances.Views.Roles;
 
-import FamilyFinances.Controllers.Interfaces.Roles.ICreateRoleController;
-import FamilyFinances.Controllers.Interfaces.Roles.IDeleteRoleController;
 import FamilyFinances.Controllers.Interfaces.Roles.IGetRoleController;
 import FamilyFinances.Controllers.Interfaces.Roles.IListAllRolesController;
 import FamilyFinances.Controllers.Interfaces.Roles.IUpdateRoleController;
 import FamilyFinances.Domain.Models.Role;
 import FamilyFinances.Infrastructure.Configurations.DependencyContainer;
 import FamilyFinances.Infrastructure.Configurations.DependencyInjectionConfiguration;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -21,6 +20,7 @@ public class RolesWindow extends javax.swing.JDialog {
 
     private final DependencyContainer dependencyContainer;
     private final IGetRoleController getRoleController;
+    private final IUpdateRoleController updateRoleController;
 
     /**
      * Creates new form RolesWindow
@@ -34,6 +34,7 @@ public class RolesWindow extends javax.swing.JDialog {
         initComponents();
         this.dependencyContainer = container;
         getRoleController = dependencyContainer.resolve(IGetRoleController.class);
+        updateRoleController = dependencyContainer.resolve(IUpdateRoleController.class);
 
     }
 
@@ -66,6 +67,11 @@ public class RolesWindow extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("..:: Family Finances ::.. [Gestion de Roles]");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 102));
@@ -77,6 +83,7 @@ public class RolesWindow extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel2.setText("Codigo:");
 
+        codeField.setEditable(false);
         codeField.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         descriptionField.setColumns(20);
@@ -88,6 +95,7 @@ public class RolesWindow extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel4.setText("Nombre:");
 
+        nameField.setEditable(false);
         nameField.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -136,6 +144,7 @@ public class RolesWindow extends javax.swing.JDialog {
 
         deleteButton.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         deleteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/delete48px.png"))); // NOI18N
+        deleteButton.setEnabled(false);
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteButtonActionPerformed(evt);
@@ -152,6 +161,7 @@ public class RolesWindow extends javax.swing.JDialog {
 
         searchButton.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         searchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/search48px.png"))); // NOI18N
+        searchButton.setEnabled(false);
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchButtonActionPerformed(evt);
@@ -160,6 +170,7 @@ public class RolesWindow extends javax.swing.JDialog {
 
         addButton.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         addButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/add48px.png"))); // NOI18N
+        addButton.setEnabled(false);
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addButtonActionPerformed(evt);
@@ -189,6 +200,16 @@ public class RolesWindow extends javax.swing.JDialog {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        rolesTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rolesTableMouseClicked(evt);
+            }
+        });
+        rolesTable.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                rolesTableKeyReleased(evt);
             }
         });
         roleTableScroll.setViewportView(rolesTable);
@@ -251,64 +272,21 @@ public class RolesWindow extends javax.swing.JDialog {
 
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        // TODO add your handling code here:
-        var codeString = codeField.getText();
-        try {
-            var codeInteger = Integer.parseInt(codeString);
-            if(codeInteger <= 0){
-                JOptionPane.showMessageDialog(this, "El codigo debe ser un numer positivo");
-                return;
-            }
-            var role = getRoleController.executeAction(codeInteger);
-            codeField.setText(role.getId().toString());
-            nameField.setText(role.getName());
-            descriptionField.setText(role.getDescripcion());
-            enableButtons(false, true, true, true, true);
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "El codigo debe ser un numero");
-        
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage());
-        }
+        JOptionPane.showMessageDialog(this, "Operacion no disponible");
     }//GEN-LAST:event_searchButtonActionPerformed
 
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        var option = JOptionPane.showConfirmDialog(this,
-                "Confirme si desea registrar este Rol", "Confirmar",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (option == JOptionPane.NO_OPTION) {
-            return;
-        }
-        try {
-            var id = Integer.parseInt(codeField.getText());
-             if(id <= 0){
-                JOptionPane.showMessageDialog(this, "El codigo del Rel debe ser un numero positivo");
-                return;
-            }
-            var name = nameField.getText();
-            var description = descriptionField.getText();
-            var controller = dependencyContainer.resolve(ICreateRoleController.class);
-            controller.executeAction(id, name, description);
-            JOptionPane.showMessageDialog(this, "Rol registrado con exito");
-            clearFilds();
-            listButtonActionPerformed(null);
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "El Id del Rol debe ser numerico");
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage());
-
-        }
-        enableButtons(true, true, false, false, true);
+        JOptionPane.showMessageDialog(this, "Operacion no disponible");
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
 
         Role currentRole = getRoleController.getCurrentRole();
         if (currentRole == null) {
-            JOptionPane.showMessageDialog(this, "Primero debe consultar un Rol");
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un rol de la tabla");
             clearFilds();
-            enableButtons(false, true, false, false, true);
+            enableButtons(false, false, false, false, true);
             return;
         }
 
@@ -316,7 +294,11 @@ public class RolesWindow extends javax.swing.JDialog {
         try {
             rolId = Integer.parseInt(codeField.getText());
             if (currentRole.getId().intValue() != rolId) {
-                JOptionPane.showMessageDialog(this, "El Id del Rol no puede ser modificado");
+                JOptionPane.showMessageDialog(this, "El id del Rol no puede ser modificado");
+                return;
+            }
+            if (!currentRole.getName().equalsIgnoreCase(nameField.getText())) {
+                JOptionPane.showMessageDialog(this, "El nombre del Rol no puede ser modificado");
                 return;
             }
         } catch (NumberFormatException e) {
@@ -331,58 +313,19 @@ public class RolesWindow extends javax.swing.JDialog {
             return;
         }
         try {
-            var controller = dependencyContainer.resolve(IUpdateRoleController.class);
-            controller.executeAction(rolId, nameField.getText(), descriptionField.getText());
-            currentRole.setName(nameField.getText());
-            currentRole.setDescripcion(descriptionField.getText());
+            var description = descriptionField.getText();
+            currentRole.setDescription(description);
+            updateRoleController.executeAction(currentRole);
             JOptionPane.showMessageDialog(this, "Rol Actualizado con exito");
-            clearFilds();
             listButtonActionPerformed(null);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
-        enableButtons(true, true, false, false, true);
+        enableButtons(false, false, false, false, true);
     }//GEN-LAST:event_editButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-
-        Role currentRole = getRoleController.getCurrentRole();
-        if (currentRole == null) {
-            JOptionPane.showMessageDialog(this, "Primero debe consultar un Rol");
-            clearFilds();
-            enableButtons(false, true, false, false, true);
-            return;
-        }
-
-        Integer rolId = null;
-        try {
-            rolId = Integer.valueOf(codeField.getText());
-            if (currentRole.getId().intValue() != rolId) {
-                JOptionPane.showMessageDialog(this, "El Id del Rol no coincide con el Id del Rol actual");
-                return;
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El codigo debe ser numerico");
-            return;
-        }
-
-        var option = JOptionPane.showConfirmDialog(this,
-                "Confirme si desea elimimar este Rol", "Confirmar",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (option == JOptionPane.NO_OPTION) {
-            return;
-        }
-        try {
-            var controller = dependencyContainer.resolve(IDeleteRoleController.class);
-            controller.executeAction(rolId);
-            getRoleController.clearCurrentRole();
-            JOptionPane.showMessageDialog(this, "Rol eliminado con exito");
-            clearFilds();
-            listButtonActionPerformed(null);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage());
-        }
-        enableButtons(true, true, false, false, true);
+        JOptionPane.showMessageDialog(this, "Operacion no disponible");
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void listButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listButtonActionPerformed
@@ -396,21 +339,56 @@ public class RolesWindow extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_listButtonActionPerformed
 
-    
+    private void showRoleIntoForm() {
+        var rowPosition = rolesTable.getSelectedRow();
+        if (rowPosition < 0) {
+            return;
+        }
+        var roleId = rolesTable.getModel().getValueAt(rowPosition, 0).toString();
+        var roleName = rolesTable.getModel().getValueAt(rowPosition, 1).toString();
+
+        try {
+            var role = getRoleController.executeAction(Integer.parseInt(roleId));
+            codeField.setText(roleId);
+            nameField.setText(role.getName());
+            descriptionField.setText(role.getDescription());
+            enableButtons(false, false, true, false, false);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "No el role " + roleName);
+             enableButtons(false, false, false, false, false);
+        }
+    }
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        listButtonActionPerformed(null);
+    }//GEN-LAST:event_formWindowOpened
+
+    private void rolesTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rolesTableMouseClicked
+       showRoleIntoForm();
+    }//GEN-LAST:event_rolesTableMouseClicked
+
+    private void rolesTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rolesTableKeyReleased
+        showRoleIntoForm();
+    }//GEN-LAST:event_rolesTableKeyReleased
+
     private void loadRolesIntoTable(List<Role> rolesList) {
-        String columns[] = {"ITEM", "ID", "NOMBRE", "DESCRIPCION"};
-        if(rolesList == null){
+        String columns[] = {"ID", "NOMBRE", "DESCRIPCION"};
+        if (rolesList == null) {
             rolesList = new ArrayList<>();
         }
         String rowsWithRoles[][] = new String[rolesList.size()][4];
         for (var role : rolesList) {
             var rolePosition = rolesList.indexOf(role);
-            rowsWithRoles[rolePosition][0] = (rolePosition + 1) + "";
-            rowsWithRoles[rolePosition][1] = role.getId().toString();
-            rowsWithRoles[rolePosition][2] = role.getName();
-            rowsWithRoles[rolePosition][3] = role.getDescripcion();
+            rowsWithRoles[rolePosition][0] = role.getId().toString();
+            rowsWithRoles[rolePosition][1] = role.getName();
+            rowsWithRoles[rolePosition][2] = role.getDescription();
         }
-        DefaultTableModel tableModel = new DefaultTableModel(rowsWithRoles, columns);
+        DefaultTableModel tableModel = new DefaultTableModel(rowsWithRoles, columns) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+
+        };
         rolesTable.setModel(tableModel);
     }
 

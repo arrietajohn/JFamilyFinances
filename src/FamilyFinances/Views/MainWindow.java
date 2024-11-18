@@ -655,7 +655,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void itemAgregarRolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAgregarRolesActionPerformed
         // TODO add your handling code here:
         RolesWindow window = new RolesWindow(this, true, dependencyContainer);
-        window.enableButtons(true, true, false, false, true);
+        window.enableButtons(false, false, false, false, true);
         window.setLocationRelativeTo(this);
         window.setVisible(true);
 

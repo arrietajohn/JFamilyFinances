@@ -30,7 +30,7 @@ public class MemberRepositoryTest {
     @Test
     public void testSaveAMemberShouldFindIt() {
         // Arrange
-        var role = new Role("Miembro", "Un miembro familiar");
+        var role = Role.MEMBER;
         //    var user = new User("fulanito", "abd", "Fulano", "fulanito@gmail.com", role);
         var family = new Family("Fuanito Test", "55555", "Cartageja", null);
         var member = new Member(
