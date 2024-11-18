@@ -467,7 +467,8 @@ public class FamiliesWindow extends javax.swing.JDialog {
             loadFamiliesIntoTable(usersList);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
-             loadFamiliesIntoTable(new ArrayList<Family>());
+            loadFamiliesIntoTable(new ArrayList<Family>());
+            enableButtons(true, false, false, false, false);
         }
     }//GEN-LAST:event_listButtonActionPerformed
 

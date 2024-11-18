@@ -4,6 +4,7 @@ package FamilyFinances.Business.UseCases.Roles;
 import FamilyFinances.Business.Handlers.Command.Roles.Dto.CreateRoleCommandRequest;
 import FamilyFinances.Business.Interfaces.Commands.Roles.ICreateRoleCommand;
 import FamilyFinances.Business.Interfaces.UseCases.Roles.ICreateRoleService;
+import FamilyFinances.Domain.Models.Role;
 
 /**
  *
@@ -18,8 +19,8 @@ public class CreateRolService implements ICreateRoleService{
     }
 
     @Override
-    public void createRole(Integer id, String name, String description) throws Exception {
-        var request = new CreateRoleCommandRequest(id, name, description);
+    public void createRole(Role role) throws Exception {
+        var request = new CreateRoleCommandRequest(role);
         createRolCommand.excuteAction(request);
     }
    

@@ -4,6 +4,7 @@ package FamilyFinances.Views.Users;
 import FamilyFinances.Controllers.Interfaces.Users.ILoginUserController;
 import FamilyFinances.Infrastructure.Configurations.DependencyContainer;
 import FamilyFinances.Main;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -59,6 +60,11 @@ public class LoginUserWindow extends javax.swing.JDialog {
         jLabel2.setText("Code or Email:");
 
         emailField.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        emailField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailFieldActionPerformed(evt);
+            }
+        });
         emailField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 emailFieldKeyPressed(evt);
@@ -122,6 +128,11 @@ public class LoginUserWindow extends javax.swing.JDialog {
                 enterButtonActionPerformed(evt);
             }
         });
+        enterButton.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                enterButtonKeyPressed(evt);
+            }
+        });
 
         cancelButton.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         cancelButton.setText("Cancelar");
@@ -170,7 +181,7 @@ public class LoginUserWindow extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
-        // TODO add your handling code here:
+        enterButton.requestFocus();
     }//GEN-LAST:event_passwordFieldActionPerformed
 
     private void enterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterButtonActionPerformed
@@ -200,6 +211,17 @@ public class LoginUserWindow extends javax.swing.JDialog {
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         System.exit(0);
     }//GEN-LAST:event_cancelButtonActionPerformed
+
+    private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
+        passwordField.requestFocus();
+    }//GEN-LAST:event_emailFieldActionPerformed
+
+    private void enterButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_enterButtonKeyPressed
+       if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+           enterButtonActionPerformed(null);
+       }
+       
+    }//GEN-LAST:event_enterButtonKeyPressed
 
     /**
      * @param args the command line arguments

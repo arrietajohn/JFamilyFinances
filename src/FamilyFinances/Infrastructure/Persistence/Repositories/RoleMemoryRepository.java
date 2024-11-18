@@ -3,6 +3,7 @@ package FamilyFinances.Infrastructure.Persistence.Repositories;
 import FamilyFinances.Business.Exceptions.DuplicateRoleEntityException;
 import FamilyFinances.Business.Exceptions.RoleEntityNotFoundException;
 import FamilyFinances.Business.Interfaces.Repositories.IRoleRepository;
+import FamilyFinances.Domain.Constants.EntityStatusEnum;
 import FamilyFinances.Domain.Models.Role;
 import FamilyFinances.Infrastructure.Persistence.Data.InMemoryEntitiesStorage;
 import java.util.ArrayList;
@@ -52,15 +53,13 @@ public class RoleMemoryRepository implements IRoleRepository {
             var message = "El Rol: " + role.getId() + " ya existe";
             throw new DuplicateRoleEntityException(message);
         }
-        
+
         var roleFound = getRoleByName(role.getName());
         if (roleFound.isPresent()) {
-            var message = "El Rol: " + role.getName()+ " ya existe";
+            var message = "El Rol: " + role.getName() + " ya existe";
             throw new DuplicateRoleEntityException(message);
         }
-        var nextId = getNextId();
-        role.setId(nextId);
-        entityStorage.getRoles().put(nextId, role);
+        entityStorage.getRoles().put(role.getId(), role);
     }
 
     @Override
@@ -69,18 +68,18 @@ public class RoleMemoryRepository implements IRoleRepository {
             var message = "El Rol no puede ser null";
             throw new Exception(message);
         }
-        
+
         if (!entityStorage.getRoles().containsKey(role.getId())) {
             var message = "El Rol: " + role.getId() + " no existe";
             throw new RoleEntityNotFoundException(message);
         }
-        
+
         var roleFound = getRoleByName(role.getName());
         if (roleFound.isPresent() && role.getId() != roleFound.get().getId()) {
             var message = "El Rol: " + role.getId() + " ya existe";
             throw new DuplicateRoleEntityException(message);
         }
-        entityStorage.getRoles().put(role.getId(), role);
+        entityStorage.getRoles().replace(role.getId(), role);
     }
 
     @Override
@@ -93,19 +92,55 @@ public class RoleMemoryRepository implements IRoleRepository {
         entityStorage.getRoles().remove(id);
     }
 
-    private int getNextId() {
-        return entityStorage.getRoles()
-                .values()
-                .stream()
-                .map(Role::getId)
-                .max(Comparator.naturalOrder())
-                .orElse(1);
-    }
-
     private Optional<Role> getRoleByName(String name) {
         return entityStorage.getRoles()
                 .values()
                 .stream()
-                .filter(r -> r.getName().equalsIgnoreCase(name)).findAny();
+                .filter(r -> r.getName().equalsIgnoreCase(name))
+                .findAny();
+    }
+
+    @Override
+    public List<Role> findRoleByName(String name) throws RoleEntityNotFoundException, Exception {
+        var roles = entityStorage.getRoles()
+                .values()
+                .stream()
+                .filter(r -> r.getName().equalsIgnoreCase(name))
+                .toList();
+        
+        if (roles.isEmpty()) {
+            throw new RoleEntityNotFoundException("No existe un con con nombre: " + name);
+        }
+        return roles;
+    }
+
+    @Override
+    public List<Role> findRoleByDescripcion(String description) throws RoleEntityNotFoundException, Exception {
+         var roles = entityStorage.getRoles()
+                .values()
+                .stream()
+                .filter(r -> r.getDescription()
+                        .toLowerCase()
+                        .contains(description.toLowerCase()))
+                 .toList();
+        
+        if (roles.isEmpty()) {
+            throw new RoleEntityNotFoundException("No existe un con descricion: " + description);
+        }
+        return roles;
+    }
+
+    @Override
+    public List<Role> findRoleByStatus(EntityStatusEnum status) throws RoleEntityNotFoundException, Exception {
+         var roles = entityStorage.getRoles()
+                .values()
+                .stream()
+                .filter(r -> r.getStatus()== status)
+                 .toList();
+        
+        if (roles.isEmpty()) {
+            throw new RoleEntityNotFoundException("No existe un con con nombre: " + status);
+        }
+        return roles;
     }
 }
