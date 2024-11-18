@@ -2,9 +2,11 @@ package FamilyFinances.Views;
 
 import FamilyFinances.Infrastructure.Configurations.DependencyContainer;
 import FamilyFinances.Infrastructure.Configurations.DependencyInjectionConfiguration;
+import FamilyFinances.Main;
 import FamilyFinances.Views.Families.FamiliesWindow;
 import FamilyFinances.Views.Members.MemberWindow;
 import FamilyFinances.Views.Roles.RolesWindow;
+import FamilyFinances.Views.Users.LoginUserWindow;
 import FamilyFinances.Views.Users.UsersWindow;
 
 /**
@@ -139,6 +141,11 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu10 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         menuRoles.setText("Roles");
         menuRoles.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -222,6 +229,11 @@ public class MainWindow extends javax.swing.JFrame {
         itemLogout.setMnemonic('C');
         itemLogout.setText("Cerrar sesion");
         itemLogout.setToolTipText("Te permite cerrar la sesion de login");
+        itemLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemLogoutActionPerformed(evt);
+            }
+        });
         jMenu1.add(itemLogout);
 
         itemAddUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -700,6 +712,18 @@ public class MainWindow extends javax.swing.JFrame {
     private void jMenu9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu9ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu9ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        var window = new LoginUserWindow(this, true, dependencyContainer);
+        window.setLocationRelativeTo(this);
+        window.setVisible(true);
+    }//GEN-LAST:event_formWindowOpened
+
+    private void itemLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemLogoutActionPerformed
+        // TODO add your handling code here:
+        Main.currentUser = null;
+        formWindowOpened(null);
+    }//GEN-LAST:event_itemLogoutActionPerformed
 
     /**
      * @param args the command line arguments

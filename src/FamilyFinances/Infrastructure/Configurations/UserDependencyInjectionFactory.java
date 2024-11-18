@@ -4,12 +4,14 @@ import FamilyFinances.Business.Handlers.Command.Users.CreateUserCommandHandler;
 import FamilyFinances.Business.Handlers.Command.Users.DeleteUserCommandHandler;
 import FamilyFinances.Business.Handlers.Command.Users.UpdateUserCommandHandler;
 import FamilyFinances.Business.Handlers.Queries.Users.FindUserByCodeQueryHandler;
+import FamilyFinances.Business.Handlers.Queries.Users.FindUserByEmailQueryHandler;
 import FamilyFinances.Business.Handlers.Queries.Users.FindUserByIdQueryHandler;
 import FamilyFinances.Business.Handlers.Queries.Users.GetAllUsersQueryHandler;
 import FamilyFinances.Business.Interfaces.Commands.Users.ICreateUserCommand;
 import FamilyFinances.Business.Interfaces.Commands.Users.IDeleteUserCommand;
 import FamilyFinances.Business.Interfaces.Commands.Users.IUpdateUserCommand;
 import FamilyFinances.Business.Interfaces.Queries.Users.IFindUserByCodeQuery;
+import FamilyFinances.Business.Interfaces.Queries.Users.IFindUserByEmailQuery;
 import FamilyFinances.Business.Interfaces.Queries.Users.IFindUserByIdQuery;
 import FamilyFinances.Business.Interfaces.Queries.Users.IGetAllUserQuery;
 import FamilyFinances.Business.Interfaces.Repositories.IUserRepository;
@@ -54,6 +56,9 @@ public class UserDependencyInjectionFactory {
         container.register(IFindUserByIdQuery.class, ()
                 -> new FindUserByIdQueryHandler(container.resolve(IUserRepository.class)));
         
+         container.register(IFindUserByEmailQuery.class, ()
+                -> new FindUserByEmailQueryHandler(container.resolve(IUserRepository.class)));
+        
         container.register(IGetAllUserQuery.class, () ->
         new GetAllUsersQueryHandler(container.resolve(IUserRepository.class)));
 
@@ -61,6 +66,7 @@ public class UserDependencyInjectionFactory {
                 -> new GetUserService(
                         container.resolve(IFindUserByCodeQuery.class),
                         container.resolve(IFindUserByIdQuery.class),
+                        container.resolve(IFindUserByEmailQuery.class),
                         container.resolve(IGetAllUserQuery.class)
                 ));
 

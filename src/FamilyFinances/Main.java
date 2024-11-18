@@ -38,10 +38,10 @@ public class Main {
             roleRepository.save(initialRole);
             var initialUser = new User( 
                     0,                      // id
-                    "123",                  // code
+                    "1234",                  // code
                     "Abc**",                // pass
                     "John Arrieta",         // name
-                    "jarrieta@yopmail,com", // email
+                    "jarrieta@yopmail.com", // email
                     UserStatusEnum.ENABLED, // status
                     initialRole,            // role
                     null,                   // member

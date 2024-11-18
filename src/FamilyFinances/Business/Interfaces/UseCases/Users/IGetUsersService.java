@@ -9,10 +9,12 @@ import java.util.List;
  */
 public interface IGetUsersService {
 
-    public User getUser(Integer userId) throws Exception;
+    public User getUserById(Integer userId) throws Exception;
 
-    public User getUser(String userCode) throws Exception;
+    public User getUserByCode(String userCode) throws Exception;
 
-    public List<User> getAllUsers() throws Exception;
+    public User getUserByEmail(String userEmail) throws Exception;
     
+    public List<User> getAllUsers() throws Exception;
+
 }

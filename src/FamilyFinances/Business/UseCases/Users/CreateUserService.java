@@ -40,7 +40,7 @@ public class CreateUserService implements ICreateUserService {
         try {
             
             var rolValid = getRolService.getRole(role.getId());
-            var createdByValid = getUserService.getUser(createdBy.getId());
+            var createdByValid = getUserService.getUserById(createdBy.getId());
             var request = new CreateUserCommandRequest(
                     code,
                     password,
