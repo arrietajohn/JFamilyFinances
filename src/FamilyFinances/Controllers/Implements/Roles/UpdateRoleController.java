@@ -3,6 +3,7 @@ package FamilyFinances.Controllers.Implements.Roles;
 
 import FamilyFinances.Business.Interfaces.UseCases.Roles.IUpdateRoleService;
 import FamilyFinances.Controllers.Interfaces.Roles.IUpdateRoleController;
+import FamilyFinances.Domain.Models.Role;
 
 /**
  *
@@ -17,8 +18,8 @@ public class UpdateRoleController implements IUpdateRoleController{
     }
     
     @Override
-    public void executeAction(Integer id, String name, String description) throws Exception{
-        updateRoleService.updateRole(id, name, description);
+    public void executeAction(Role role) throws Exception{
+        updateRoleService.updateRole(role);
     }
 }
 
