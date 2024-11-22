@@ -201,26 +201,44 @@ public class MemberRepository implements IMemberRepository {
         if (member.getFamily() == null) {
             throw new IllegalAccessException("La familia del miembro es requerida");
         }
-       
-        
-        
+
         memoryEntityStorage.getMembers().put(member.getId(), member);
     }
 
     @Override
-    public void edit(Member member) throws MemberEntityNotFoundException, Exception {
+    public Member edit(Member member) throws MemberEntityNotFoundException, Exception {
         if (member == null) {
             throw new IllegalAccessException("El miembro es requerido");
         }
-        if (member.getFamily() == null) {
-            throw new IllegalAccessException("La familia del miembro es requerida");
+
+        if (member.getId() == null || member.getId() < 1) {
+            throw new IllegalAccessException("El Id del Usaurio padre es requerido");
         }
 
-        if (!existMember(member.getId())) {
-            throw new DuplicateMemberEntityException("El miembro no existe");
+        var currentMember = memoryEntityStorage.getMembers().get(member.getId());
+        if (currentMember == null) {
+            throw new IllegalAccessException("El usuario  el usuario con id: " + member.getId());
         }
-
-        memoryEntityStorage.getMembers().replace(member.getId(), member);
+        currentMember.setStatus(member.getStatus());
+        currentMember.setFirstName(member.getFirstName());
+        currentMember.setSecondName(member.getSecondName());
+        currentMember.setFirstLastName(member.getFirstLastName());
+        currentMember.setSecondLastName(member.getSecondLastName());
+        currentMember.setGender(member.getGender());
+        currentMember.setDateOfBirth(member.getDateOfBirth());
+        currentMember.setOccupation(member.getOccupation());
+        currentMember.setCellPhoneNumber(member.getCellPhoneNumber());
+        currentMember.setFamilyRole(member.getFamilyRole());
+        if(member.getFamily() != null){
+            currentMember.setFamily(member.getFamily());
+        }
+        currentMember.setUpdateBy(member.getUpdateBy());
+        currentMember.setUpdateDate(member.getUpdateDate());
+        // No es necesario porque al cambiar los valores de la instancia
+        // currentUser en realidad se esta cambiando lso datatos de la misma instancia
+        // obtenida del storage
+       return  memoryEntityStorage.getMembers().replace(member.getId(), currentMember);
+        
     }
 
     @Override
@@ -229,10 +247,19 @@ public class MemberRepository implements IMemberRepository {
             throw new IllegalAccessException("El id " + id + " del miembro no es valido");
         }
 
-        if (!existMember(id)) {
+        var currentUser = memoryEntityStorage.getMembers().get(id);
+        if (currentUser == null) {
             throw new DuplicateMemberEntityException("El miembro Id " + id + " no existe");
         }
 
+        if (currentUser.getIncomes() != null && !currentUser.getIncomes().isEmpty()) {
+            throw new DuplicateMemberEntityException("El miembro: " + id + " tiene ingresos registrados");
+        }
+
+        if (currentUser.getExpenses() != null && !currentUser.getExpenses().isEmpty()) {
+            throw new DuplicateMemberEntityException("El miembro: " + id + " tiene gastos  registrados");
+        }
+        
         memoryEntityStorage.getMembers().remove(id);
     }
 

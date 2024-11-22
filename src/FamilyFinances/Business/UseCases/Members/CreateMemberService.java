@@ -33,8 +33,7 @@ public class CreateMemberService  implements ICreateMemberService{
             var getFamilyQueryRequest = new FindFamilyByIdQueryRequest(request.getFamily().getId());
             var family = getFamilyService.getFamily(getFamilyQueryRequest);
             request.setFamily(family);
-            var createdBy = getUsersService.getUserById(request.getCreatedBy().getId());
-            request.setCreatedBy(createdBy);
+            request.setCreatedBy(parentUser);
             createMemberCommand.handler(request);
     }
     

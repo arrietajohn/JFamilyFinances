@@ -511,6 +511,9 @@
           <Image iconType="3" name="/FamilyFinances/Views/Icons/edit48px.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="deleteButton">
       <Properties>
@@ -518,6 +521,9 @@
           <Image iconType="3" name="/FamilyFinances/Views/Icons/delete48px.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
