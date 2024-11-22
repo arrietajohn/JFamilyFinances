@@ -35,9 +35,9 @@ public interface IMemberRepository {
 
     public List<Member> getAll() throws MemberEntityNotFoundException, Exception;
 
-    public void save(Member role) throws DuplicateMemberEntityException, Exception;
+    public void save(Member member) throws DuplicateMemberEntityException, Exception;
 
-    public void edit(Member role) throws MemberEntityNotFoundException, Exception;
+    public Member edit(Member member) throws MemberEntityNotFoundException, Exception;
 
     public void deleteById(Integer id) throws MemberEntityNotFoundException, Exception;
 

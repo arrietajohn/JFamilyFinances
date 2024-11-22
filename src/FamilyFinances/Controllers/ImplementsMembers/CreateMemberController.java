@@ -40,7 +40,7 @@ public class CreateMemberController implements ICreateMemberController {
         var parentUser = new User(parentUserId);
         var family = new Family();
         family.setId(familyId);
-        var createBy = new User(createdById);
+        var createBy = parentUser;
         var request = new CreateMemberCommandRequest(
                 parentUser,
                 firstName,

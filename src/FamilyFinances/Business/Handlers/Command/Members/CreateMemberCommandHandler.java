@@ -47,6 +47,7 @@ public class CreateMemberCommandHandler implements ICreateMemberCommand {
                 
       );
         memberRepository.save(member);
+        member.getCreatedBy().setMember(member);
     }
 
 }
