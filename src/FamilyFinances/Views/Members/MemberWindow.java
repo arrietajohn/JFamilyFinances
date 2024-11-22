@@ -15,8 +15,6 @@ import FamilyFinances.Main;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Stream;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
