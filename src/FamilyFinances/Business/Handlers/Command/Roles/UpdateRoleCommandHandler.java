@@ -21,9 +21,7 @@ public class UpdateRoleCommandHandler implements IUpdateRoleCommand{
 
     @Override
     public void executeAction(CreateRoleCommandRequest request) throws Exception {
-        var role = new Role(request.getName(), request.getDescription());
-        role.setId(request.getId());
-        roleRepository.edit(role);
+        roleRepository.edit(request.getRole());
     }
     
 }

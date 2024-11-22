@@ -33,17 +33,19 @@ public class Main {
         window.setVisible(true);
         try {
             // Objetos iniciales (Validar esto cuando se persistan los objetos)
-            var initialRole = new Role("Administrador", "Super usuario");
+            var roleAdmin =  Role.ADMINISTRATOR;
+            var roleMember=  Role.MEMBER;
             var roleRepository = dependencyContainer.resolve(IRoleRepository.class);
-            roleRepository.save(initialRole);
+            roleRepository.save(roleAdmin);
+            roleRepository.save(roleMember);
             var initialUser = new User( 
                     0,                      // id
-                    "123",                  // code
+                    "1234",                  // code
                     "Abc**",                // pass
                     "John Arrieta",         // name
-                    "jarrieta@yopmail,com", // email
+                    "jarrieta@yopmail.com", // email
                     UserStatusEnum.ENABLED, // status
-                    initialRole,            // role
+                    roleAdmin,            // role
                     null,                   // member
                     LocalDateTime.now(),    // createdBy
                     null,                   // updateDate

@@ -1,67 +1,59 @@
 package FamilyFinances.Domain.Models;
 
-import FamilyFinances.Domain.Constants.EntityStatusEnum;
-import java.util.List;
 
 /**
  *
  * @author johnarrieta
  */
-public class Role {
-    private Integer id;
-    private String name;
-    private String descripcion;
+
+
+import FamilyFinances.Domain.Constants.EntityStatusEnum;
+
+/**
+ *
+ * @author johnarrieta
+ */
+public enum Role {
+    ADMINISTRATOR(1, "Administrador", "Rol de administrador", EntityStatusEnum.ENABLED),
+    MEMBER(2, "Miembro", "Rol de miembro", EntityStatusEnum.ENABLED);
+
+    private final Integer id;
+    private final String name;
+    private String description;
     private EntityStatusEnum status;
-    
-    private List<User> users;
-    
-    public Role() {
-    }
 
-    public Role(String name, String descripcion) {
+
+    // Constructor
+    private Role(Integer id, String name, String description, EntityStatusEnum status) {
+        this.id = id;
         this.name = name;
-        this.descripcion = descripcion;
+        this.description = description;
+        this.status = status;
+
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
+    // Getters
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public String getDescription() {
+        return description;
     }
 
     public EntityStatusEnum getStatus() {
         return status;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public void setStatus(EntityStatusEnum status) {
         this.status = status;
     }
-    
-
 }

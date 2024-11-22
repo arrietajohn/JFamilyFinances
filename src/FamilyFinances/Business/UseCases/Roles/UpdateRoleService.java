@@ -4,6 +4,7 @@ package FamilyFinances.Business.UseCases.Roles;
 import FamilyFinances.Business.Handlers.Command.Roles.Dto.CreateRoleCommandRequest;
 import FamilyFinances.Business.Interfaces.Commands.Roles.IUpdateRoleCommand;
 import FamilyFinances.Business.Interfaces.UseCases.Roles.IUpdateRoleService;
+import FamilyFinances.Domain.Models.Role;
 
 /**
  *
@@ -18,8 +19,8 @@ public class UpdateRoleService implements IUpdateRoleService{
     }
 
     @Override
-    public void updateRole(Integer id, String name, String descripcion) throws Exception {
-        var request = new CreateRoleCommandRequest(id, name, descripcion);
+    public void updateRole(Role role) throws Exception {
+        var request = new CreateRoleCommandRequest(role);
         updateRoleCommand.executeAction(request);
     }
     

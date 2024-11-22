@@ -20,9 +20,7 @@ public class CreateRoleCommandHandler implements ICreateRoleCommand{
 
     @Override
     public void excuteAction(CreateRoleCommandRequest request) throws Exception {
-        var role = new Role(request.getName(), request.getDescription());
-        role.setId(request.getId());
-        roleRepository.save(role);
+        roleRepository.save(request.getRole());
     }
     
 }

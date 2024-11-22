@@ -3,6 +3,7 @@ package FamilyFinances.Controllers.Implements.Roles;
 
 import FamilyFinances.Business.Interfaces.UseCases.Roles.ICreateRoleService;
 import FamilyFinances.Controllers.Interfaces.Roles.ICreateRoleController;
+import FamilyFinances.Domain.Models.Role;
 
 /**
  *
@@ -17,8 +18,8 @@ public class CreateRoleController implements ICreateRoleController{
     }
     
     @Override
-    public void executeAction(Integer id, String name, String description) throws Exception{
-        roleService.createRole(id, name, description);
+    public void executeAction(Role role) throws Exception{
+        roleService.createRole(role);
     }
 }
 

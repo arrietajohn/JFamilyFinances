@@ -1,9 +1,11 @@
 package FamilyFinances.Views.Members;
 
 import FamilyFinances.Commons.Helpers.EnumsHelper;
+import FamilyFinances.Controllers.ImplementsMembers.IDeleteMemberController;
 import FamilyFinances.Controllers.Interfaces.Families.IGetFamiliesController;
 import FamilyFinances.Controllers.Interfaces.Members.ICreateMemberController;
 import FamilyFinances.Controllers.Interfaces.Members.IGetMemberController;
+import FamilyFinances.Controllers.Interfaces.Members.IUpdateMemberController;
 import FamilyFinances.Controllers.Interfaces.Users.ILoginUserController;
 import FamilyFinances.Domain.Constants.FamilyRoleEnum;
 import FamilyFinances.Domain.Constants.UserStatusEnum;
@@ -28,6 +30,8 @@ public class MemberWindow extends javax.swing.JDialog {
     private ILoginUserController loginUserController;
     private ICreateMemberController createMemberController;
     private IGetMemberController getMemberController;
+    private IUpdateMemberController updateMemberController;
+    private IDeleteMemberController deleteMemberController;
 
     /**
      * Creates new form MemberWindows2
@@ -40,6 +44,8 @@ public class MemberWindow extends javax.swing.JDialog {
         loginUserController = dependencyContainer.resolve(ILoginUserController.class);
         createMemberController = dependencyContainer.resolve(ICreateMemberController.class);
         getMemberController = dependencyContainer.resolve(IGetMemberController.class);
+        updateMemberController = dependencyContainer.resolve(IUpdateMemberController.class);
+        deleteMemberController = dependencyContainer.resolve(IDeleteMemberController.class);
     }
 
     /**
@@ -307,8 +313,18 @@ public class MemberWindow extends javax.swing.JDialog {
         searchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/search48px.png"))); // NOI18N
 
         editButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/edit48px.png"))); // NOI18N
+        editButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editButtonActionPerformed(evt);
+            }
+        });
 
         deleteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/delete48px.png"))); // NOI18N
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -456,9 +472,106 @@ public class MemberWindow extends javax.swing.JDialog {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Verificar", JOptionPane.ERROR_MESSAGE);
         }
-
+ 
 
     }//GEN-LAST:event_addButtonActionPerformed
+
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
+        try {
+            var option = JOptionPane.showConfirmDialog(
+                    this,
+                    "Deseas modificar este miembro",
+                    "Confirmar",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+            if (option == JOptionPane.NO_OPTION) {
+                return;
+            }
+            var selectedFamillyIndex = familyComboField.getSelectedIndex();
+            validateFields(selectedFamillyIndex, "Debe seleccionar una familia");
+            var selectFamilyItem = familyComboField.getSelectedItem().toString();
+            var selecetedFamilyId = Integer.parseInt(selectFamilyItem
+                    .substring(0, selectFamilyItem.indexOf(" ")).trim());
+            var selectedFamilyRoleIndex = familyRolesComboField.getSelectedIndex();
+            validateFields(selectedFamilyRoleIndex, "Debe seleccionar un rol en la familia");
+            var selectedFamilyRole = familyRolesComboField.getSelectedItem().toString();
+            var familyRole = EnumsHelper.getFamilyRoleEnum(selectedFamilyRole);
+            var firstName = firstNameField.getText();
+            validateFields(firstName, "Debe el primer nombre es requerido");
+            var secondName = secondNameField.getText();
+            secondName = secondName.isBlank() ? null : secondName;
+            var firstLastName = firstLasNameField.getText();
+            validateFields(firstLastName, "Debe el primer apellido es requerido");
+            var secondLastName = secondLasNameField.getText();
+            secondLastName = secondLastName.isBlank() ? null : secondLastName;
+            var selectedDateOfBirth = dateOfBirthDatePickField.getDate();
+            validateFields(selectedDateOfBirth, "Debe seleccionar una fecha de nacimiento");
+            var dateOfBirth = selectedDateOfBirth.toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate();
+            validateFields(dateOfBirth, "La fecha de nacimiento no es valida");
+            var selectedGender = genderRadioGroupField.getSelection();
+            validateFields(selectedGender, "Debe seleccionar un genero");
+            var geneder = "";
+            if (maleRadioField.isSelected()) {
+                geneder = maleRadioField.getText();
+            } else if (femaleRadioField.isSelected()) {
+                geneder = femaleRadioField.getText();
+            } else {
+                geneder = otherRadioField.getText();
+            }
+            var ocupation = ocupationField.getText();
+            ocupation = ocupation.isBlank() ? null : ocupation;
+            var phoneNumber = this.phoneNumber.getText();
+            phoneNumber = phoneNumber.isBlank() ? null : phoneNumber;
+
+            var updateMember = updateMemberController.executeAction(
+                    Main.currentUser.getId(),
+                    UserStatusEnum.ENABLED,
+                    firstName,
+                    secondName,
+                    firstLastName,
+                    secondLastName,
+                    geneder,
+                    dateOfBirth,
+                    ocupation,
+                    familyRole,
+                    phoneNumber, 
+                    selecetedFamilyId, 
+                    Main.currentUser);
+              Main.currentUser.setMember(updateMember);
+            JOptionPane.showMessageDialog(this, "El miembreo fue modificado");
+            enableButtons(false, false, true, true, true);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Verificar", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_editButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        // TODO add your handling code here:
+        
+         var option = JOptionPane.showConfirmDialog(
+                    this,
+                    "Deseas eliminar este miembro",
+                    "Confirmar",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+            if (option == JOptionPane.NO_OPTION) {
+                return;
+            }
+        try {
+               deleteMemberController.executeAction(Main.currentUser.getId());
+              JOptionPane.showMessageDialog(this, "El miembre fue eliminado");
+              Main.currentUser.setMember(null);
+              resetForm();
+              enableButtons(true, false, false, false, true);
+        } catch (Exception ex) {
+             JOptionPane.showMessageDialog(this, ex.getMessage(), "Verificar", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void resetForm() {
         familyComboField.setSelectedIndex(0);
@@ -541,7 +654,7 @@ public class MemberWindow extends javax.swing.JDialog {
         var dateOfBirth = Date.from(zonedDateTime.toInstant());
         dateOfBirthDatePickField.setDate(dateOfBirth);
         dateOfBirthDatePickField.getEditor().setValue(dateOfBirth);
-       
+
         if (member.getGender().equals(maleRadioField.getText())) {
             maleRadioField.setSelected(true);
         } else if (member.getGender().equals(femaleRadioField.getText())) {
