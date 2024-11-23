@@ -1,0 +1,27 @@
+@startuml
+left to right direction
+' Actores
+:Usuario: as Act1
+:Administrador: as Act2
+:Miembro: as Act3
+Act1 <|-- Act2
+Act1 <|-- Act3
+
+' Casos de uso
+package Solicitudes as PACK1 {
+    
+    (Ver Solicitudes de Familia) as CU1
+    Act3 --> CU1
+    note right of CU1: Solo los miembros pueden ver\nlas solicitudes de su familia.
+
+    (Aprobar Solicitud) as CU2
+    Act3 --> CU2
+    note right of CU2: Solo los miembros pueden aprobar\nlas solicitudes de su familia.
+
+    (Rechazar Solicitud) as CU3
+    Act3 --> CU3
+    note right of CU3: Solo los miembros pueden rechazar\nlas solicitudes de su familia.
+
+}
+
+@enduml

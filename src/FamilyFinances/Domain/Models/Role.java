@@ -1,19 +1,16 @@
 package FamilyFinances.Domain.Models;
 
-
 /**
  *
  * @author johnarrieta
  */
-
-
 import FamilyFinances.Domain.Constants.EntityStatusEnum;
 
 /**
  *
  * @author johnarrieta
  */
-public enum Role {
+public enum Role implements Comparable<Role> {
     ADMINISTRATOR(1, "Administrador", "Rol de administrador", EntityStatusEnum.ENABLED),
     MEMBER(2, "Miembro", "Rol de miembro", EntityStatusEnum.ENABLED);
 
@@ -22,14 +19,12 @@ public enum Role {
     private String description;
     private EntityStatusEnum status;
 
-
     // Constructor
     private Role(Integer id, String name, String description, EntityStatusEnum status) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.status = status;
-
     }
 
     // Getters

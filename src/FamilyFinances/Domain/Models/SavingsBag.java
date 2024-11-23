@@ -2,13 +2,15 @@ package FamilyFinances.Domain.Models;
 
 import FamilyFinances.Domain.Constants.SavingsBagStatusEnum;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  *
  * @author johnarrieta
  */
-public class SavingsBag {
+public class SavingsBag implements Comparable<SavingsBag> {
 
     private Integer id;
     private String name;
@@ -22,8 +24,8 @@ public class SavingsBag {
     private LocalDateTime updateDate;
     private User createdBy;
     private User updateBy;
-    private List<Contribution> contributions;
-    
+    private Set<Contribution> contributions = new TreeSet<>();
+
     public SavingsBag(String name, Float targetAmount, String purpose) {
         this.name = name;
         this.targetAmount = targetAmount;
@@ -39,7 +41,21 @@ public class SavingsBag {
         this.family = family;
     }
 
-    public SavingsBag(Integer id, String name, Float targetAmount, String purpose, LocalDateTime startDate, LocalDateTime endDate, SavingsBagStatusEnum status, Family family, LocalDateTime creationDate, LocalDateTime updateDate, User createdBy, User updateBy, List<Contribution> contributions) {
+    public SavingsBag(
+            Integer id,
+            String name,
+            Float targetAmount,
+            String purpose,
+            LocalDateTime startDate,
+            LocalDateTime endDate,
+            SavingsBagStatusEnum status,
+            Family family,
+            LocalDateTime creationDate,
+            LocalDateTime updateDate,
+            User createdBy,
+            User updateBy,
+            Set<Contribution> contributions
+    ) {
         this.id = id;
         this.name = name;
         this.targetAmount = targetAmount;
@@ -55,11 +71,32 @@ public class SavingsBag {
         this.contributions = contributions;
     }
 
-    public List<Contribution> getContributions() {
+    public int compareTo(SavingsBag other) {
+        return this.id.compareTo(other.id);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        SavingsBag theOther = (SavingsBag) other;
+        return Objects.equals(id, theOther.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    public Set<Contribution> getContributions() {
         return contributions;
     }
 
-    public void setContributions(List<Contribution> contributions) {
+    public void setContributions(Set<Contribution> contributions) {
         this.contributions = contributions;
     }
 

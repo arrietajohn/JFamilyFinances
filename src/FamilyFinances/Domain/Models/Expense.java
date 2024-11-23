@@ -1,15 +1,15 @@
-
-
 package FamilyFinances.Domain.Models;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  *
  * @author johnarrieta
  */
-public class Expense {
+public class Expense implements Comparable<Expense>{
+
     private Integer id;
     private LocalDate date;
     private String name;
@@ -63,6 +63,27 @@ public class Expense {
         this.createdBy = createdBy;
         this.updateBy = updateBy;
         this.contribution = contribution;
+    }
+
+    public int compareTo(Expense other) {
+        return this.id.compareTo(other.id);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        Expense theOther = (Expense) other;
+        return Objects.equals(id, theOther.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public Integer getId() {
@@ -160,5 +181,5 @@ public class Expense {
     public void setContribution(Contribution contribution) {
         this.contribution = contribution;
     }
-    
+
 }

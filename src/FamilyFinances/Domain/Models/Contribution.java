@@ -1,14 +1,14 @@
-
-
 package FamilyFinances.Domain.Models;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  *
  * @author johnarrieta
  */
-public class Contribution {
+public class Contribution implements Comparable<Contribution>{
+
     private Integer id;
     private LocalDateTime date;
     private Float amount;
@@ -19,6 +19,27 @@ public class Contribution {
         this.amount = amount;
         this.savingsBag = savingsBag;
         this.income = income;
+    }
+
+    public int compareTo(Contribution other) {
+        return this.id.compareTo(other.id);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        Contribution theOther = (Contribution) other;
+        return Objects.equals(id, theOther.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public Income getIncome() {
@@ -60,8 +81,5 @@ public class Contribution {
     public void setSavingsBag(SavingsBag savingsBag) {
         this.savingsBag = savingsBag;
     }
-    
-    
-    
-    
+
 }
