@@ -4,7 +4,8 @@ import FamilyFinances.Domain.Constants.FamilyRoleEnum;
 import FamilyFinances.Domain.Constants.UserStatusEnum;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  *
@@ -22,11 +23,23 @@ public class Member extends User {
     private FamilyRoleEnum familyRole;
     private String cellPhoneNumber;
     private Family family;
-    private List<Income> incomes;
-    private List<Expense> expenses;
+    private Set<Income> incomes  = new TreeSet<>();
+    private Set<Expense> expenses =  new TreeSet<>();
+    private Set<MembershipRequest> membershipRequests = new TreeSet<>();
 
-
-    public Member(String firstName, String secondName, String firstLastName, String secondLastName, FamilyRoleEnum familyRole, Family family, String code, String password, String name, String email, Role role) {
+    public Member(
+            String firstName,
+            String secondName,
+            String firstLastName,
+            String secondLastName,
+            FamilyRoleEnum familyRole,
+            Family family,
+            String code,
+            String password,
+            String name,
+            String email,
+            Role role
+    ) {
         super(code, password, name, email, role);
         this.firstName = firstName;
         this.secondName = secondName;
@@ -36,8 +49,31 @@ public class Member extends User {
         this.family = family;
     }
 
-
-    public Member(String firstName, String secondName, String firstLastName, String secondLastName, String gender, LocalDate dateOfBirth, String occupation, FamilyRoleEnum familyRole, String cellPhoneNumber, Family family, List<Income> incomes, List<Expense> expenses, Integer id, String code, String password, String name, String email, UserStatusEnum status, Role role, LocalDateTime creationDate, LocalDateTime updateDate, User createdBy, User updateBy) {
+    public Member(
+            String firstName,
+            String secondName,
+            String firstLastName,
+            String secondLastName,
+            String gender,
+            LocalDate dateOfBirth,
+            String occupation,
+            FamilyRoleEnum familyRole,
+            String cellPhoneNumber,
+            Family family,
+            Set<Income> incomes,
+            Set<Expense> expenses,
+            Integer id,
+            String code,
+            String password,
+            String name,
+            String email,
+            UserStatusEnum status,
+            Role role,
+            LocalDateTime creationDate,
+            LocalDateTime updateDate,
+            User createdBy,
+            User updateBy
+    ) {
         super(id, code, password, name, email, status, role, null, creationDate, updateDate, createdBy, updateBy);
         this.firstName = firstName;
         this.secondName = secondName;
@@ -53,11 +89,11 @@ public class Member extends User {
         this.expenses = expenses;
     }
 
-    public List<Expense> getExpenses() {
+    public Set<Expense> getExpenses() {
         return expenses;
     }
 
-    public void setExpenses(List<Expense> expenses) {
+    public void setExpenses(Set<Expense> expenses) {
         this.expenses = expenses;
     }
 
@@ -141,11 +177,20 @@ public class Member extends User {
         this.family = family;
     }
 
-    public List<Income> getIncomes() {
+    public Set<Income> getIncomes() {
         return incomes;
     }
 
-    public void setIncomes(List<Income> incomes) {
+    public void setIncomes(Set<Income> incomes) {
         this.incomes = incomes;
-    }  
+    }
+
+    public Set<MembershipRequest> getMembershipRequests() {
+        return membershipRequests;
+    }
+
+    public void setMembershipRequests(Set<MembershipRequest> membershipRequests) {
+        this.membershipRequests = membershipRequests;
+    }
+
 }

@@ -2,25 +2,26 @@ package FamilyFinances.Domain.Models;
 
 import FamilyFinances.Domain.Constants.UserStatusEnum;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  *
  * @author johnarrieta
  */
-public class User {
+public class User implements Comparable<User>{
 
-    private Integer id;
-    private String code;
-    private String password;
-    private String name;
-    private String email;
-    private UserStatusEnum status;
-    private Role role;
-    private Member member;
-    private LocalDateTime creationDate;
-    private LocalDateTime updateDate;
-    private User createdBy;
-    private User updateBy;
+    protected Integer id;
+    protected String code;
+    protected String password;
+    protected String name;
+    protected String email;
+    protected UserStatusEnum status;
+    protected Role role;
+    protected Member member;
+    protected LocalDateTime creationDate;
+    protected LocalDateTime updateDate;
+    protected User createdBy;
+    protected User updateBy;
 
     public User(int id) {
         this.id = id;
@@ -49,6 +50,26 @@ public class User {
         this.updateBy = updateBy;
     }
 
+    public int compareTo(User other) {
+        return this.id.compareTo(other.id);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        User theOther = (User) other;
+        return Objects.equals(id, theOther.id) && Objects.equals(code, theOther.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, code);
+    }
     public User getUpdateBy() {
         return updateBy;
     }

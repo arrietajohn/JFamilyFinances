@@ -9,6 +9,7 @@ import FamilyFinances.Business.Interfaces.Commands.Members.IDeleteMemberCommand;
 import FamilyFinances.Business.Interfaces.Commands.Members.IUpdateMemberCommand;
 import FamilyFinances.Business.Interfaces.Queries.Members.IFindMemberByIdQuery;
 import FamilyFinances.Business.Interfaces.Repositories.IMemberRepository;
+import FamilyFinances.Business.Interfaces.Repositories.IMembershipRequestRepository;
 import FamilyFinances.Business.Interfaces.UseCases.Families.IGetFamilyService;
 import FamilyFinances.Business.Interfaces.UseCases.Members.ICreateMemberService;
 import FamilyFinances.Business.Interfaces.UseCases.Members.IGetMemberService;
@@ -20,7 +21,7 @@ import FamilyFinances.Controllers.ImplementsMembers.CreateMemberController;
 import FamilyFinances.Controllers.ImplementsMembers.GetMemberController;
 import FamilyFinances.Controllers.Interfaces.Members.ICreateMemberController;
 import FamilyFinances.Controllers.Interfaces.Members.IGetMemberController;
-import FamilyFinances.Infrastructure.Persistence.Repositories.MemberRepository;
+import FamilyFinances.Infrastructure.Persistence.Repositories.MemberMemoryRepository;
 import FamilyFinances.Business.Interfaces.UseCases.Members.IDeleteMemberService;
 import FamilyFinances.Business.Interfaces.UseCases.Members.IUpdateMemberService;
 import FamilyFinances.Business.UseCases.Members.UpdateMemberService;
@@ -40,7 +41,10 @@ public class MemberDependencyInjectionFactory {
     public static void registerDependencies(DependencyContainer container) {
 
         // Registrar la dependencia del respositorio de Miembros
-        container.register(IMemberRepository.class, MemberRepository::new);
+        container.register(IMemberRepository.class, () -> 
+                new MemberMemoryRepository(
+                        container.resolve(IMembershipRequestRepository.class)
+                ));
 
         // Registrar las dependencias del los Casos de Uso para crear Miembros
         container.register(ICreateMemberCommand.class, ()

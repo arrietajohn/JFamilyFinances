@@ -9,6 +9,7 @@ public class DependencyInjectionConfigurationFacade {
         RoleDependencyInjectionFactory.registerDependencies(container);
         UserDependencyInjectionFactory.registerDependencies(container);
         FamilyDependencyInjectionFactory.registerDependencies(container);
+        MembershipRequestDependencyInjectionFactory.registerDependencies(container);
         MemberDependencyInjectionFactory.registerDependencies(container);
     }
 }

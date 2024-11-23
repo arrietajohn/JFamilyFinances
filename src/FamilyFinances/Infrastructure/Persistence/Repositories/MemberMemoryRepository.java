@@ -1,26 +1,34 @@
 package FamilyFinances.Infrastructure.Persistence.Repositories;
 
 import FamilyFinances.Business.Exceptions.DuplicateMemberEntityException;
+import FamilyFinances.Business.Exceptions.DuplicateMembershipRequestEntityException;
 import FamilyFinances.Business.Exceptions.MemberEntityNotFoundException;
 import FamilyFinances.Business.Interfaces.Repositories.IMemberRepository;
+import FamilyFinances.Business.Interfaces.Repositories.IMembershipRequestRepository;
 import FamilyFinances.Commons.Helpers.EnumsHelper;
 import FamilyFinances.Domain.Constants.FamilyRoleEnum;
+import FamilyFinances.Domain.Constants.MembershipRequestStatusEnum;
 import FamilyFinances.Domain.Models.Member;
+import FamilyFinances.Domain.Models.MembershipRequest;
 import FamilyFinances.Infrastructure.Persistence.Data.InMemoryEntitiesStorage;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
  * @author johnarrieta
  */
-public class MemberRepository implements IMemberRepository {
+public class MemberMemoryRepository implements IMemberRepository {
 
     private final InMemoryEntitiesStorage memoryEntityStorage;
+    private final IMembershipRequestRepository membershipRequestRepository;
 
-    public MemberRepository() {
+    public MemberMemoryRepository(IMembershipRequestRepository membershipRequestRepository) {
         this.memoryEntityStorage = InMemoryEntitiesStorage.getInstance();
+        this.membershipRequestRepository = membershipRequestRepository;
     }
 
     @Override
@@ -188,21 +196,21 @@ public class MemberRepository implements IMemberRepository {
     }
 
     @Override
-    public void save(Member member) throws DuplicateMemberEntityException, Exception {
-        if (member == null) {
+    public void save(Member newMember) throws DuplicateMemberEntityException, Exception {
+        if (newMember == null) {
             throw new IllegalAccessException("El miembro es requerido");
         }
-        if (member.getId() == null) {
+        if (newMember.getId() == null) {
             throw new IllegalAccessException("El Id del miembro es requerido");
         }
-        if (existMember(member.getId())) {
+        if (existMember(newMember.getId())) {
             throw new DuplicateMemberEntityException("El miembro ya existe");
         }
-        if (member.getFamily() == null) {
+        if (newMember.getFamily() == null) {
             throw new IllegalAccessException("La familia del miembro es requerida");
         }
-
-        memoryEntityStorage.getMembers().put(member.getId(), member);
+        memoryEntityStorage.getMembers().put(newMember.getId(), newMember);
+        createMembershipRequest(newMember);
     }
 
     @Override
@@ -229,7 +237,7 @@ public class MemberRepository implements IMemberRepository {
         currentMember.setOccupation(member.getOccupation());
         currentMember.setCellPhoneNumber(member.getCellPhoneNumber());
         currentMember.setFamilyRole(member.getFamilyRole());
-        if(member.getFamily() != null){
+        if (member.getFamily() != null) {
             currentMember.setFamily(member.getFamily());
         }
         currentMember.setUpdateBy(member.getUpdateBy());
@@ -237,30 +245,44 @@ public class MemberRepository implements IMemberRepository {
         // No es necesario porque al cambiar los valores de la instancia
         // currentUser en realidad se esta cambiando lso datatos de la misma instancia
         // obtenida del storage
-       return  memoryEntityStorage.getMembers().replace(member.getId(), currentMember);
-        
+        return memoryEntityStorage.getMembers().replace(member.getId(), currentMember);
+
     }
 
     @Override
-    public void deleteById(Integer id) throws MemberEntityNotFoundException, Exception {
+    public void deleteById(Integer id) throws MemberEntityNotFoundException, DuplicateMembershipRequestEntityException, Exception {
         if (id < 1) {
             throw new IllegalAccessException("El id " + id + " del miembro no es valido");
         }
 
-        var currentUser = memoryEntityStorage.getMembers().get(id);
-        if (currentUser == null) {
+        var currentMember = memoryEntityStorage.getMembers().get(id);
+        if (currentMember == null) {
             throw new DuplicateMemberEntityException("El miembro Id " + id + " no existe");
         }
 
-        if (currentUser.getIncomes() != null && !currentUser.getIncomes().isEmpty()) {
+        if (currentMember.getIncomes() != null && !currentMember.getIncomes().isEmpty()) {
             throw new DuplicateMemberEntityException("El miembro: " + id + " tiene ingresos registrados");
         }
 
-        if (currentUser.getExpenses() != null && !currentUser.getExpenses().isEmpty()) {
+        if (currentMember.getExpenses() != null && !currentMember.getExpenses().isEmpty()) {
             throw new DuplicateMemberEntityException("El miembro: " + id + " tiene gastos  registrados");
         }
-        
-        memoryEntityStorage.getMembers().remove(id);
+        if (!currentMember.getMembershipRequests().isEmpty()) {
+            var newmemberships = currentMember.getFamily().getMembershipRequests()
+                    .stream()
+                    .filter(mbs -> !mbs.getMember().equals(currentMember))
+                    .collect(Collectors.toSet());
+            currentMember.getFamily().setMembershipRequests(newmemberships);
+        }
+        currentMember.setFamily(null);
+        currentMember.getCreatedBy().setMember(null);
+        currentMember.getMembershipRequests().clear();
+        memoryEntityStorage.getMembershipRequests()
+                .entrySet()
+                .removeIf(entry -> entry.getValue().getMember().equals(currentMember));
+        memoryEntityStorage.getMembers()
+                .entrySet()
+                .removeIf(entry -> entry.getValue().equals(currentMember));
     }
 
     private Member getMemberById(Integer id) throws MemberEntityNotFoundException, Exception {
@@ -273,6 +295,21 @@ public class MemberRepository implements IMemberRepository {
 
     private boolean existMember(Integer id) {
         return memoryEntityStorage.getMembers().containsKey(id);
+    }
+
+    private void createMembershipRequest(Member newMember) throws DuplicateMembershipRequestEntityException, Exception {
+        var familyRoleInSpanish = EnumsHelper.getFamilyReleInSpanish(newMember.getFamilyRole());
+        var reason = "Soy " + familyRoleInSpanish + " de esta bella familia";
+        var newMembershipRequest = new MembershipRequest(
+                null,
+                LocalDateTime.now(),
+                MembershipRequestStatusEnum.PENDING,
+                newMember,
+                newMember.getFamily(),
+                reason);
+        membershipRequestRepository.save(newMembershipRequest);
+        newMember.getMembershipRequests().add(newMembershipRequest);
+        newMember.getFamily().getMembershipRequests().add(newMembershipRequest);
     }
 
 }

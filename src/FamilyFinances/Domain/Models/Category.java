@@ -1,17 +1,19 @@
 package FamilyFinances.Domain.Models;
 
-import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  *
  * @author johnarrieta
  */
-public class Category {
+public class Category implements Comparable<Category>{
 
     private Integer id;
     private String name;
     private String description;
-    private List<Expense> exprenses;
+    private Set<Expense> exprenses = new TreeSet<>();
 
     public Category() {
         
@@ -20,6 +22,27 @@ public class Category {
     public Category(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+    
+    public int compareTo(Category other) {
+        return this.id.compareTo(other.id);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        Category theOther = (Category) other;
+        return Objects.equals(id, theOther.id) && Objects.equals(name.toLowerCase(), theOther.name.toLowerCase());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 
     public Integer getId() {
@@ -46,12 +69,12 @@ public class Category {
         this.description = description;
     }
 
-    public List<Expense> getExprenses() {
+    public Set<Expense> getExprenses() {
         return exprenses;
     }
 
-    public void setExprenses(List<Expense> exprenses) {
+    public void setExprenses(Set<Expense> exprenses) {
         this.exprenses = exprenses;
     }
-
+    
 }

@@ -1,131 +1,163 @@
 @startuml
-' Diagrama que representa los objetos (Conceptos de Negocio)
+    ' Diagrama que representa los objetos (Conceptos de Negocio)
 
-class Category {
-    - Integer id
-    - String name
-    - String description
-    - List<Expense> expenses
-}
+    class Category {
+        - Integer id
+        - String name
+        - String description
+        - List expenses
+    }
 
-class User {
-    # Integer id
-    # String code
-    # String password
-    # String name
-    # String email
-    # UserStatusEnum status
-    # Role role
-    # Member member
-    # LocalDateTime creationDate
-    # LocalDateTime updateDate
-}
+    class User {
+        # Integer id
+        # String code
+        # String password
+        # String name
+        # String email
+        # UserStatusEnum status
+        # Role role
+        # Member member
+        # LocalDateTime creationDate
+        # LocalDateTime updateDate
+    }
 
-class Source {
-    - Integer id
-    - String name
-    - String descripcion
-    - List<Income> incomes
-    - LocalDateTime creationDate
-    - LocalDateTime updateDate
-    - EntityStatusEnum status
-}
+    class Source {
+        - Integer id
+        - String name
+        - String descripcion
+        - List incomes
+        - LocalDateTime creationDate
+        - LocalDateTime updateDate
+        - EntityStatusEnum status
+    }
 
-class SavingsBag {
-    - Integer id
-    - String name
-    - Float targetAmount
-    - String purpose
-    - LocalDateTime startDate
-    - LocalDateTime endDate
-    - SavingsBagStatusEnum status
-    - Family family
-    - LocalDateTime creationDate
-    - LocalDateTime updateDate
-    - List<Contribution> contributions
-}
+    class SavingsBag {
+        - Integer id
+        - String name
+        - Float targetAmount
+        - String purpose
+        - LocalDateTime startDate
+        - LocalDateTime endDate
+        - SavingsBagStatusEnum status
+        - Family family
+        - LocalDateTime creationDate
+        - LocalDateTime updateDate
+        - List contributions
+    }
 
-class Role {
-    - Integer id
-    - String name
-    - String descripcion
-    - EntityStatusEnum status
-    - List<User> users
-}
+    class Role {
+        - Integer id
+        - String name
+        - String descripcion
+        - EntityStatusEnum status
+        - List users
+    }
 
-class Member  {
-    - String firstName
-    - String secondName
-    - String firstLastName
-    - String secondLastName
-    - String gender
-    - LocalDate dateOfBirth
-    - String occupation
-    - FamilyRoleEnum familyRole
-    - String cellPhoneNumber
-    - Family family
-    - List<Income> incomes
-    - List<Expense> expenses
-}
+    class Member  {
+        - String firstName
+        - String secondName
+        - String firstLastName
+        - String secondLastName
+        - String gender
+        - LocalDate dateOfBirth
+        - String occupation
+        - FamilyRoleEnum familyRole
+        - String cellPhoneNumber
+        - Family family
+        - List incomes
+        - List expenses
+    }
 
-class Income {
-    - Integer id
-    - LocalDate date
-    - String name
-    - Float amount
-    - String description
-    - Member member
-    - Source source
-    - LocalDateTime creationDate
-    - LocalDateTime updateDate
-    - EntityStatusEnum status
-    - List<Contribution> contributions
-}
+    class Income {
+        - Integer id
+        - LocalDate date
+        - String name
+        - Float amount
+        - String description
+        - Member member
+        - Source source
+        - LocalDateTime creationDate
+        - LocalDateTime updateDate
+        - EntityStatusEnum status
+        - List contributions
+    }
 
-class Family {
-    - Integer id
-    - String name
-    - String phoneNumber
-    - String address
-    - List<Member> members
-    - List<SavingsBag> savingsBags
-    - LocalDateTime creationDate
-    - LocalDateTime updateDate
-    - EntityStatusEnum status
-}
+    class Family {
+        - Integer id
+        - String name
+        - String phoneNumber
+        - String address
+        - List members
+        - List savingsBags
+        - LocalDateTime creationDate
+        - LocalDateTime updateDate
+        - EntityStatusEnum status
+    }
 
-class Expense {
-    - Integer id
-    - LocalDate date
-    - String name
-    - Float amount
-    - String description
-    - Member member
-    - Category category
-    - LocalDateTime creationDate
-    - LocalDateTime updateDate
-    - Contribution contribution
-}
+    class Expense {
+        - Integer id
+        - LocalDate date
+        - String name
+        - Float amount
+        - String description
+        - Member member
+        - Category category
+        - LocalDateTime creationDate
+        - LocalDateTime updateDate
+        - Contribution contribution
+    }
 
-class Contribution {
-    - Integer id
-    - LocalDateTime date
-    - Float amount
-    - SavingsBag savingsBag
-    - Income income
-}
+    class Contribution {
+        - Integer id
+        - LocalDateTime date
+        - Float amount
+        - SavingsBag savingsBag
+        - Income income
+    }
 
+    class MembershipRequest {
+        - Integer id
+        - LocalDateTime date
+        - String status
+        - Member member
+        - Family family
+        - Member approvedBy
+        - LocalDateTime approvedDate
+        - String reasonApproved
+        - Member rejectedBy
+        - LocalDateTime rejectedOfDate
+        - String reasonOfRejected
+        - String reasonOfRequest
+        - List<MembershipRequestComment> comments;
 
-Role "1" -- "0..*" User : Manages
-Member "1" --|> "1" User : Is a
-Member "0..1" -- "1" Family : Belongs to
-Member "1" -- "0..*" Income : Earns
-Member "1" -- "0..*" Expense : Incurs
-Income "1" -- "1" Source : Originates from
-Category "1" -- "0..*" Expense : Categorizes
-Family "1" -- "0..*" SavingsBag : Holds
-SavingsBag "1" -- "0..*" Contribution : Includes
-Income "1" -- "0..*" Contribution : Funds
-Expense "1" -- "0..1" Contribution : Registered As
+    }
+
+    class MembershipRequestComment {
+        - Integer id
+        - LocalDateTime date
+        - String text
+        - Member author
+        - MembershipRequest membershipRequest
+        - List<MembershipRequest> replies
+    }
+
+    Role "1" -- "0..*" User : Manages
+    Member --|>  User : Is a
+    Member "0..1" -- "1" Family : Belongs to
+    Member "1" -- "0..*" Income : Earns
+    Member "1" -- "0..*" Expense : Incurs
+    Income "0..1" -- "1" Source : Originates from
+    Expense "1" -- "0..*" Category : Categorizes
+    Family "1" -- "0..*" SavingsBag : Holds
+    SavingsBag "1" -- "0..*" Contribution : Includes
+    Income "1" -- "0..*" Contribution : Funds
+    Expense "1" -- "0..1" Contribution : Registered As
+    MembershipRequest "0..*" -- "1" Member : Makes
+    MembershipRequest "0..*" -- "1" Family : For
+    MembershipRequest "0..*" -- "1" Member : Approved By
+    MembershipRequest "0..*" -- "1" Member : Rejected By
+    MembershipRequestComment "0..*" -- "1" MembershipRequest : Refers to
+    MembershipRequestComment "0..1" -- "1" Member : Written by
+    MembershipRequestComment "1" -- "0..*" MembershipRequestComment : Has replies
 
 @enduml

@@ -4,12 +4,15 @@ import FamilyFinances.Domain.Constants.EntityStatusEnum;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  *
  * @author johnarrieta
  */
-public class Income {
+public class Income implements Comparable<Income>{
 
     private Integer id;
     private LocalDate date;
@@ -23,7 +26,7 @@ public class Income {
     private User createdBy;
     private User updateBy;
     private EntityStatusEnum status;
-    private List<Contribution> contributions;
+    private Set<Contribution> contributions = new TreeSet<>();
    
 
     public Income(String name, Float amount, Member member, Source source) {
@@ -54,6 +57,27 @@ public class Income {
         this.createdBy = createdBy;
     }
 
+    public int compareTo(Income other) {
+        return this.id.compareTo(other.id);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        Income theOther = (Income) other;
+        return Objects.equals(id, theOther.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+    
     public EntityStatusEnum getStatus() {
         return status;
     }
@@ -118,11 +142,11 @@ public class Income {
         this.source = source;
     }
 
-    public List<Contribution> getContributions() {
+    public Set<Contribution> getContributions() {
         return contributions;
     }
 
-    public void setContributions(List<Contribution> contributions) {
+    public void setContributions(Set<Contribution> contributions) {
         this.contributions = contributions;
     }
 

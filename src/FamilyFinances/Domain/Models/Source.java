@@ -3,12 +3,14 @@ package FamilyFinances.Domain.Models;
 import FamilyFinances.Domain.Constants.EntityStatusEnum;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
  * @author johnarrieta
  */
-public class Source {
+public class Source implements Comparable<Source>{
+
     private Integer id;
     private String name;
     private String descripcion;
@@ -18,7 +20,7 @@ public class Source {
     private User createdBy;
     private User updatedBy;
     private EntityStatusEnum status;
-    
+
     public Source() {
     }
 
@@ -36,6 +38,28 @@ public class Source {
         this.updateDate = updateDate;
         this.createdBy = createdBy;
         this.updatedBy = updatedBy;
+    }
+
+    public int compareTo(Source other) {
+        return this.id.compareTo(other.id);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        Source theOther = (Source) other;
+        return Objects.equals(id, theOther.id)
+                && Objects.equals(name.toLowerCase(), theOther.name.toLowerCase());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 
     public String getDescripcion() {
@@ -110,6 +134,4 @@ public class Source {
         this.status = status;
     }
 
-
-    
 }

@@ -3,12 +3,15 @@ package FamilyFinances.Domain.Models;
 import FamilyFinances.Domain.Constants.EntityStatusEnum;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  *
  * @author johnarrieta
  */
-public class Family {
+public class Family implements Comparable<Family>{
 
     private Integer id;
     private String name;
@@ -21,6 +24,7 @@ public class Family {
     private User createdBy;
     private User updateBy;
     private EntityStatusEnum status;
+    private Set<MembershipRequest> membershipRequests = new TreeSet<>();
 
     public Family(String name, String phoneNumber, String address, List<Member> members) {
         this.name = name;
@@ -32,7 +36,14 @@ public class Family {
     public Family() {
     }
 
-    public Family(Integer id, String name, String phoneNumber, String address, LocalDateTime creationDate, User createdBy, EntityStatusEnum status) {
+    public Family(Integer id, 
+            String name, 
+            String phoneNumber, 
+            String address, 
+            LocalDateTime creationDate, 
+            User createdBy, 
+            EntityStatusEnum status) 
+    {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -40,6 +51,27 @@ public class Family {
         this.creationDate = creationDate;
         this.createdBy = createdBy;
         this.status = status;
+    }
+
+    public int compareTo(Family other) {
+        return this.id.compareTo(other.id);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        Family theOther = (Family) other;
+        return Objects.equals(id, theOther.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public Integer getId() {
@@ -128,6 +160,14 @@ public class Family {
 
     public void setStatus(EntityStatusEnum status) {
         this.status = status;
+    }
+
+    public Set<MembershipRequest> getMembershipRequests() {
+        return membershipRequests;
+    }
+
+    public void setMembershipRequests(Set<MembershipRequest> membershipRequests) {
+        this.membershipRequests = membershipRequests;
     }
 
 }

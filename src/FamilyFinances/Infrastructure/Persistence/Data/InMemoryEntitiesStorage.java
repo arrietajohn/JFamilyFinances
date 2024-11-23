@@ -17,6 +17,7 @@ public class InMemoryEntitiesStorage {
     private final Map<Integer, Family> families;
     private final Map<Integer, Income> incomes;
     private final Map<Integer, Member> members;
+    private final Map<Integer, MembershipRequest> membershipRequests;
     private final Map<Integer, Role> roles;
     private final Map<Integer, SavingsBag> savingsBags;
     private final Map<Integer, Source> sources;
@@ -33,6 +34,7 @@ public class InMemoryEntitiesStorage {
         families = new HashMap<>();
         incomes = new HashMap<>();
         members = new HashMap<>();
+        membershipRequests = new HashMap<>();
         roles = new HashMap<>();
         savingsBags = new HashMap<>();
         sources = new HashMap<>();
@@ -88,4 +90,8 @@ public class InMemoryEntitiesStorage {
         return users;
     }
 
+    public Map<Integer, MembershipRequest> getMembershipRequests() {
+        return membershipRequests;
+    }
+ 
 }
