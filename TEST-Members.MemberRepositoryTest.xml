@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="DESKTOP-3QTIUNK" name="Members.MemberRepositoryTest" skipped="0" tests="1" time="0.173" timestamp="2024-11-16T23:22:01">
+<testsuite errors="0" failures="0" hostname="DESKTOP-3QTIUNK" name="Members.MemberRepositoryTest" skipped="0" tests="1" time="0.131" timestamp="2024-11-23T07:14:26">
   <properties>
     <property name="java.specification.version" value="17" />
     <property name="ant.project.name" value="FamilyFinances" />
@@ -11,7 +11,7 @@
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-17\bin" />
     <property name="netbeans.importclass" value="org.netbeans.upgrade.AutoUpgrade" />
     <property name="test.classes.dir" value="build/test/classes" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner Members.MemberRepositoryTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=true formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.PlainJUnitResultFormatter,C:\Users\johnarrieta\Documents\NetBeansProjects\FamilyFinances\TEST-Members.MemberRepositoryTest.txt formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\johnarrieta\Documents\NetBeansProjects\FamilyFinances\TEST-Members.MemberRepositoryTest.xml crashfile=C:\Users\johnarrieta\Documents\NetBeansProjects\FamilyFinances\junitvmwatcher15646140505917003053.properties propsfile=C:\Users\johnarrieta\Documents\NetBeansProjects\FamilyFinances\junit7524920736965254445.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner Members.MemberRepositoryTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=true formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.PlainJUnitResultFormatter,C:\Users\johnarrieta\Documents\NetBeansProjects\FamilyFinances\TEST-Members.MemberRepositoryTest.txt formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\johnarrieta\Documents\NetBeansProjects\FamilyFinances\TEST-Members.MemberRepositoryTest.xml crashfile=C:\Users\johnarrieta\Documents\NetBeansProjects\FamilyFinances\junitvmwatcher9641565093151659649.properties propsfile=C:\Users\johnarrieta\Documents\NetBeansProjects\FamilyFinances\junit17173748451480672083.properties" />
     <property name="jdk.debug" value="release" />
     <property name="netbeans.autoupdate.version" value="1.23" />
     <property name="java.specification.vendor" value="Oracle Corporation" />
@@ -22,9 +22,9 @@
     <property name="file.separator" value="\" />
     <property name="java.vm.compressedOopsMode" value="Zero based" />
     <property name="line.separator" value="&#xd;&#xa;" />
-    <property name="java.vm.specification.vendor" value="Oracle Corporation" />
-    <property name="jna.boot.library.name" value="jnidispatch-nb" />
     <property name="java.specification.name" value="Java Platform API Specification" />
+    <property name="jna.boot.library.name" value="jnidispatch-nb" />
+    <property name="java.vm.specification.vendor" value="Oracle Corporation" />
     <property name="netbeans.productversion" value="Apache NetBeans IDE 23" />
     <property name="org.apache.commons.logging.LogFactory" value="org.apache.commons.logging.impl.LogFactoryImpl" />
     <property name="netbeans.extbrowser.manual_chrome_plugin_install" value="yes" />
@@ -34,11 +34,12 @@
     <property name="jdk.home" value="C:\Program Files\Java\jdk-17" />
     <property name="java.runtime.version" value="17.0.11+7-LTS-207" />
     <property name="user.name" value="johnarrieta" />
+    <property name="org.openide.awt.SwingBrowserImpl.do-not-block-awt" value="false" />
     <property name="nb.internal.action.name" value="test" />
     <property name="sun.java2d.noddraw" value="true" />
     <property name="file.encoding" value="Cp1252" />
-    <property name="java.util.logging.config.class" value="org.netbeans.core.startup.TopLogging" />
     <property name="guice.disable.misplaced.annotation.check" value="true" />
+    <property name="java.util.logging.config.class" value="org.netbeans.core.startup.TopLogging" />
     <property name="apple.awt.application.appearance" value="system" />
     <property name="build.dir" value="build" />
     <property name="jna.loaded" value="true" />
@@ -102,8 +103,8 @@
     <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/" />
     <property name="user.dir" value="C:\Users\johnarrieta\Downloads\netbeans\bin" />
     <property name="os.arch" value="amd64" />
-    <property name="ignore.failing.tests" value="true" />
     <property name="org.xml.sax.driver" value="com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser" />
+    <property name="ignore.failing.tests" value="true" />
     <property name="java.vm.info" value="mixed mode, sharing" />
     <property name="java.vm.version" value="17.0.11+7-LTS-207" />
     <property name="ant.file.FamilyFinances" value="C:\Users\johnarrieta\Documents\NetBeansProjects\FamilyFinances\build.xml" />
@@ -114,39 +115,7 @@
     <property name="org.netbeans.io.suspend" value="0" />
     <property name="ant.project.default-target" value="test" />
   </properties>
-  <testcase classname="Members.MemberRepositoryTest" name="testSaveAMemberShouldFindIt" time="0.048" />
+  <testcase classname="Members.MemberRepositoryTest" name="testSaveAMemberShouldFindIt" time="0.061" />
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[nov 16, 2024 6:22:01 P. M. Members.MemberRepositoryTest testSaveAMemberShouldFindIt
-SEVERE: null
-FamilyFinances.Business.Exceptions.MemberEntityNotFoundException: El miembro con Id: 1 no existe
-	at FamilyFinances.Infrastructure.Persistence.Repositories.MemberRepository.getMemberById(MemberRepository.java:238)
-	at FamilyFinances.Infrastructure.Persistence.Repositories.MemberRepository.findById(MemberRepository.java:28)
-	at Members.MemberRepositoryTest.testSaveAMemberShouldFindIt(MemberRepositoryTest.java:51)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
-	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
-	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
-	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:50)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:535)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1197)
-	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:1042)
-
-]]></system-err>
+  <system-err><![CDATA[]]></system-err>
 </testsuite>
