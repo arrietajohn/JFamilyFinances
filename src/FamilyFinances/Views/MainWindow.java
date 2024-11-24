@@ -4,6 +4,7 @@ import FamilyFinances.Infrastructure.Configurations.DependencyContainer;
 import FamilyFinances.Infrastructure.Configurations.DependencyInjectionConfiguration;
 import FamilyFinances.Main;
 import FamilyFinances.Views.Families.FamiliesWindow;
+import FamilyFinances.Views.Members.MemberReportWindow;
 import FamilyFinances.Views.Members.MemberWindow;
 import FamilyFinances.Views.Roles.RolesWindow;
 import FamilyFinances.Views.Users.LoginUserWindow;
@@ -333,6 +334,11 @@ public class MainWindow extends javax.swing.JFrame {
         itemGetAllMembers.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         itemGetAllMembers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/FamilyFinances/Views/Icons/Users24px.png"))); // NOI18N
         itemGetAllMembers.setText("Listar todo...");
+        itemGetAllMembers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemGetAllMembersActionPerformed(evt);
+            }
+        });
         itemSubmenuReportMembers.add(itemGetAllMembers);
 
         itemGetByNameMembers.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -724,6 +730,12 @@ public class MainWindow extends javax.swing.JFrame {
         Main.currentUser = null;
         formWindowOpened(null);
     }//GEN-LAST:event_itemLogoutActionPerformed
+
+    private void itemGetAllMembersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemGetAllMembersActionPerformed
+        var window = new MemberReportWindow(this, true, dependencyContainer);
+        window.setLocationRelativeTo(this);
+        window.setVisible(true);
+    }//GEN-LAST:event_itemGetAllMembersActionPerformed
 
     /**
      * @param args the command line arguments
