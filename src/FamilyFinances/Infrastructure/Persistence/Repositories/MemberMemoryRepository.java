@@ -198,16 +198,16 @@ public class MemberMemoryRepository implements IMemberRepository {
     @Override
     public void save(Member newMember) throws DuplicateMemberEntityException, Exception {
         if (newMember == null) {
-            throw new IllegalAccessException("El miembro es requerido");
+            throw new IllegalArgumentException("El miembro es requerido");
         }
         if (newMember.getId() == null) {
-            throw new IllegalAccessException("El Id del miembro es requerido");
+            throw new IllegalArgumentException("El Id del miembro es requerido");
         }
         if (existMember(newMember.getId())) {
             throw new DuplicateMemberEntityException("El miembro ya existe");
         }
         if (newMember.getFamily() == null) {
-            throw new IllegalAccessException("La familia del miembro es requerida");
+            throw new IllegalArgumentException("La familia del miembro es requerida");
         }
         memoryEntityStorage.getMembers().put(newMember.getId(), newMember);
         createMembershipRequest(newMember);
@@ -216,16 +216,16 @@ public class MemberMemoryRepository implements IMemberRepository {
     @Override
     public Member edit(Member member) throws MemberEntityNotFoundException, Exception {
         if (member == null) {
-            throw new IllegalAccessException("El miembro es requerido");
+            throw new IllegalArgumentException("El miembro es requerido");
         }
 
         if (member.getId() == null || member.getId() < 1) {
-            throw new IllegalAccessException("El Id del Usaurio padre es requerido");
+            throw new IllegalArgumentException("El Id del Usaurio padre es requerido");
         }
 
         var currentMember = memoryEntityStorage.getMembers().get(member.getId());
         if (currentMember == null) {
-            throw new IllegalAccessException("El usuario  el usuario con id: " + member.getId());
+            throw new IllegalArgumentException("El usuario  el usuario con id: " + member.getId());
         }
         currentMember.setStatus(member.getStatus());
         currentMember.setFirstName(member.getFirstName());
@@ -252,7 +252,7 @@ public class MemberMemoryRepository implements IMemberRepository {
     @Override
     public void deleteById(Integer id) throws MemberEntityNotFoundException, DuplicateMembershipRequestEntityException, Exception {
         if (id < 1) {
-            throw new IllegalAccessException("El id " + id + " del miembro no es valido");
+            throw new IllegalArgumentException("El id " + id + " del miembro no es valido");
         }
 
         var currentMember = memoryEntityStorage.getMembers().get(id);
@@ -284,6 +284,24 @@ public class MemberMemoryRepository implements IMemberRepository {
                 .entrySet()
                 .removeIf(entry -> entry.getValue().equals(currentMember));
     }
+    
+        @Override
+    public List<Member> findByStatus(MembershipRequestStatusEnum status) throws MemberEntityNotFoundException, Exception {
+        if(status == null){
+             throw new IllegalArgumentException("El estado del miembro es requerido");
+        }
+        var membsrshipRequest = membershipRequestRepository.findByStatus(status);
+        var members = membsrshipRequest.stream()
+                .filter(membership -> membership.getStatus() == status)
+                .map(membership -> membership.getMember())
+                .toList();
+        if(members.isEmpty()){
+            var message = "No existen miembros con estato: "+status.toSpanish();
+            throw new MemberEntityNotFoundException(message);
+        }
+        return members;
+    }
+
 
     private Member getMemberById(Integer id) throws MemberEntityNotFoundException, Exception {
         var memberFound = memoryEntityStorage.getMembers().get(id);
@@ -311,5 +329,6 @@ public class MemberMemoryRepository implements IMemberRepository {
         newMember.getMembershipRequests().add(newMembershipRequest);
         newMember.getFamily().getMembershipRequests().add(newMembershipRequest);
     }
+
 
 }

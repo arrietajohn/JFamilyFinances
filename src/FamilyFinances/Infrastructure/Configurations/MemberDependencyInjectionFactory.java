@@ -4,10 +4,12 @@ import FamilyFinances.Business.Handlers.Command.Members.CreateMemberCommandHandl
 import FamilyFinances.Business.Handlers.Command.Members.DeleteMemberCommandHandler;
 import FamilyFinances.Business.Handlers.Command.Members.UpdateMemberCommandHandler;
 import FamilyFinances.Business.Handlers.Queries.Members.FindMemberByIdQueryHandler;
+import FamilyFinances.Business.Handlers.Queries.Members.GetMembersByParameterQueryHandler;
 import FamilyFinances.Business.Interfaces.Commands.Members.ICreateMemberCommand;
 import FamilyFinances.Business.Interfaces.Commands.Members.IDeleteMemberCommand;
 import FamilyFinances.Business.Interfaces.Commands.Members.IUpdateMemberCommand;
 import FamilyFinances.Business.Interfaces.Queries.Members.IFindMemberByIdQuery;
+import FamilyFinances.Business.Interfaces.Queries.Members.IGetMembersByParameterQuery;
 import FamilyFinances.Business.Interfaces.Repositories.IMemberRepository;
 import FamilyFinances.Business.Interfaces.Repositories.IMembershipRequestRepository;
 import FamilyFinances.Business.Interfaces.UseCases.Families.IGetFamilyService;
@@ -17,18 +19,22 @@ import FamilyFinances.Business.Interfaces.UseCases.Users.IGetUsersService;
 import FamilyFinances.Business.UseCases.Members.CreateMemberService;
 import FamilyFinances.Business.UseCases.Members.DeleteMemberService;
 import FamilyFinances.Business.UseCases.Members.GetMemberService;
-import FamilyFinances.Controllers.ImplementsMembers.CreateMemberController;
-import FamilyFinances.Controllers.ImplementsMembers.GetMemberController;
+import FamilyFinances.Controllers.Implements.Members.CreateMemberController;
+import FamilyFinances.Controllers.Implements.Members.GetMemberController;
 import FamilyFinances.Controllers.Interfaces.Members.ICreateMemberController;
 import FamilyFinances.Controllers.Interfaces.Members.IGetMemberController;
 import FamilyFinances.Infrastructure.Persistence.Repositories.MemberMemoryRepository;
 import FamilyFinances.Business.Interfaces.UseCases.Members.IDeleteMemberService;
+import FamilyFinances.Business.Interfaces.UseCases.Members.IGetMembersByParameterService;
 import FamilyFinances.Business.Interfaces.UseCases.Members.IUpdateMemberService;
+import FamilyFinances.Business.UseCases.Members.GetMembersByParameterService;
 import FamilyFinances.Business.UseCases.Members.UpdateMemberService;
-import FamilyFinances.Controllers.ImplementsMembers.DeleteMemberController;
-import FamilyFinances.Controllers.ImplementsMembers.IDeleteMemberController;
-import FamilyFinances.Controllers.ImplementsMembers.UpdateMemberController;
+import FamilyFinances.Controllers.Implements.Members.DeleteMemberController;
+import FamilyFinances.Controllers.Implements.Members.GetMembersByParameterController;
+import FamilyFinances.Controllers.Implements.Members.IDeleteMemberController;
+import FamilyFinances.Controllers.Implements.Members.UpdateMemberController;
 import FamilyFinances.Controllers.Interfaces.Families.IGetFamilyController;
+import FamilyFinances.Controllers.Interfaces.Members.IGetMembersByParameterController;
 import FamilyFinances.Controllers.Interfaces.Members.IUpdateMemberController;
 import FamilyFinances.Controllers.Interfaces.Users.ILoginUserController;
 
@@ -41,8 +47,8 @@ public class MemberDependencyInjectionFactory {
     public static void registerDependencies(DependencyContainer container) {
 
         // Registrar la dependencia del respositorio de Miembros
-        container.register(IMemberRepository.class, () -> 
-                new MemberMemoryRepository(
+        container.register(IMemberRepository.class, ()
+                -> new MemberMemoryRepository(
                         container.resolve(IMembershipRequestRepository.class)
                 ));
 
@@ -98,5 +104,17 @@ public class MemberDependencyInjectionFactory {
 
         container.register(IDeleteMemberController.class, ()
                 -> new DeleteMemberController(container.resolve(IDeleteMemberService.class)));
+
+        // Dependencias de los Casos de de uso Reportes parametrizados
+        container.register(IGetMembersByParameterQuery.class, ()
+                -> new GetMembersByParameterQueryHandler(container.resolve(IMemberRepository.class)));
+        
+        container.register(IGetMembersByParameterService.class, () -> 
+        new GetMembersByParameterService(container.resolve(IGetMembersByParameterQuery.class)));
+        
+        container.register(IGetMembersByParameterController.class, () ->
+        new GetMembersByParameterController(container.resolve(IGetMembersByParameterService.class)));
+        
+
     }
 }
