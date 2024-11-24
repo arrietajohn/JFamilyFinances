@@ -1,4 +1,4 @@
-package FamilyFinances.Controllers.ImplementsMembers;
+package FamilyFinances.Controllers.Implements.Members;
 
 import FamilyFinances.Business.Exceptions.MemberEntityNotFoundException;
 import FamilyFinances.Business.Handlers.Command.Members.Dto.UpdateMemberCommandRequest;

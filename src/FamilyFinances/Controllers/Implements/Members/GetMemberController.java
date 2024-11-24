@@ -1,4 +1,4 @@
-package FamilyFinances.Controllers.ImplementsMembers;
+package FamilyFinances.Controllers.Implements.Members;
 
 import FamilyFinances.Business.Handlers.Queries.Members.Dto.FindMemberByIdQueryRequest;
 import FamilyFinances.Business.Interfaces.UseCases.Members.IGetMemberService;
