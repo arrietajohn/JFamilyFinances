@@ -1,7 +1,7 @@
 package FamilyFinances.Views.Members;
 
 import FamilyFinances.Commons.Helpers.EnumsHelper;
-import FamilyFinances.Controllers.ImplementsMembers.IDeleteMemberController;
+import FamilyFinances.Controllers.Implements.Members.IDeleteMemberController;
 import FamilyFinances.Controllers.Interfaces.Families.IGetFamiliesController;
 import FamilyFinances.Controllers.Interfaces.Members.ICreateMemberController;
 import FamilyFinances.Controllers.Interfaces.Members.IGetMemberController;
